@@ -1,0 +1,35 @@
+% Basic formatting
+\section{This is a section}
+\subsection{This is a subsection}
+\subsubsection{This is a subsubsection}
+\paragraph{This is a paragraph}
+This is a normal text
+\textbf{This is bold text}
+\textit{This is italic text}
+\textmono{This is monospaced text}
+
+% Citation
+\textcite{citation_key} described that...
+Some text that needs citation \parencite{citation_key}.
+
+% Listing (Code)
+% Keep the language always set to PHP - that seems to work best for all C-style languages (TypeScript, C, etc.)
+\begin{lstlisting}[frame=htrbl, caption={Caption Here}, label={lst:my listing}, language=php]
+class SomeCode extends SomeClass {
+    function myFunc() {}
+}
+\end{lstlisting}
+
+Listing \ref{lst:my listing} zeigt...
+
+% Image
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/picture.png}
+\centering
+\caption{Beschreibung \parencite{citation_key}}
+\label{fig:my fig}
+\end{figure}
+
+Abbildung \ref{fig:my fig} zeigt...
+
+

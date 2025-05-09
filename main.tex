@@ -213,7 +213,7 @@
 %\mbox{}
 %\newpage
 % Titelseite %
-\input{settings/deckblatt}
+\input{envelope/deckblatt}
 
 % römische Numerierung
 \pagenumbering{roman}
@@ -225,7 +225,7 @@
 
 % Einleitung / Abstract
 \thispagestyle{empty}
-\input{content/0_abstract}
+\input{content/00 Abstract}
 
 % einfacher Zeilenabstand
 \singlespacing
@@ -283,7 +283,7 @@
 \newpage
 % das Abkürzungsverzeichnis ausgeben
 \fancyhead[L]{Abkürzungsverzeichnis} %Kopfzeile links
-\input{settings/abkuezungen/abkuerzungen}
+\input{envelope/abkuerzungen}
 \printnomenclature[3cm]
 % Abkürzungsverzeichnis soll im Inhaltsverzeichnis auftauchen
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
@@ -308,28 +308,31 @@
 %\newpage
 
 % einzelne Kapitel werden hier eingebunden
-\input{content/1_Einleitung}
+\input{content/10 Einleitung}
 \newpage
 
-\input{content/2_Grundlagen_Verwandte_Arbeiten}
+\input{content/20 Grundlagen}
 \newpage
 
-\input{content/3_Konzeptualisierung_Constraints}
+\input{content/30 Verwandte Arbeiten}
 \newpage
 
-\input{content/4_Konzeptualisierung_System}
+\input{content/40 Konzeptualisierung von Constraints}
 \newpage
 
-\input{content/5_Implementierung}
+\input{content/50 Konzeptualisierung eines Constraint-Systems}
 \newpage
 
-\input{content/6_Usertesting}
+\input{content/60 Implementierung}
 \newpage
 
-\input{content/7_Diskussion}
+\input{content/70 Usertesting}
 \newpage
 
-\input{content/8_Fazit}
+\input{content/80 Diskussion}
+\newpage
+
+\input{content/90 Fazit}
 
 %\input{beispiel}
 
