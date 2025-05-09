@@ -4,7 +4,7 @@ Das untersuchte Feld der constraint-basierten Objektplatzierung in HAR greift in
 
 Zwar wird die untersuchte Kombination des multidisziplinären Themas in bisheriger Forschung kaum betrachtet, ähnliche Probleme werden jedoch auch in Bereichen wie Game Design, Building Information Modeling (BIM) und Computer-aided Design (CAD) aufgearbeitet.
 
-Jeder der Einzelaspekte und Anwendungsbereichen beinhaltet hierbei eine große Bandbreite an existierender Forschung. Aus diesem Grund fokussieren sich die nachfolgenden Abschnitte primär auf Werke, welche stark relevant für die Implementierung des Zielsystems sind.
+Jeder der Einzelaspekte und Anwendungsbereichen beinhaltet hierbei eine große Bandbreite an existierender Forschung. Aus diesem Grund fokussieren sich die nachfolgenden Abschnitte primär auf Werke, welche stark relevant für die Implementierung des Zielsystems sind und neue Ansätze aufbringen.
 
 \subsection{Constraint-basierte Platzierung}
 
@@ -14,13 +14,45 @@ Die Arbeit stellt hierfür zehn Richtlinien zur Einschränkung von 3D-Interfaces
 
 \medskip
 
-\textcite{vassionInvestigatingConstrainedObjects} untersucht die Implementierung von Constraints innerhalb von Objekten in AR. Hierfür untersucht die Arbeit, wie reale Objekte, wie Hände, mit virtuellen Objekten interagieren können. Die Constraints werden hierbei direkt in die virtuellen Objekte anhand vorgegebener Constraint-typen integriert.
+Mit dem Projekt des \textit{MIVE}-System haben \textcite{smith3DSceneManipulation2001} ein 3D-Programm mit Constraint-basierter Platzierung konzeptioniert und entwickelt. Als Teil des Systems werden \textit{binding areas}, wie die Unterseite einer Lampe, definiert. Diese Bereiche können im System auf \textit{offer areas} anderer Objekte, wie die Oberfläche eines Tisches platziert werden. Hierdurch ist es möglich, eine Hierarchie zwischen Objekten herzustellen und jederzeit auf eine valide Position zu prüfen. Diese Areale können im System frei und von der eigentlichen Geometrie getrennt platziert werden, um etwa eine \textit{offer area} vor einem Tisch anzubringen, um die Platzierung eines Stuhls an jener Stelle zu ermöglichen.
+
+\medskip
+
+\textcite{grossElementsThatFollow1996} dokumentiert die Entwicklung des \textit{Construction Builder Kit (CBK)} Programms als eigene CAD-Software für Architektur.
+Ein großer Aspekt sind hierbei Schwierigkeiten, falls Constraints zwischen beweglichen Objekten erstellt und aufgelöst werden. Ein großes Problem ist hierbei unter anderen die zyklische Abhängigkeit bei der Validierung, welches in CBK durch die Einführung eines Dominanz-Werts gelöst wurde. Dieser Wert entscheidet bei Konflikten, welches Objekt nachgeben muss - sodass sich etwa beim Konflikt zwischen einer Wand und einem Rohr nicht die gesamte Wand verschiebt.
+Eine weitere Schwierigkeit ist, dass durch jede Bewegung eines Objekts die Validierung aller anderen Objekte der Szene re-validiert werden muss. In CBK wurde dieses Problem durch die Einführung eines eigenständigen \textit{Constraint Management Moduls} gelöst.
+
+\medskip
+
+\textcite{vassionInvestigatingConstrainedObjects2023a} untersucht die Implementierung von Constraints innerhalb von Objekten in AR. Hierfür untersucht die Arbeit, wie reale Objekte, wie Hände, mit virtuellen Objekten interagieren können. Die Constraints werden hierbei direkt in die virtuellen Objekte anhand vorgegebener Constraint-typen integriert.
 
 Das Ergebnis der Arbeit liefert eine AR-Applikation, ähnlich wie die IKEA App, mit welcher virtuelle Möbel in die reale Umgebung platziert werden können. Der Unterschied zu bisherigen Lösungen ist es jedoch, dass mit den virtuellen Möbeln direkt interagiert werden kann, um beispielsweise eine virtuelle Schranktür mit den eigenen Händen zu öffnen.
 
 Das System wurde hierfür mittels der Unity Game Engine, der Vuforia AR Integration und eigenen Skripts für die Implementierung der Constraints umgesetzt.
 
 \medskip
+
+In vielen Fällen wird der Bereich der Objekt-Constraints zusammen mit der automatischen Platzierung von Objekten untersucht.
+
+\textcite{xuConstraintbasedAutomaticPlacement2002} entwickelt ein System zur vereinfachten Erstellung komplexer 3D-Szenen mit hunderten Einzelobjekten. Das Systemimplementiert hierfür vier elementare Constraint-Typen welche für eine optimale Platzierung nach einem Cost Optimization Algorithmus optimiert werden.
+
+Ein Beispiel für die definierten Typen sind „Proximity Constraints“, welche ein Abstand zwischen Objekten vorgibt. Hierüber kann etwa definiert werden, dass ein Kühlschrank einen Maximalabstand zur nächsten Arbeitsplatte haben kann, oder dass ein Regal einen Minimalabstand zum nächsten Regal benötigt.
+
+Die Arbeit führt zusätzlich ein Flag-System für Attribute ein. Hierbei können Objekte unter anderem die Flags \textit{CanSupport} oder \textit{CanBeSupported} besitzen. Diese zeigen respektive, ob auf dem Objekt ein anderes Objekt abgelegt werden kann bzw. ob das Objekt auf einem anderen Objekt angelegt werden kann.
+
+So kann ein Tisch die \textit{CanSupport} und ein Buch die \textit{CanBeSupported} Flag erhalten, um zu definieren, dass das Buch auf dem Tisch stehen kann, jedoch nicht der Tisch auf dem Buch.
+
+Ebenfalls führt die Arbeit eine sematische Datenbank der Objekte ein, um typische Beziehungen zu modellieren. Die Datenbank hält hierfür Definitionen zwischen Eltern- und Kindobjekten und wertet diese bei der Objektplatzierung aus. Ein Beispiel hierfür ist ein Tischobjekt, welches Teller, Besteck und Bücher als Kindobjekte besitzt. Im Gegensatz zu der generischen \textit{CanSupport} Flag kann über die sematische Datenbank eindeutig definiert werden, welche Objekte zu anderen Objekte gehören und so die automatische Platzierung anhand real-logischer Hierarchien vorzunehmen.
+
+Als Ausblick wird hierbei gegeben, auch die Implementierung von abstrakten Klasse und Vererbung in die sematische Datenbank hinzuzufügen, um noch komplexere Objektrelationen leicht abbilden zu können.
+
+\medskip
+
+\textcite{galFLAREFastLayout2014} ist eine Arbeit von Microsoft-Mitarbeitern im Zuge der Erstellung der Microsoft HoloLens und Unterstützung komplexer, mehrräumiger AR Applikationen. Die Arbeit konzeptioniert ein System zur automatischen, gleichzeitigen Platzierung mehrerer, unabhängiger AR Anwendungen im Raum und nutzt hierzu ebenfalls das Konzept der Regelbasierten Platzierung. Die Regeln werden hierbei von der jeweiligen Anwendung selber über eine eigene Skriptsprache pder API-Schnittstelle definiert und von der zentralen Einheit ausgewertet. Es wird hierzu ebenfalls versucht ein Cost Optimization über die Constraints jeder Anwendung durchzuführen.
+
+Als Besonderheit können auch dem Environment als ganzes bestimmte Constraints hinzugefügt werden, etwa wie voll der gesamte Raum werden darf. Hierdurch kann sichergestellt werden, dass nicht nur jede einzelne Anwendung sondern auch das Gesamtwerk sinnvoll für den Nutzer erscheint und nicht überfordernd wirkt.
+
+Zur Optimierung der Constraint-Ausführung über die verschiedenen Ebenen wird das Konzept der \textit{Locally Satisfyable Rules} eingeführt. Diese Regeln beziehen sich nur auf das direkte Umfeld einer einzelnen Anwendung und können so ohne Beachtung des Gesamtraums schnell evaluriert werden.
 
 \subsection{Syntax zur Constraint-Definition}
 
@@ -68,12 +100,37 @@ Trotz dieser mathematischen Korrektheit der Regeln weisen die Autoren darauf hin
 
 \medskip
 
-\textcite{schwabeBIMApplicationsRuleBased2016a}
+\textcite{schwabeBIMApplicationsRuleBased2016a} stellt die vier elementaren Schritte für die Erstellung eines Constraint-Systems auf. In diesem System ist der erste Schritt die Überführung und Interpretation der Regeln in eine adäquate, maschinen-lesbare Sprache.
+
+Im zweiten Schritt müssen alle Objekte der 3D-Szene vorbereitet werden. Dies kann laut den Autoren etwa bedeuten, Objekten Parameter zuzuweisen, mit welchen diese in den Regeln gefiltert werden können.
+
+Der dritte Schritt umfasst die eigentliche Ausführung der Regeln auf die aktuelle Szene, um Konflikte zu erkennen. Im letzten Schritt werden die erkannten Konflikte schließlich über ein geeignetes System an den Nutzer präsentiert bzw. weiter verarbeitet.
+
+Die Arbeit implementiert daraufhin ein System nach diesen Schritten, welches die Resourcenplanung auf Baustellen übernimmt. Die Regeln werden hierbei über ein Tabellen-System eingetragen.
+
+\begin{table}[!h]
+\begin{center}
+    \begin{tabular}{ | l | c | c | c | }
+      \hline
+      Regel & Parameter 1 & Parameter 2 & Parameter n \\ \hline \hline
+      Reichweitenregel & Kran & Gebäude & ... \\ \hline
+    \end{tabular}
+\caption{Tabularische Regel nach \textcite{schwabeBIMApplicationsRuleBased2016a}}
+\label{tab:bim table rule}
+\end{center}
+\end{table}
+
+Tabelle \ref{tab:bim table rule} zeigt eine vereinfachte Regeldefinition. Über die erste Spalte „Regel“ kann der Regeltyp gewählt werden. Die Arbeit definiert hierfür drei beispielhafte Regeln, darunter der Typ „Reichweitenregel“. Über die Parameter können der Regel  zusätzliche Parameter übergeben werden. Im gezeigten Beispiel wird hier rüber definiert, dass das Objekt vom Typ „Kran“ in der Reichweite des Objekttyps „Gebäude“ liegen muss, um dieses bedienen zu können.
+
+Die Autoren nehmen hierbei an diesem Ansatz jedoch selber Kritik vor, da es über dieses System kaum möglich ist, komplexe oder verschachtelte Regeln zu definieren. Als weiterer Kritikpunkt ist denkbar, dass die Reihenfolge und Anzahl der Parameter nur über die externe Dokumentation sichtbar wird und nicht direkt aus der Tabellenstruktur. 
+
+Ein interessantes Implementierungsdetail in der Arbeit ist es, dass die Klassen der „Regel“ und „Konflikt“ separat definiert sind. Hierdurch kann ein einzelne Regel 0-n Konflikte generieren und so auch komplexe, mehrteilige Konflikte darstellen.
 
 \medskip
 
-//solibri
+Zusammengefasst wird in den diversen Arbeiten verschiedenste Ansätze für die Definition der Regeln aufgestellt. Genutzte Ansätze sind hierbei die Definition über klassische Programmiersprachen, generische Sprachen wie XML oder JSON, selbstdefinierte Syntax oder Tabellen umzusetzen.
 
+Trotzdem ergeben sich über die verschiedenen Arbeite Gemeinsamkeiten. So wird in vielen Implementierungen ein Tagging-System in Form von Objektattributen oder -parametern für die Identifizierung bestimmter Objekttypen genutzt. Weiterhin gibt es in vielen Implementierungen eine Abstraktion von den reinen Objekten und Koordinaten hin zu Domänespezifischen Anforderungen wie Reichweite- oder Gewichtsbestimmungen. 
 
 \subsection{Kartenintegration}
 

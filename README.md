@@ -1,8 +1,6 @@
 # Overleaf HTW Masterarbeit
 
-Dieses Projekt enthält den LaTeX-Code für eine Masterarbeit über Overleaf.
-
-Es nutzt die [Zotero to Overleaf Local Sync](https://chromewebstore.google.com/detail/zotero-better-bibtex-to-o/jelihdpmpgnlccliolmmbjgphkhffikl) Chrome Extension, um die Zotero Bibliography zu importieren.
+Dieses Projekt enthält den LaTeX-Code für eine HTW Bachelor-/Masterarbeit über Overleaf.
 
 **"content/ZZ Latex.tex" enthält Beispiele für alle wichtigen LaTeX Formatierungen.**
 
@@ -22,6 +20,8 @@ Die Kapitel sind im "content" Ordner gespeichert. Ähnlich zu BASIC-Programmieru
 
 In "main.tex:310" werden die einzelnen Kapitel in die Hauptdatei importiert.
 
+Das Template nutzt die [Zotero to Overleaf Local Sync](https://chromewebstore.google.com/detail/zotero-better-bibtex-to-o/jelihdpmpgnlccliolmmbjgphkhffikl) Chrome Extension, um die Zotero Bibliography zu importieren (bibliography/main.bib).
+
 ## Quellen
 
-Das Template baut auf https://github.com/tscheffl/HTW-Thesis auf.
+Das Template baut auf https://github.com/maknesium/latex-vorlage-diplom-bachelor-masterarbeiten/tree/master und https://github.com/tscheffl/HTW-Thesis auf.
