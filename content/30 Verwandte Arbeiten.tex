@@ -132,6 +132,35 @@ Zusammengefasst wird in den diversen Arbeiten verschiedenste Ansätze für die D
 
 Trotzdem ergeben sich über die verschiedenen Arbeite Gemeinsamkeiten. So wird in vielen Implementierungen ein Tagging-System in Form von Objektattributen oder -parametern für die Identifizierung bestimmter Objekttypen genutzt. Weiterhin gibt es in vielen Implementierungen eine Abstraktion von den reinen Objekten und Koordinaten hin zu Domänespezifischen Anforderungen wie Reichweite- oder Gewichtsbestimmungen. 
 
-\subsection{Kartenintegration}
+\subsection{Umgebungssegmentierung}
+
+Für die Umsetzung des Constraint-Systems ist es nötig, die Elemente in der Umgebung des Nutzers zu segmentieren. Das System kann etwa eine Regel gegen die Platzierung auf einer Straße nur umsetzen, wenn es weiß, wo Straßen platziert sind.
+
+In \textcite{kasperiOcclusionOutdoorAugmented2017} wird ein System zur Okklusion von virtuellen Objekten hinter realen Gebäuden durch eine Integration zum Kartenanbieter OpenStreetMap (OSM) umgesetzt.
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/osm-occlusion.png}
+\centering
+\caption{Gebäudeokklusion (aus \textcite{kasperiOcclusionOutdoorAugmented2017})}
+\label{fig:osm occlusion}
+\end{figure}
+
+Abbildung \ref{fig:osm occlusion} aus dem Paper zeigt das Ergebnis des Systems. In der linken Hälfte ist dabei die Ansicht ohne Okklusion zu sehen. Das virtuelle, weiße Objekt ist vollständig sichtbar, obwohl Teile von einem realen Gebäude rechtes davon verdeckt werden müssten. Auf der rechten Seite der Abbildung ist die gleiche Szene mit aktivierter Okklusion zu sehen. Hierbei wird das virtuelle, weiße Objekt in Teilen durch das reale Objekt überdeckt und reiht sich so wesentlich realistischer in die Szene ein.
+
+Zur Umsetzung des Systems lädt das Programm zunächst alle Gebäudeinformationen in der Umgebung des Nutzers über OSM, welches hierfür die offene OverPass API zur Verfügung stellt. OSM hält unter anderem Daten über die Koordinaten der Eckpunkte der Gebäude sowie die Anzahl der Stockwerke bei öffentlichen Gebäuden.
+
+Hieraus erstellt das System im zweiten Schritt virtuelle 3D-Objekte mit dem korrekten Grundriss sowie eine geschätzte Höhe anhand der Stockwerke. Im letzten Schritt können diese virtuellen Gebäude für die Okklusion der anderen virtuellen Objekte im Rendering-Prozess genutzt werden. Durch diesen Ablauf konnte das eingebaute Okklusionssystem der Renderingengine genutzt werden und es kam kaum zu Veränderungen der Framerate.
+
+Eine große Problematik der Autoren war es, dass nur wenige Informationen über die tatsächliche Form, Höhe und Aussehen der Gebäude in OSM zur Verfügung steht. Ebenfalls kam es zu Problematiken durch die Verschiebung der Nutzerposition aufgrund ungenauer GPS-Daten. Hierdurch liegt das virtuell erstellte Gebäudeobjekt nicht exakt über dem realen Gebäude und führt so eine inkorrekte Okklusion durch.
+
+\textcite{ogawaOcclusionHandlingOutdoor2021} baut auf dieser vorangehenden Arbeit auf, um die Unzulänglichkeiten durch weitere Techniken zu minimieren.
+
+Hierfür wird auf das AR-Bild zunächst ein neuronales Netz zur Segmentierung von Bildbestandteilen ausgeführt. Dieses Vorgehen gibt dem System pixel-genaue Informationen zu Bereichen mit Gebäuden, jedoch keine Abstandsinformationen dieser Gebäude. Zum Erhalt dieser nutzt das Paper die vorangegangene Forschung zur Integration von OSM. Die Segmentierungsdaten werden hierfür mit Kartendaten über Gebäude kombiniert, um sowohl die Bereiche mit Gebäuden als auch deren genaue Abstände zu berechnen.
+
+Mittels dieser Kombination kann die Arbeit wesentlich genauere Okklusionen erzielen als die reine Kartenintegration. Ein großer Nachteil ist jedoch, dass das von den Autoren gewählte neuronale Netz nicht in Echtzeit auf mobilen Geräten lauffähig ist. Aus diesem Grund muss die Berechnung auf einen externen Server verlagert werden, was zusätzliche Latenz hinzufügt.
+
+\medskip
+
+Zusammengefasst zeigt die bisherige Forschung interessante Ansätze, um eine Kartenbasierte Segmentierung in AR umzusetzen. Existierende Arbeiten haben sich hierbei primär auf die Segmentierung im 3D-Raum mit Gebäuden fokussiert. Es kann jedoch erwartet werden, dass die Erkentnisse auch für das hier entwickelte System auf die Segmentierung der zweidimensional betrachteten Erdoberfläche übertragbar sind.
 
 \subsection{Nutzer-Feedback}
