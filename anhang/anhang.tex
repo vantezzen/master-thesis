@@ -1,14 +1,29 @@
-\section*{Anhang}\label{anhang}
 
+\appendix
+\renewcommand{\thetable}{\Alph{subsection}.\arabic{table}}
+\renewcommand{\thesubsection}{Anhang~\Alph{subsection}}
+
+% ---- Anhang A ----
+\subsection{Stakeholder}
+\label{anh:Stakeholder}
 \input{anhang/anh_Stakeholder Tabelle}
-\newpage
+
+\clearpage
+
+% ---- Anhang B ----
+\subsection{Nutzungsszenarien}
+\label{anh:Nutzungsszenarien}
+
 \input{anhang/anh_User Stories}
 \newpage
 \input{anhang/anh_Use Cases}
 \newpage
 \input{anhang/anh_Use Case Details}
-\newpage
-\input{anhang/abh_Systemanforderungen}
 
+% ---- Anhang C ----
+\clearpage
+\subsection{Systemanforderungen}
+\label{anh:Systemanforderungen}
+\input{anhang/abh_Systemanforderungen}
 
 \FloatBarrier
