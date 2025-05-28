@@ -1,0 +1,44 @@
+\subsection*{Anhang}\label{anhang}
+
+\bgroup
+\def\arraystretch{1.5}
+    \begin{longtable}{| p{.20\textwidth} | p{.35\textwidth} | p{.35\textwidth} |} 
+    \hline
+    ID & User-Story & Akzeptanzkriterien \\
+    \hline\hline
+\textbf{Bürger:innen} &  &  \\
+\hline
+\textbf{US-B-001} & \textbf{Als Bürgerin} möchte ich unmittelbar nach dem Ablegen eines Stadtobjekts eine \textbf{Validierungsauskunft} erhalten, \textbf{damit} ich erkenne, ob mein Vorschlag regelkonform ist. & 1. Die AR-Seite führt eine Validierung auf Grundlage der aktuellen Objekte durch.2. Der Validator antwortet in \textbf{$\leqq$ 0,5 s (P95)}.3. Bei \verb|valid = false| zeigt die Seite das Objekt \textbf{rot hinterlegt} an \\
+\hline
+\textbf{US-B-002} & \textbf{Als Bürgerin} möchte ich bei einer \textbf{ungültigen} Platzierung eine \textbf{nachvollziehbare Begründung} erhalten, \textbf{damit} ich meinen Vorschlag gezielt anpassen kann. & 1. Für jede Verletzung liefert der Validator eine \textbf{Regel-ID} und einen \textbf{Kurztext $\leqq$  120 Zeichen}. \\
+\hline
+\textbf{US-B-003} & \textbf{Als Bürgerin} möchte ich während des Verschiebens eines Objekts einen \textbf{Live-Status} sehen, \textbf{damit} ich frühzeitig eine gültige Position finde. & 1. Die Seite ruft den Validator min. 2\textbf{ × pro Sek.} auf.2. Bildrate der Szene fällt nicht unter \textbf{25 FPS }trotz der kontinuierlichen Validierung. \\
+\hline
+\textbf{US-B-004} & \textbf{Als Bürgerin} möchte ich, dass der Validator \textbf{unterschiedliche Objektklassen} (Sitzbank, Zebrastreifen, Pflanzkübel + Baum) korrekt erkennt, \textbf{damit} ich vielfältige Vorschläge einreichen kann. & 1. Für jede Klasse existiert ein Regelpaket.2. Bei der Verschiebung von Objekten wird das korrekte Regelpaket geladen und ausgewertet. \\
+\hline
+\textbf{US-B-005} & \textbf{Als Bürgerin} möchte ich, dass meine Sitzbank nur auf \textbf{erlaubten Flächen} (Gehweg, Grünfläche) platziert werden kann, \textbf{um} Verkehrssicherheit zu gewährleisten. & 1. Platzierung auf Layer \verb|street| → Fehler \verb|RULE-GEO-01|.2. Platzierung auf Layer \verb|sidewalk| oder \verb|green| → kein \verb|RULE-GEO-01|.3. Layer-Mapping gem. Geodaten-Schema \\
+\hline\hline
+\textbf{Stadtplaner:innen} &  &  \\
+\hline
+\textbf{US-SP-001} & \textbf{Als Stadtplanerin} möchte ich eine \textbf{formale Constraint-Syntax} verwenden, \textbf{damit} ich Regeln für Objekte und Räume präzise festlegen kann. & 1. Syntax‐Definition liegt als JSON Schema vor.2. Parser akzeptiert alle Beispielregeln (Testfallsammlung). \\
+\hline
+\textbf{US-SP-002} & \textbf{Als Stadtplanerin} möchte ich Regeln für \textbf{erlaubte und verbotene Untergründe} definieren können, \textbf{um} Vorgaben abzubilden. & 1. Syntax-Typ \verb|surface| ist vorhanden.2. Beispielregel „Bank ON sidewalk” \\
+\hline
+\textbf{US-SP-003} & \textbf{Als Stadtplanerin} möchte ich \textbf{Abstandsregeln} definieren können, \textbf{damit} Sicherheitsabstände eingehalten werden. & 1. Syntax-Konstruktion \verb|distance| existiert.2. Regel „Bank ≥ 3 m Straße“ wird interpretiert und angewendet. \\
+\hline
+\textbf{US-SP-004} & \textbf{Als Stadtplanerin} möchte ich zulässige \textbf{Rotationen} festlegen, \textbf{um} logisch korrekte Vorgaben sicherzustellen. & 1. Syntax-Konstruktion \verb|rotation| existiert.2. Beispielregel „Bench can only rotate on y-Axis“ retriktiert korrekt. \\
+\hline
+\textbf{US-SP-005} & \textbf{Als Stadtplanerin} möchte ich einzelne Regeln \textbf{aktivieren oder deaktivieren} können, \textbf{um} Pilotphasen zu unterstützen. & 1. Optionaler Regel-Schalter \verb|active: true/false| ist implementiert.2. Deaktivierte Regeln erscheinen nicht im Validierungsreport. \\
+\hline\hline
+\textbf{Entwickler:in AR-Basissystem} &  &  \\
+\hline
+\textbf{US-EAB-001} & \textbf{Als AR-Entwicklerin} benötige ich ein \textbf{stabiles Interface} zum Validator, \textbf{damit} ich Objektdaten senden und ein strukturiertes Ergebnis empfangen kann. & 1. Klasse für Validator ist konkret und vollständig in TypeScript typisiert \\
+\hline
+\textbf{US-EAB-002} & \textbf{Als AR-Entwicklerin} benötige ich \textbf{performante Antworten} vom Validator, \textbf{damit} Live-Feedback flüssig bleibt. & 1. \textbf{P95-Latenz $\leqq$  500 ms} auf Referenzhardware.2. Aufruf ist nicht blockierend (Promise-basierte Implementierung). \\
+\hline
+
+\caption{User Stories}
+\label{tab:User Stories}
+\end{longtable}
+    \egroup
+\FloatBarrier    

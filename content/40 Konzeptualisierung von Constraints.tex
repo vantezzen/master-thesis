@@ -50,6 +50,8 @@ Der daraus resultierende Nutzen für Bürger:innen besteht im sofortigen Feedbac
     \hline
      & Backend zum Upload und Verwaltung, Benutzerverwaltung und Authentifizierung und Persistente Speicherung von Nutzervorschlägen im Validierungssystem \\
      \hline
+     & Komplexe Manipulation von Objekten (z.B. eine Bank mit dynamisch anpassbarer Länge) \\
+     \hline
     
     \end{tabular}
     \egroup
@@ -106,41 +108,92 @@ In der Gruppe der Enabler wurden schließlich die Entwickler, welche die Erstell
 
 \medskip
 
-Auf Basis der ermittelten Stakeholder wurde eine Stakeholder-Tabelle mit Hauptinteressen, Erwartungen, Einfluss und potenziellen Konflikten aufgestellt, welche in Tabelle \ref{tab:Stakeholder-Tabelle} [S. \pageref{tab:Stakeholder-Tabelle}] im Anhang abgebildet ist.
+Auf Basis der ermittelten Stakeholder wurde eine Stakeholder-Tabelle mit Hauptinteressen, Erwartungen, Einfluss und potenziellen Konflikten aufgestellt, welche in Tabelle \ref{tab:Stakeholder-Tabelle} [S. \pageref{tab:Stakeholder-Tabelle}, Anhang] abgebildet ist.
 
 Wichtige potenzielle Konflikte zwischen in den Nutzergruppen sind hierbei der Wunsch nach maximaler Freiheit gegen restriktive Regeln bei Bürger:innen und die unterstützte Komplexität der Regeln für Stadtplaner:innen gegen die Performance und Verständlichkeit für Bürger:innen.
 
 \subsubsection{Nutzungsszenarien}
 
+Aufbauend auf den erarbeiteten Informationen zu Stakeholdern wurden User Stories definiert. Die vollständige Tabelle aller User Stories ist in Tabelle \ref{tab:User Stories} [S. \pageref{tab:User Stories}, Anhang] abgebildet. Die Stories wurden hierfür für jede Stakeholdergruppe einzeln definiert und folgen dem Schema „US-\textit{Stakeholdergruppe}-\textit{Nummer}“, z.B. \textit{US-SP-005}, für die spätere Referenzierung.
 
+Zu den User Stories für Bürger:innen zählen hierbei insbesondere solche, die sicherstellen, dass die Validierung schnell und verständlich stattfindet. Hierzu zählen Stories zur Darstellung eines Live-Status bei der Verschiebung und eine Auskunft durch die Hinterlegung des Objekts in roter Farbe.
 
-Use-Cases (UML) oder User Stories (US-01: „Als Bürgerin möchte ich …“).
-Goal Model (KAOS / i ) zur Ableitung von Constraints als hard goals.
+Für Stadtplaner:innen fokussieren sich die Stories auf die Definition der formalen Constraints sowie bestimmte Arten von Constraints - etwa Einschränkung der Rotation oder Untergründe.
 
-Kurz-Szenario (Sequence-Diagramm)
+Für Entwickler:innen des Systems liegt der Fokus insbesondere auf die Erstellung eines stabilen, performanten Interfaces.
+
+\medskip
+
+Zur besseren Gruppierung und Überblick zu wichtigen Funktionen wurde anschließend eine Use Case Tabelle ausgearbeitet. Diese ist als Tabelle \ref{tab:Use Cases} [S. \pageref{tab:Use Cases}, Anhang] abgebildet. Die einzelnen Use Cases werden zudem in den Tabellen \ref{tab:UC-VAL-001} [S. \pageref{tab:UC-VAL-001}] bis \ref{tab:UC-DEV-001} [S. \pageref{tab:UC-DEV-001}] genauer untersucht. Die Use Cases referenzieren hierbei jeweils diejenigen User Stories, welche sie zusammenfassen.
+
+Die Use-Cases folgen dem Namensschema „UC-\textit{Bereich}-\textit{Nummer}“, z.B. \textit{UC-VAL-002}. Die Aufteilung geschieht in die Bereiche Validierung (\textit{VAL}), Administration (\textit{ADM}) und Entwicklung (\textit{DEV}).
+
+Für die Validierung aus Sicht von Bürger:innen wurde hierbei als primäre Use Cases definiert, dass die Objektplatzierung validiert werden kann und während der Verschiebung von Objekten eine direkte Rückmeldung erfolgt.
+
+Für die Administration war der primäre Use Case das einfache Definieren und verwalten von Constraints der einzelnen Objekte.
+
+Zuletzt war es für die Entwicklung von hohem Wert, dass die Validierung über ein typisiertes Interface modular konsumiert werden kann.
+
+\subsubsection{Zielmodellierung}
+
+TODO: Goal Model (i* 2.0) zur Ableitung von Constraints als hard goals.
+
+\subsubsection{Szenario-Modellierung}
+
+Viele der Einzelheiten des Systems wurden in den vorherigen Modellen bereits untersucht und definiert. Während der Iteration dieser Modelle wurde zusätzlich eine Modellierung zwei essenzieller Szenarien als Sequenzdiagramm erstellt. Hierdurch konnte das Zusammenspiel der einzelnen Komponenten klarer betrachtet werden und über blinde Flecken zwischen den Schichten iteriert werden.
+
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{abb/sequenz_constraint_val.png}
+\centering
+\caption{Sequenzdiagramm zur Validierung eines Objekts (eigene Abbildung)}
+\label{fig:Sequenz Validierung}
+\end{figure}
+
+Abbildung \ref{fig:Sequenz Validierung} zeigt das erstellte Sequenzdiagramm zur Validierung einer Objektplatzierung. Die Akteure dieses Diagramms sind der Bürger, welcher das System nutzt, das AR-Basissystem zur AR-Darstellung, das AR-Validierungssystem und die Regelpaket-Datenbank, welche von den Stadtplaner:innen gepflegt wird.
+
+Wenn der Bürger ein Objekt platziert oder verschiebt, ruft das Basissystem das neue Validierungssystem über die Schnittstelle \textmono{validate()} auf. Das Validierungssystem kann sich aus dem Basissystem die Daten über die Objekte und Platzierungen holen, um diese zu validieren.
+
+Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lasen und die enthaltenden Constraints prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide  zurückgemeldet werden und per visuellem Feedback dem Bürger dargestellt werden.
+
+TODO: Second Diagram
 
 \subsection{Systemanforderungen}\label{subsection:Systemanforderungen}
 
-- Nummerierte REQ-IDs nach IEEE-Style: REQ-VAL-01: Das System SHALL verhindern, dass Sitzbänke auf Straßenabschnitten platziert werden.
-- Kategorisierung: Funktional, Nicht-funktional, Constraint.
-- Qualitätskriterien: SMART, testbar.
+Durch die strukturierte, iterative Bearbeitung der Stakeholder, Projektziele und Nutzungsszenarien konnte ein umfangreicher Überblick über das Zielsystem geschaffen werden.
+
+Auf Basis dieser Informationen wurde nachfolgend eine finale Liste an Systemanforderungen erstellt. Die Anforderungen wurden anhand der 17 Regeln des SOPHIST-REgelwerks validiert und iteriert, um eindeutige, umsetzbare Ziele zu definieren \parencite[S. 174-191]{ruppRequirementsEngineeringUndManagement2021}
+
+Die Nummerierung erfolgt hierbei im IEEE-Format als „REQ-\textit{Typ}-\textit{Nummer}“, z.B. \textit{REQ-F-002} für eine funktionale Anforderung. Zusätzlich zu funktionalen (\textit{F}) und nicht-funktionalen (\textit{NF}) Anforderungen, werden zusätzlich Constraint-Anforderungen (\textit{C}) aufgeführt, für die konkreten Constraint-Arten, welche implementiert werden sollen.
+
+\medskip
+
+Die Tabelle aller Systemanforderungen ist als Tabelle \ref{tab:Systemanforderungen} [S. \pageref{tab:Systemanforderungen}, Anhang] zu finden.
+
+Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schema-Funktionen (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisconstraints, welche aus der Elicitation-Phase erarbeitet wurden (z.B. REQ-C-001).
+
+Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen des Constraint-Syntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
 
 \subsubsection{Abgedeckte Objektklassen}
 
-- Sitzbank
-    - 3D Basis-Objekt für typische platzierbare Objekte
-    - Verschiedene Aspekte von Gesetzen, Barrierefreiheit, Abstände etc. die abgebildet werden können
-    - z.b. Platzierung nur  auf Grünfläche am Gehwegrand, Rotation nur um y-Achse
-- Zebrastreifen
-    - 2D Objekt mit sehr eingeschränkter Platzierung
-    - Nur auf Straßen, nur flach, liegt vollständig auf
-- Pflanzenkübel + Baum
-    - Objekte, welche kombiniert werden können
-    - Testen von virtual-virtual Interaktion möglich
-    - z.B. Baum darf in Pflanzenkübel platziert werden
+Zur effektiven Prüfung des Validierungssystems soll eine kleine Auswahl von Objekten ermittelt werden, auf welche eine große Breite unterschiedlicher Constraints angewendet werden kann.
+
+Die Fokus liegt hierbei auf einer geringen Auswahl von Objekten mit einer großen Bandbreite von Constraints, anstatt einer großen Bandbreite von Objekten auf die größtenteils die gleichen Constraints angewendet werden müssen.
+
+Auf Basis der Ergebnisse der Elicitation-Phase (Kapitel \ref{subsection:Elicitation}) wurde eine Liste von geeigneten Objekten definiert.
+
+Zunächst wird eine Sitzbank als 3D-Basisobjekt gewählt. Diese bildet ein generisches Beispiel für viele ähnliche Objekte dar, etwa Fahrradständer, Laternen oder Sportfreizeitgeräte. Auf das Objekt können grundlegende Regeln wie eine Platzierung nur auf Grünflächen und eine Rotation nur um die y-Achse angewendet werden, ohne direkt eine zu hohe Spezialisierung zu benötigen. Das Objekt eignet sich daher gut, um als Erstes in das System implementiert zu werden und für die grundlegende Systemvalidierung zu dienen.
+
+Als zweites Element wurde ein Zebrastreifen gewählt. Diese Straßenmarkierung dient als Basisobjekt für ähnliche 2D-Objekte, ohne eine zu hohe Komplexität zu bieten. Das Objekt kann mit einer Standardbreite einer typischen 2-spurigen Straße angelegt werden und geht so nicht in den Out of Scope Bereich der komplexen Objektmanipulation ein. Auch bei diesem Objekt können einige Constraints wie die flache Platzierung und vollständiges Auflegen auf der Straße umgesetzt werden.
+
+Zuletzt können optional als finale Objekte Pflanzenkübel und Bäume hinzugefügt werden. Diese Objektkombination bietet eine interessante Kombination an, bei welcher Bäumen erlaubt werden können, innerhalb von Pflanzenkübeln platziert zu werden. Hierdurch können auch Interaktionen zwischen virtuellen Objekten validiert und umgesetzt werden.
+
+\medskip
+
+Die Objekte sollen in der Umsetzung in der hier genannten Reihenfolge implementiert werden, je nachdem, was für ein Umfang im Rahmen der Arbeit umsetzbar ist. In den drei Iterationen von 3D-Objekten, 2D-Objekten und virtual-virtual Interaktionen können jeweils sehr unterschiedliche Funktionen hinzugefügt und validiert werden.
 
 \subsubsection{Klassifizierung der Constraints}
 
+TODO
 z.B. Räumliche Constraints, Semantische Constraints, Interaktive Constraints
 
 \subsection{Priorisierung und Rückverfolgbarkeit}\label{subsection:Priorisierung und Rückverfolgbarkeit}

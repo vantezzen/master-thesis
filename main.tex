@@ -151,6 +151,8 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{lscape} 
+\usepackage{longtable}
+\usepackage{placeins}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -364,7 +366,9 @@
 \phantomsection
 \addcontentsline{toc}{section}{Anhang}
 \fancyhead[L]{Anhang} %Kopfzeile links
+\begin{appendices}
 \input{anhang/anhang}
+\end{appendices}
 
 % Eidesstattliche Erklärung
 \newpage

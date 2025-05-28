@@ -1,0 +1,114 @@
+\begin{table}[h]
+\centering
+\begin{tabular}{| p{4cm} | p{11cm} |}
+\hline
+\textbf{Element} & \textbf{Beschreibung} \\
+\hline\hline
+\textbf{Primärer Akteur} & Bürger:in \\
+\hline
+\textbf{Stakeholder \& Interessen} & Bürger: erhält sofortiges Feedback\newline
+Stadtplaner: erhält nur regelkonforme Vorschläge \\
+\hline
+\textbf{Trigger} & Bürger:in platziert ein Objekt in der 3D-Szene. \\
+\hline
+\textbf{Vorbedingungen} & Objekt liegt fixiert in der Szene.\newline
+Objektklasse ist bekannt. \\
+\hline
+\textbf{Hauptszenario} & 1.\ AR-Seite ruft \textbf{Validierungssystem} auf.\newline
+2.\ Validator prüft Regelpaket.\newline
+3.\ Validator antwortet innerhalb $\leq$ 0,5 s mit \verb|{valid, violations[]}|.\newline
+4.\ AR-Seite zeigt Ergebnis (rote Hinterlegung) und verhindert das Absenden. \\
+\hline
+\textbf{Alternativen} & 3a.\ \textit{Timeout $>$ 0,5 s} $\rightarrow$ AR-Seite blendet Hinweis »Prüfung zurzeit nicht möglich« ein. \\
+\hline
+\textbf{Nachbedingungen} & Bei \verb|valid=true|: System speichert Status »regelkonform«.\newline
+Bei \verb|valid=false|: System speichert Regel-IDs im Client-State. \\
+\hline
+\textbf{Geschäftsregeln / Constraints} & REG-GEO-01 (Untergrund) \\
+\hline
+\end{tabular}
+\caption{Use Case UC-VAL-001 – Objektvorschlag validieren}
+\label{tab:UC-VAL-001}
+\end{table}
+
+\FloatBarrier
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| p{4cm} | p{11cm} |}
+\hline
+\textbf{Element} & \textbf{Beschreibung} \\
+\hline\hline
+\textbf{Primärer Akteur} & Bürger:in \\
+\hline
+\textbf{Trigger} & Drag/Move-Event in der AR-Szene. \\
+\hline
+\textbf{Vorbedingungen} & Objekt wurde zuvor der Szene hinzugefügt. \\
+\hline
+\textbf{Hauptszenario} & 1.\ AR-Seite ruft den Validator mit aktueller Pose auf.\newline
+2.\ Validator liefert \textit{valid} / \textit{ungültig}.\newline
+3.\ Objektrand färbt sich \textbf{rot}, falls der Status ungültig ist.\newline
+4.\ Bildrate bleibt $\geq$ 25 FPS trotz laufender Validierung. \\
+\hline
+\textbf{Nachbedingungen} & Keine dauerhafte Datenhaltung. \\
+\hline
+\end{tabular}
+\caption{Use Case UC-VAL-002 – Live-Feedback bei Platzierung}
+\label{tab:UC-VAL-002}
+\end{table}
+
+\FloatBarrier
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| p{4cm} | p{11cm} |}
+\hline
+\textbf{Element} & \textbf{Beschreibung} \\
+\hline\hline
+\textbf{Primärer Akteur} & Stadtplaner:in \\
+\hline
+\textbf{Trigger} & Öffnet den Regelsatz als JSON-Datei. \\
+\hline
+\textbf{Vorbedingungen} & Stadtplaner:in verfügt über Schreibrechte für den Regelsatz. \\
+\hline
+\textbf{Hauptszenario} & 1.\ Lädt das aktuelle JSON-Schema mittels Deklaration der Nutzung.\newline
+2.\ Erstellt oder ändert Regelsatz-Elemente im Editor.\newline
+3.\ JSON-Schema validiert, dass die Syntax sämtlichen Vorgaben entspricht. \\
+\hline
+\textbf{Alternativen} & 3a.\ \textit{Schema nicht erfüllt} → Editor markiert Syntaxfehler und verhindert das Speichern. \\
+\hline
+\textbf{Nachbedingungen} & Der neue Regelsatz wird gespeichert und ist als gültiges Paket in der Codebasis verfügbar. \\
+\hline
+\end{tabular}
+\caption{Use Case UC-ADM-001 – Regeln definieren \& verwalten}
+\label{tab:UC-ADM-001}
+\end{table}
+
+\FloatBarrier
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| p{4cm} | p{11cm} |}
+\hline
+\textbf{Element} & \textbf{Beschreibung} \\
+\hline\hline
+\textbf{Primärer Akteur} & AR-Entwickler:in \\
+\hline
+\textbf{Trigger} & Build-Zeit oder Runtime-Aufruf in der AR-Applikation. \\
+\hline
+\textbf{Vorbedingungen} & TypeScript-SDK ist installiert; Netzwerkverbindung ist verfügbar. \\
+\hline
+\textbf{Hauptszenario} & 1.\ Entwickler:in ruft die Methode \verb|validate()| auf.\newline
+2.\ SDK prüft den Objektstatus anhand der geladenen Regelpakete.\newline
+3.\ SDK gibt ein \texttt{Promise} mit dem Validierungsergebnis zurück.\newline
+4.\ Das \texttt{Promise} wird in $\leq$ 500 ms (P95) erfüllt. \\
+\hline
+\textbf{Nachbedingungen} & Die App speichert den internen Status \texttt{isValid} sowie das Array \texttt{violations[]}. \\
+\hline
+\end{tabular}
+\caption{Use Case UC-DEV-001 – Validierungs-API nutzen}
+\label{tab:UC-DEV-001}
+\end{table}
+
+\FloatBarrier
