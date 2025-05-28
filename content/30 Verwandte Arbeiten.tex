@@ -54,6 +54,12 @@ Als Besonderheit können auch dem Environment als ganzes bestimmte Constraints h
 
 Zur Optimierung der Constraint-Ausführung über die verschiedenen Ebenen wird das Konzept der \textit{Locally Satisfyable Rules} eingeführt. Diese Regeln beziehen sich nur auf das direkte Umfeld einer einzelnen Anwendung und können so ohne Beachtung des Gesamtraums schnell evaluriert werden.
 
+\medskip
+
+\textcite{xuMethodologyModelling3D2017} fasst zusammen, dass Constraints in der Literatur in diverse Kategorien eingeteilt werden können. Zu den klassischen Typen zählen dabei \textit{domain constraints}, \textit{key and relationship structural constraints} sowie \textit{general semantic integrity constraints}. Diese wurden laut \textcite{cockcroftTaxonomySpatialData1997} um räumliche Klassen wie \textit{topological}, \textit{semantic} und \textit{user-defined constraints} erweitert. Eine weiterführende Detaillierung findet sich bei \textcite{louwsmaSpecifyingImplementingConstraints2006}, die zusätzlich \textit{directional}, \textit{metric}, \textit{temporal}, \textit{quantity}, \textit{thematic}, \textit{topological} und \textit{mixed relationships} als Kategorien vorschlagen. \textcite{xuMethodologyModelling3D2017} selber führt die Einteilung hierbei in \textit{general-level constraints}, \textit{parameterised constraints}, Constraints für Ausnahmefälle sowie Constraints für die Darstellung über mehrere Level of Detail (LoD) durch.
+
+Die Vielzahl dieser Typen verdeutlicht, dass Constraints je nach Anwendungsdomäne sehr unterschiedliche Eigenschaften besitzen können – etwa in Bezug auf ihre räumliche, semantische oder zeitliche Dimension. Für die Entwicklung eines constraint-basierten Validierungssystems im Kontext städtischer AR-Planung ist daher eine differenzierte Betrachtung und Auswahl geeigneter Constraint-Typen erforderlich. Eine genauere Klassifizierung und Adaption erfolgt in Kapitel~\ref{section:Konzeptualisierung eines Constraint-Systems}.
+
 \subsection{Syntax zur Constraint-Definition}
 
 Die Definition und Auswertung von Regeln zur Platzierung von Objekten findet in diverser Kreativsoftware Anwendung. Die Speicherung und Auswertung der Regeln findet in unterschiedlichen eigenen Sprachen und Syntax statt. Die verschiedenen Ansätze werden in diesem Kapitel jeweils kurz beleuchtet, eine genauere Analyse und Klassifizierung möglicher Syntax findet stattdessen in Kapitel \ref{section:Konzeptualisierung eines Constraint-Systems} statt.
@@ -162,5 +168,3 @@ Mittels dieser Kombination kann die Arbeit wesentlich genauere Okklusionen erzie
 \medskip
 
 Zusammengefasst zeigt die bisherige Forschung interessante Ansätze, um eine Kartenbasierte Segmentierung in AR umzusetzen. Existierende Arbeiten haben sich hierbei primär auf die Segmentierung im 3D-Raum mit Gebäuden fokussiert. Es kann jedoch erwartet werden, dass die Erkentnisse auch für das hier entwickelte System auf die Segmentierung der zweidimensional betrachteten Erdoberfläche übertragbar sind.
-
-\subsection{Nutzer-Feedback}

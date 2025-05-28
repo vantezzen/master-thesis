@@ -1,1 +1,152 @@
-\section{Konzeptualisierung von Constraints}\label{section:Konzeptualisierung von Constraints}
+\section{Requirements-Engineering}\label{section:Requirements-Engineering}
+
+Um ein vollständiges Konzept über das zu entwickelnde regelbasiertes Validationssystem (\textit{ARVal}), soll zunächst ein strukturiertes Requirements-Engineering nach \textcite{ieeeISOIECIEEE2018} und \textcite{ruppRequirementsEngineeringUndManagement2021} durchgeführt werden.
+
+Durch die ausführliche Anforderungserhebung des Systems sollen alle Aspekte vollständig berücksichtigt, argumentiert und kontextualisiert werden, bevor die Implementierung durchgeführt wird. Hierdurch soll sichergestellt werden, dass das entwickelte System schlüssig und logisch begründet, sowie nachvollziehbar ist.
+
+\subsection{Projektkontext und Scope}\label{subsection:Projektkontext und Scope}
+
+Das Ziel des Projekts ist die Implementierung eines browser-basierten Moduls zur Echtzeit-Validierung von platzierten AR-Objekten, basierend auf einem definierten Constraint-Set.
+
+Abgegrenzt hierzu ist die Implementierung des Basisprojekts zur Darstellung der AR-Elemente, Integration von Gerätedaten und Untersuchung von Basistechnologien. Diese Aspekte wurden bereits in den vorangegangenen Forschungsprojekten untersucht. Die Ergebnisse dieser Projekte werden während der Implementierung für diese Arbeit aufgearbeitet, für das Requirements Engineering werden diese daher jedoch nicht behandelt.
+
+\subsubsection{Projektbegriffe}
+
+Für die Argumentation des Systems werden zunächst die genutzten Begriffe genauer definiert und eingeschränkt:
+
+\begin{enumerate}
+    \item \textbf{Validierungssystem}: Das Validierungssystem beschreibt die zu entwickelnde Software-Komponente, die Objektdaten entgegennimmt, Regeln prüft und ein Ergebnis (\textmono{valid}, \textmono{violations[]}) liefert.
+    \item \textbf{AR-Basissystem}: Das Basissystem bezeichnet die Client-Webseite, in der Bürger:innen Objekte platzieren und Visualisierungen sehen. Diese wurde bereits in den vorangegangenen Forschungsprojekten aufgestellt und wird für diese Arbeit als Startpunkt genutzt.
+    \item \textbf{Regelpaket}: Als Regelpaket wird die Definition aller Regeln eines Objekttyps bezeichnet. Für jedes Objekt sollen dabei zukünftig alle Regeln im Regelpaket validiert werden.
+\end{enumerate}
+
+\subsubsection{Projektziel und Nutzen}
+
+Das Ziel des Projekts (\textit{Business Goals} bzw. \textit{Mission Needs}) ist die Verbesserung der Qualität von Bürgervorschlägen durch frühzeitige Validierung, die Reduktion des manuellen Prüfaufwands für die Stadtverwaltung, eine Erhöhung der Akzeptanz und des Verständnisses für stadtplanerische Einschränkungen bei Bürger:innen sowie die Schaffung einer effizienten Schnittstelle zwischen Bürger-Input und stadtplanerischen Regelwerken.
+
+Der daraus resultierende Nutzen für Bürger:innen besteht im sofortigen Feedback, höhere Erfolgswahrscheinlichkeit ihrer Vorschläge sowie ein besseres Verständnis für Planungsrestriktionen. Für Stadtplaner:innen und Verwaltungen besteht der Nutzen des Systems in qualitativ hochwertigeren Vorschlägen, weniger fehlerhaften Einreichungen und einer effizienteren Prüfung.
+
+\subsubsection{Abgrenzung}
+
+\begin{table}[!h]
+\begin{center}
+\bgroup
+\def\arraystretch{1.5}
+    \begin{tabular}{| p{7cm} | p{7cm} |}
+    \hline
+    In Scope (MVP) & Out of Scope \\
+    \hline
+    \hline
+    
+    Nutzung der Objektplatzierung und Standortbestimmung vom Basissystem zur Validierung & Routenplanung \\
+    \hline
+    Regelvalidierung (Constraints) & Tiefbau-Genehmigungen \\
+    \hline
+    Visuelles Feedback (Grün / Rot) & Budget-Bewertungen \\
+    \hline
+    Definition einer Constraint-Syntax & Visueller Editor zur Bearbeitung von Constraints \\
+    \hline
+    Segmentierung der Umgebung zwischen Straßen, Gehwegen und Grünflächen & Segmentierung der Umgebung in weitere Kategorien (z.B. Gebäude, Fahrradständer, existierende Objekte etc.) \\
+    \hline
+     & Backend zum Upload und Verwaltung, Benutzerverwaltung und Authentifizierung und Persistente Speicherung von Nutzervorschlägen im Validierungssystem \\
+     \hline
+    
+    \end{tabular}
+    \egroup
+    
+\caption{Projektabgrenzung}
+\label{tab:Projektabgrenzung}
+\end{center}
+\end{table}
+
+Zur Abgrenzung des Projektumfangs enthält Tabelle \ref{tab:Projektabgrenzung} eine Einordnung zwischen In-Scope und Out of Scope Bestandteilen. In-Scope sind insbesondere alle essenziellen Bestandteile zur Validierung, darunter der Constraint-Syntax, Regelvalidierung und Integration in das Basissystem. Explizit Out of Scope sind hierbei alle optionalen Bestandteile, welche nicht direkt für die Validierung von Objekten notwendig sind - darunter etwa die Bewertung des Budgets für Vorschläge sowie ein Backend zum Upload dieser.
+
+\subsection{Elicitation}\label{subsection:Elicitation}
+
+Für eine vollständige, umfassende Aufarbeitung der benötigten Komponenten wurde zunächst eine mehrteilige Erhebung aller relevanten Ressourcen durchgeführt. Hierbei wurden verschiedene Techniken kombiniert, darunter ein Dokumentenstudium, aufgearbeitet in Kapitel \ref{section:Verwandte Arbeiten}, ein Experteninterview, aufgearbeitet in Kapitel \ref{subsubsection:Interview mit Prof. Koch}, sowie Beobachtungstechniken zu bisherigen Technologien, aufgearbeitet in Kapitel \ref{subsubsection:Analyse existierender Constraint-Systeme}.
+
+\subsubsection{Interview mit Prof. Koch}\label{subsubsection:Interview mit Prof. Koch}
+
+Für die Erhebung von Anforderungen aus Sicht der Stadtplanung wurde ein qualitatives, halbstrukturiertes Experteninterview mit Prof. Dr. Florian Koch, Professor für Immobilienwirtschaft, Stadtentwicklung und Smart Cities an der HTW Berlin, durchgeführt \parencite{kochStartseiteProfDr2025}.
+
+TODO
+% Interview mit Prof. Koch, Stadtplaner, über häufige Vorschläfe, nötige Einschränkungen etc.
+
+\subsubsection{Analyse existierender Constraint-Systeme}\label{subsubsection:Analyse existierender Constraint-Systeme}
+
+TODO
+- Analyse existierender Mängelmeldungs-Apps (Competitive Benchmark).
+Untersuchung existierende CAD, Game Design etc.
+
+
+\subsection{Stakeholder und Nutzungsszenarien}\label{subsection:Stakeholder und Nutzungsszenarien}
+
+Nachfolgend sollen die Stakeholder und häufige Nutzungsszenarien von \textit{ARVal} untersucht werden.
+
+\subsubsection{Nutzergruppen}
+
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{abb/stakeholder onion model.png}
+\centering
+\caption{Stakeholder Onion Model (eigene Abbildung)}
+\label{fig:Stakeholder Onion Model}
+\end{figure}
+
+Abbildung \ref{fig:Stakeholder Onion Model} stellt das entwickelte Onion-Model zur Stakeholderanalyse dar. Im Kern ist hierbei das AR Validierungssystem, von welchem die vier Gruppen der direkten Nutzer, Definition und operativer Betrieb, Unterstützung bzw. Infrastruktur und externe Beeinflusser identifiziert wurden.
+
+Als primäre Nutzergruppe wurden Bürger:innen identifiziert, die das System aktiv zur Validierung ihrer AR-Platzierungen nutzen. Diese Gruppe steht in direktem Kontakt mit den Ausgaben des Systems und nutzen dieses, um die eigenen Vorschläge zu verbessern.
+
+Als sekundäre Nutzergruppe wurden Stadtplaner:innen eruiert, welche die Definition der Constraints über den auszuarbeitenden Constraint-Syntax definieren.
+
+Ebenfalls sekundäre Nutzer, welche der Infrastruktur zugeordnet wurden, sind Verwaltungen, welche von den verbesserten Vorschlägen durch die Validierung profitieren.
+
+Neben diesen Hauptakteuren wurden ebenfalls Rahmenankteure wie Datenschutzbeaufragte für die Verwendung von Standortdaten sowie politische Entscheidungsträger:innen mit Interesse an erfolgreicher Bürgerbeteiligung festgestellt.
+
+In der Gruppe der Enabler wurden schließlich die Entwickler, welche die Erstellung Wartung des Systems durchführen, sowie Open-Data Anbieter wie OpenStreetMap, welche Schnittstellen für genutzte Daten des Validierungssystems liefern, ermittelt.
+
+\medskip
+
+Auf Basis der ermittelten Stakeholder wurde eine Stakeholder-Tabelle mit Hauptinteressen, Erwartungen, Einfluss und potenziellen Konflikten aufgestellt, welche in Tabelle \ref{tab:Stakeholder-Tabelle} [S. \pageref{tab:Stakeholder-Tabelle}] im Anhang abgebildet ist.
+
+Wichtige potenzielle Konflikte zwischen in den Nutzergruppen sind hierbei der Wunsch nach maximaler Freiheit gegen restriktive Regeln bei Bürger:innen und die unterstützte Komplexität der Regeln für Stadtplaner:innen gegen die Performance und Verständlichkeit für Bürger:innen.
+
+\subsubsection{Nutzungsszenarien}
+
+
+
+Use-Cases (UML) oder User Stories (US-01: „Als Bürgerin möchte ich …“).
+Goal Model (KAOS / i ) zur Ableitung von Constraints als hard goals.
+
+Kurz-Szenario (Sequence-Diagramm)
+
+\subsection{Systemanforderungen}\label{subsection:Systemanforderungen}
+
+- Nummerierte REQ-IDs nach IEEE-Style: REQ-VAL-01: Das System SHALL verhindern, dass Sitzbänke auf Straßenabschnitten platziert werden.
+- Kategorisierung: Funktional, Nicht-funktional, Constraint.
+- Qualitätskriterien: SMART, testbar.
+
+\subsubsection{Abgedeckte Objektklassen}
+
+- Sitzbank
+    - 3D Basis-Objekt für typische platzierbare Objekte
+    - Verschiedene Aspekte von Gesetzen, Barrierefreiheit, Abstände etc. die abgebildet werden können
+    - z.b. Platzierung nur  auf Grünfläche am Gehwegrand, Rotation nur um y-Achse
+- Zebrastreifen
+    - 2D Objekt mit sehr eingeschränkter Platzierung
+    - Nur auf Straßen, nur flach, liegt vollständig auf
+- Pflanzenkübel + Baum
+    - Objekte, welche kombiniert werden können
+    - Testen von virtual-virtual Interaktion möglich
+    - z.B. Baum darf in Pflanzenkübel platziert werden
+
+\subsubsection{Klassifizierung der Constraints}
+
+z.B. Räumliche Constraints, Semantische Constraints, Interaktive Constraints
+
+\subsection{Priorisierung und Rückverfolgbarkeit}\label{subsection:Priorisierung und Rückverfolgbarkeit}
+
+MoSCoW
+
+\subsection{Qualitätssicherung}\label{subsection:Qualitätssicherung}
+
+Die Anforderungen wurden nach dem SOPHIST-REgelwerk geprüft
