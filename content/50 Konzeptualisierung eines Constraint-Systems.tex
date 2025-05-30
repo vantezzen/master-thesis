@@ -2,6 +2,118 @@
 
 \subsection{Erstellung einer Syntax für Constraints}
 
+Die Erstellung eines Syntax zur Definition von Regeln für Objekte wird in dieser Arbeit als Domain Specific Language (DSL) Engineering Aufgabe betrachtet. Um ein strukturiertes Vorgehen bei der Ausarbeitung durchzuführen, orientiert sich dieses Kapitel an dem fünfstufigen Prozess zur DSL-Definition nach \textcite{mernikWhenHowDevelop2005}, mit Anpassungen zur besseren Integration in die bisherigen Vorarbeiten der vorherigen Kapitel.
+
+\subsubsection{Entscheidung}
+
+Der erste Schritt für die Entwicklung eines DSL nach \textcite{mernikWhenHowDevelop2005} ist die Entscheidung, ob ein DSL notwendig ist und um welchen DSL-Typ es sich handelt.
+
+Der ARVal Constraint Syntax (nachfolgend \textit{ACS}) kann hierbei als “Data structure representation” kategorisiert werden, da es die Datenstruktur der Regelpakete als separate Datei darstellt.
+
+Die Spezifizität dieser Art von Daten „relies on initialized data structures whose complexity may make them difficult to write and maintain. Such structures are often more easily expressed using a DSL“ \parencite[S. 323]{mernikWhenHowDevelop2005}. Aus diesem Grund wird die Implementierung eines spezifischeren DSL für den Regel-Syntax als sinvoll angesehen.
+
+\subsubsection{Analyse}
+
+Für die Konzeptionierung einer DSL wird empfohlen, zunächst eine Analyse der Problemdomäne durchzuführen. Teile dieser Ausarbeitung wurde in dieser Arbeit bereits in Kapitel \ref{section:Requirements-Engineering} als Teil des Requirements Engineering durchgeführt.
+
+// TODO: FODA
+
+Abweichend zu \textcite{mernikWhenHowDevelop2005} werden zur besseren Einordnung der benötigten Komponenten der finalen Sprache werden zunächst formale Anforderungen an den Syntax definiert, analog zum bestehenden Requirements Engineering Ansatz.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2.5cm}|p{10.5cm}|}
+\hline
+\textbf{Requirement} & \textbf{Beschreibung} \\
+\hline\hline
+R-1 & Syntax sollte leicht parse- und bearbeitbar sein \\ \hline
+R-2 & Erweiterbar für Elemente und Methoden \\ \hline
+R-3 & Geeigneter Abstraktionsgrad \\ \hline
+R-4 & Umsetzung als visueller Editor möglich \\ \hline
+R-5 & Eindeutige, nicht-ambigue Definition von Regeln \\ \hline
+R-6 & Unterstützung einfacher Boolean Operations (AND / OR) \\ \hline
+R-7 & Unterstützung positiver und negativer Regeln \\ \hline
+\end{tabular}
+\caption{Anforderungen an die Constraint-Syntax}
+\label{tab:syntax-requirements}
+\end{table}
+
+Tabelle \ref{tab:syntax-requirements} stellt die aufgestellten Anforderungen an den Syntax dar.
+
+R-1 stellt voraus, dass der Syntax leicht parse- und bearbeitbar ist. Die Definition einer neuen Syntax benötigt die Implementierung eines eigenen Text-Parsers, Validierers und, falls benötigt, Implementierung einer Sprachunterstützung für Code-Editoren.
+
+Bei Nutzung einer bestehenden Syntax (z.B. JSON, XML etc.) kann das Text-Parsing durch bestehende Libraries geschehen und eine eigene Implementierung muss nur auf Ebene des Parsing und Validierung der Regel-Logik geschehen: „For an XML-based DSL, grammar is described using a [...] XML scheme [...] [P]arsing comes for free“ \parencite[S. 330]{mernikWhenHowDevelop2005}.
+
+\medskip
+
+Durch R-2 wird definiert, dass der Syntax erweiterbar für neue Elemente und Methoden sein soll. Werden beispielsweise in Zukunft neue Segmentierungsarten wie „Kreuzungsbereich“ genutzt, soll das neue Element ohne eine Neudefinition der Syntax nutzbar sein. Analog soll beispielsweise das Hinzufügen neuer Constraint-Methoden wie „nur Vertikal zu ...“ ebenfalls ohne Neudefinition ermöglicht werden.
+
+\medskip
+
+R-3 fügt hinzu, dass der Abstraktionsgrad angemessen für den Anwendungsbereich sein muss. Hierbei soll weder eine zu starke noch zu schwache Abstraktion stattfinden, um eine Sprache zu erhalten, die spezifisch für die Bürgerbeteiligung ist, in diesem Bereich jedoch generisch genutzt werden kann.
+
+Speziell kann etwa von „Straßen“, „Grünflächen“ und „Häusern“ ausgegangen werden und es müssen nicht arbiträre Objekte in arbiträren Umfeldern unterstützt werden. Trotzdem soll, wie in R-2 definiert, eine einfache Erweiterung mit neuen Elementen möglich sein, ohne eine Neudefinition der Syntax.
+
+Ebenfalls sollen Methoden generisch genug gehalten werden, um Dopplungen von Code zu vermeiden. Statt einer spezifischen Funktion “abstandZumGehweg()” sollte etwa stattdessen eine generisch nutzbare Funktion “abstandZu(gehweg)” erstellt werden.
+
+\medskip
+
+Durch R-4 wird definiert, dass eine Umsetzung als visueller Editor möglich sein soll. Zwar ist die Implementierung dieses Editors nicht im Kontext dieser Arbeit, jedoch soll dies zukünftig für die bessere Einbindung von Stadtplaner:innen geschehen und daher konzeptionell in der Syntax einfließen.
+
+\medskip
+
+R-5 fügt hinzu, dass die Regeln eindeutig (\textit{Non-ambiguous}) sein sollen. Hierdurch werden insbesondere Regeldefinitionen auf natürlicher Sprache bzw. durch Natural Language Processing (NLP) eingeschränkt.
+
+Wie in Kapitel \ref{section:Verwandte Arbeiten} erarbeitet, sind Regeln in natürlicher Sprache oft abhängig von der individuellen Interpretation des Lesers. Beispielsweise bei einer Regel wie „Bänke dürfen nicht neben Fahrbahnen aufgestellt werden, wenn sie keine Barriere haben.“ kann rein vom Satzbau nicht gelesen werden, ob sich die Beschränkung „wenn Sie keine Barriere haben“ auf die Bänke oder die Fahrbahnen beziehen.
+
+\textcite[S. 8]{sydoraRulebasedComplianceChecking2020} arbeitet auf, dass oft genutzte Begriffe in Regeln mehrdeutig interpretiert werden können. Eine Regel wie „Der Abstand zwischen zwei Objekten“ kann sich etwa auf den Abstand der Mittelpunkte der Objekte, Abstand der 2D-Grundfläche oder 3D Abstand des am nächsten gelegenen Punkt beziehen.
+
+\medskip
+
+Durch R-6 wird definiert, dass einfache Boolean-Operationen von UND- sowie ODER-Verknüpfungen unterstützt werden sollen. Hierdurch sollen komplexere, kontextabhängige Regeln umgesetzt werden können wie „Steht die Bank an einem Gehweg, \textit{muss} diese parallel zum Weg stehen \textit{ODER} wenn die Bank auf einer Grünfläche steht, \textit{kann} diese beliebig rotiert werden“. 
+
+\medskip
+
+Schließlich fügt R-7 hinzu, dass die Sprache sowohl positiv (\textit{Muss}) als auch negativ (\textit{Darf nicht}) formulierte Regeln unterstützen soll. Abhängig von der Regel kann es deutlich übersichtlicher sein, die Regel auf eine statt die andere Art zu definieren \parencite[S. 44]{trinhConstraintbasedApproachModelling2012} - beispielsweise „Eine Bank \textit{muss} auf einer Grünfläche stehen“ ist einfacher zu definieren als „Eine Bank \textit{darf nicht} stehen auf Straßen, Gehwegen, Schotterwegen, Kreuzungsbereichen, ...“.
+
+\medskip
+
+Durch die Einhaltung dieser formalen Anforderungen kann erhofft werden, die Argumentation einer finalen Syntax leichter und für den System passender umsetzen zu können.
+
+\subsubsection{Design}
+
+\epigraph{Design only what is necessary. Learn to recognize your tendency to over-design.}{\textcite[S. 327]{mernikWhenHowDevelop2005}}
+
+Der dritte Schritt in der Syntax-Definition nach \textcite{mernikWhenHowDevelop2005} ist die Durchführung des Syntax-Designs.
+
+Zur Erfüllung der Anforderung R-1 soll das Konzept der Language Specification genutzt werden, um die Infrastruktur einer bestehenden Host-Sprache zu nutzen und für die eigenen DSL zu spezifizieren. 
+
+\textcite{mernikWhenHowDevelop2005} untersucht primär XML-basierte DSL, JSON bietet mittlerweile jedoch ebenfalls eine hohe Unterstützung zu bestehenden Werkzeugen an und besitzt mit JSON Schemas eine Möglichkeit, den Constraint-Syntax zu formalisieren und automatisch in bestehenden Code-Editoren validieren zu lassen \parencite{jsonschemaorganisationJSONSchema2025}. Durch die aktuelle Verbreitung von JSON im Umfeld von Webapplikationen und Ähnlichkeit zu nativen JavaScript-Objekten wird dies daher als Grundlage für \textit{ACS} genutzt.
+
+Durch die Nutzung dieses System kann ebenfalls konzeptionell ein zukünftiger Regel-Editor (R-4) eingearbeitet werden. Die Regeln und Schemas können von diesem Editor verarbeitet und manipuliert werden, ohne eigene Parser-Systeme implementieren zu müssen.
+
+\medskip
+
+Zur Umsetzung von R-2 zur Erweiterbarkeit wurden bisherige Constraint-Systeme aus Kapitel \ref{section:Verwandte Arbeiten} und der Elicitation-Phase des Requirements Engineering untersucht.
+
+Viele der Sprachen besitzen Tagging-ähnliche Systeme wie \textit{Object Properties} \parencite{sydoraRulebasedComplianceChecking2020}, \textit{Attachable Scripts} \parencite{vassionInvestigatingConstrainedObjects2023a} oder Klassen \parencite{xuMethodologyModelling3D2017} zur Identifizierung von Objekten nach bestimmten Eigenschaften.
+
+Aus diesem Grund wird für \textit{ACS} ebenfalls ein Tagging-System als Grundlage der generischen Identifikation genutzt werden. Objekten sollen hierfür eine beliebige Anzahl an relevanten Tags hinzugefügt werden können, welche andere Objekte für die Regeldefinition nutzen können.
+
+Beispielsweise können die Objekte „Straße“ und „Gehweg“ den Tag „asphaltiert“ besitzen. In den Regeln für den Objekttyp „Baum“ kann nun als Regel definiert werden, dass dieser nicht auf asphaltierten Untergründen platziert werden darf, ohne explizit alle möglichen Elementtypen nennen zu müssen.
+
+Zukünftig können hierdurch beliebig neue Tags und Elemente hinzugefügt und können problemlos in bestehende Regeln eingearbeitet werden, ohne den Gesamtsyntax neu definieren zu müssen.
+
+Die Nutzung eines Tagging-System ermöglicht zudem die Nutzung eines geeigneten Abstraktionsgrads (R-3). In Regeldefinitionen kann explizit von „Straße“, „Asphaltiert“ oder „Walkable“ ausgegangen werden, einzelne Methoden können jedoch trotzdem generisch auf alle Tag-Typen angewendet werden.
+
+\medskip
+
+Die Umsetzung von R-5 (Eindeutige Regeln) wird durch die Nutzung eines festgelegten, schematisch formalisierten Syntax unterstützt, jedoch müssen die einzelnen Regeln ebenfalls darauf angepasst werden, eine eindeutige Identifikation zu ermöglichen.
+
+\medskip
+
+Für die Unterstützung von R-6 (Boolean Operationen) und R-7 (Positiver und Negativer Regeln) sollen zusätzlich einfache Verknüpfungen von Regeln und Definition einer Regel-Art (positiv/negativ) eingearbeitet werden.
+
 \subsection{Aufbereitung geographischer Informationen}
 
 \subsection{Darstellung von Rückmeldungen}
