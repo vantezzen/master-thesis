@@ -1,0 +1,43 @@
+\begin{lstlisting}[frame=htrbl, caption={Schemaformate}, label={lst:schemaformate}, language=php]
+// JSON
+{
+    "$schema": "...",
+    "placement": [
+        {
+            "rule": "on_ground"
+        }
+    ],
+    "manipulation": [
+        {
+            "axis": "x_rotation",
+            "status": "disable"
+        }
+    ],
+    "tags": ["plantable", "collider"]
+}
+
+// SQL-like
+- DISALLOW PLACEMENT WHERE ground.type = "street"
+- DISALLOW ROTATION WHERE axis = "x"
+- TAG WITH "plantable"
+    
+// Code-like
+position({
+    on_ground
+    distance_to street > 3m
+    placement_only_on grass
+})
+movement({
+    only_spin
+    no_scale
+})
+tags({
+    plantable
+    collider
+})
+
+// OCL-like
+- context Bench inv: self->placed_on != placement.street
+- context Bench inv: self->movement->x = 0
+- context Bench post: self->tags->add("plantable")
+\end{lstlisting}

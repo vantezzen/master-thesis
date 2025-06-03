@@ -65,14 +65,43 @@ Zur Abgrenzung des Projektumfangs enthält Tabelle \ref{tab:Projektabgrenzung} e
 
 \subsection{Elicitation}\label{subsection:Elicitation}
 
-Für eine vollständige, umfassende Aufarbeitung der benötigten Komponenten wurde zunächst eine mehrteilige Erhebung aller relevanten Ressourcen durchgeführt. Hierbei wurden verschiedene Techniken kombiniert, darunter ein Dokumentenstudium, aufgearbeitet in Kapitel \ref{section:Verwandte Arbeiten}, ein Experteninterview, aufgearbeitet in Kapitel \ref{subsubsection:Interview mit Prof. Koch}, sowie Beobachtungstechniken zu bisherigen Technologien, aufgearbeitet in Kapitel \ref{subsubsection:Analyse existierender Constraint-Systeme}.
+Für eine vollständige, umfassende Aufarbeitung der benötigten Komponenten wurde zunächst eine mehrteilige Erhebung aller relevanten Ressourcen durchgeführt. Hierbei wurden verschiedene Techniken kombiniert, darunter ein Dokumentenstudium, aufgearbeitet in Kapitel \ref{section:Verwandte Arbeiten}, ein Experteninterview, aufgearbeitet in Kapitel \ref{subsubsection:Experteninterview}, sowie Beobachtungstechniken zu bisherigen Technologien, aufgearbeitet in Kapitel \ref{subsubsection:Analyse existierender Constraint-Systeme}.
 
-\subsubsection{Interview mit Prof. Koch}\label{subsubsection:Interview mit Prof. Koch}
+\subsubsection{Experteninterview}\label{subsubsection:Experteninterview}
 
-Für die Erhebung von Anforderungen aus Sicht der Stadtplanung wurde ein qualitatives, halbstrukturiertes Experteninterview mit Prof. Dr. Florian Koch, Professor für Immobilienwirtschaft, Stadtentwicklung und Smart Cities an der HTW Berlin, durchgeführt \parencite{kochStartseiteProfDr2025}.
+Für die Erhebung von Anforderungen aus Sicht der Stadtplanung wurde ein qualitatives, halbstrukturiertes Experteninterview mit einem Stadtplaner durchgeführt. Ziel des Gesprächs war es, die realen Herausforderungen und aktuellen Stand von Bürgerbeteiligung zu erarbeiten, und einen Überblick über die Denkweise in Verwaltungen und Stadtplanungen zu erhalten. Das vollständige Interview ist in \ref{anh:Experteninterview Stadtplaner} [S. \pageref{anh:Experteninterview Stadtplaner}] verschriftlicht.
 
-TODO
-% Interview mit Prof. Koch, Stadtplaner, über häufige Vorschläfe, nötige Einschränkungen etc.
+Das Interview bestätigte zunächst, dass Bürgerbeteiligungen aktuell vor allem formal strukturiert stattfinden. Als Beispiel wurde hierfür die Plattform \textit{Mein Berlin}\footnote{\url{http://mein.berlin.de/}} genannt, bei welchem Planungsunterlagen von Behörden bereitgestellt und von Bürgern kommentiert werden können. Konzepte für andere Formate existieren zwar, sind aber meist nur experimentell, selten institutionalisiert und auf Forschungsprojekte beschränkt.
+
+In vielen Fällen sei hierbei die Einbindung der Ideen schwierig, da Bürgerinteressen immer nur einen Aspekt von vielen darstellt. Für die Umsetzung von Veränderungen müssen etwa zusätzliche Meetings mit vielen Partien durchgeführt werden, darunter Verwaltungen, Stadtplaner, Feuerwehr, Wasser- und Stromversorger und Eigentümer.
+
+\medskip
+
+Im Kern des Gesprächs standen vor allem die Grenzen und Chancen automatisierten Validierungsmechanismen, wie solche, die in ARVal umgesetzt werden sollen. Es zeigte sich deutlich, dass viele scheiternde Vorschläge aus drei Hauptkategorien resultieren: (1) Eigentums- und Haftungsfragen, (2) Maßstäblichkeit und technische Umsetzbarkeit, sowie (3) langfristige Pflege und Unterhalt.
+
+Die Frage nach dem Eigentum ist oft komplex in der Beantwortung. Zwar besitzt die öffentliche Hand ein Grundbuch, dieses ist jedoch nicht öffentlich einsehbar. Flächen auf Privatgrundstück können jedoch auch nicht prinzipiell für Vorschläge ausgeschlossen werden, da es in Abstimmung mit den Eigentümern auch trotzdem zur Akzeptanz von Ideen kommen kann. Bei Veränderung von beispielsweise Schulhöfen muss zusätzlich geklärt werden, welche der Parteien die Haftungen bei Unfällen übernimmt.
+
+Im zweiten Punkt steht die Maßstäblichkeit und technische Umsetzbarkeit von Ideen. Dies beinhaltet etwa die Beschränkung von Platz bei großen Bauvorhaben, aber auch Budget-Einschränkungen und Interessen anderer Nutzer, darunter auch z.B. Feuerwehr-Wendekreisen, Wartungsflächen für unterirdische Versorgung oder Bodenbelastungen durch historische Nutzung.
+
+Zuletzt muss auch die langfristige Pflege und Unterhalt der Gegenstände und Flächen geklärt werden. Auch wenn etwa das Pflanzen eines Baumes zunächst günstig ist, muss dieser jährlich gepflegt und beschnitten werden, um eine Gefährdung auszuschließen.
+
+Für die vollständige Klärung aller Aspekte ist für das Projekt ARVal ein vollständig valides und kontextsensitives Regelwerk (z.B. zu Feuerwehr-Wendekreisen oder Bodenbelastungen) systemisch kaum abbildbar ist – nicht nur aufgrund technischer Limitationen, sondern weil auch Verwaltungen selbst solche Informationen oft nicht konsolidiert vorliegen haben. Trotzdem kann versucht werden, öffentlich bekannte Aspekte abzubilden.
+
+\medskip
+
+Dennoch eröffnet das Interview auch konkrete Chancen für das System. Ein wiederkehrendes Motiv war die Bedeutung von Nachvollziehbarkeit für Bürger:innen. Ein häufiger Punkt partizipativer Stadtplanung sei dabei, dass Bürger:innen zwar Zeit und Arbeit für Vorschläge aufwenden, jedoch nie über die weitere Verarbeitung informiert werden. Die Transparenz der Entscheidung, auch bei Nicht-Umsetzbarkeit, wird dabei als zentral für die Akzeptanz empfunden.
+
+Durch die direkte Validierung der Vorschläge können Bürger:innen nicht nur eine Rückmeldung bekommen, sondern auch über die Details der Ablehnung informiert werden durch verständliche, kontextuell begründete Fehlermeldungen. Erhält der Nutzer beispielsweise die Information „Die Bank kann hier nicht platziert werden, da sie die Zufahrt für Rettungsfahrzeuge blockieren würde“, kann einer potenziellen Frustration über die Ablehnung entgegengewirkt werden.
+
+\medskip
+
+Zuletzt wurde im Interview erarbeitet, dass eine Balance zwischen utopischen Vorschlägen und zu stark beschränkter „Alibi-Beteiligung“ gefunden werden muss. Ein System, das zu stark durch harte Regeln limitiert, könnte den Eindruck erwecken, dass Bürger:innen lediglich aus vorgegebenen Optionen wählen dürfen und individuelle Ideen nicht akzeptiert werden. Ist das System jedoch zu offen, kann stattdessen der Verwaltungsaufwand in Behörden durch Auswertung nicht umsetzbarer Ideen erhöht werden.
+
+\medskip
+
+Insgesamt bestätigt das Interview sowohl die Relevanz als auch die Grenzen des geplanten Systems und fügt den Aspekt der Nachvollziehbarkeit als zentrales Element hinzu. Es kann vor allem erhofft werden, dass die Implementierung von Begründungen für Einschränkung die Frustration bei Nutzern durch Ablehnung verringern kann.
+
+Es kann keine vollständige Abbildung der Relationen und Interessen aller Parteien abgebildet werden, da die Erstellung eines all-umfänglichen System für die Verwaltung aller Interessen weit über ARVal hinaus geht. Trotzdem können einige der grundlegenden Prüfungen automatisiert und formell abgebildet werden.
 
 \subsubsection{Analyse existierender Constraint-Systeme}\label{subsubsection:Analyse existierender Constraint-Systeme}
 
