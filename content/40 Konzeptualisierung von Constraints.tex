@@ -105,10 +105,71 @@ Es kann keine vollständige Abbildung der Relationen und Interessen aller Partei
 
 \subsubsection{Analyse existierender Constraint-Systeme}\label{subsubsection:Analyse existierender Constraint-Systeme}
 
-TODO
-- Analyse existierender Mängelmeldungs-Apps (Competitive Benchmark).
-Untersuchung existierende CAD, Game Design etc.
+Zusätzlich zum Experteninterview wurden für die Elicitation existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht.
 
+\medskip
+
+\paragraph{CAD Software}
+
+Es wurden Anleitungen für die Programme \textit{AutoCAD} und \textit{Autodesk Fusion 360} genutzt, um die eingebauten Constraint-Systeme zu untersuchen.
+
+\textit{AutoCAD} enthält für die Erstellung und Verwaltung von Constraints einen eigenen „Parametric“ Tab. Der Tab erlaubt vor allem das Hinzufügen von Relationen zwischen zwei Linien im Design. Hierdurch kann etwa vorgegeben werden, dass zwei Linien immer parallel sein müssen, die gleiche Länge besitzen müssen oder einen Eckpunkt besitzen müssen. Die hinzugefügten Constraints werden daraufhin neben den Linien als Icon dargestellt und während Veränderungen am Design durchgängig umgesetzt. Die meisten Constraints besitzen keine oder nur simple Parameter, etwa bei Constraint auf einen bestimmten Winkel. \parencite{micrographicsConstraintsParametersAutoCAD2021}
+
+Eine ähnliche Umsetzung existiert in Autodesk Fusion 360. Auch hier existiert eine eigene Constraint-Bar im Sketchmodus des Programms, über welche Relationen zwischen Objekten erstellt werden können. Die Constraints werden daraufhin ebenfalls mit einem Icon dargestellt und bei Veränderungen durchgesetzt. Als Besonderheit werden Objekte, welche „under-constrained“, also nicht vollständig gesichert sind, farblich hervorgehoben und sollten ausgebessert werden. \parencite{autodeskfusionSketchConstraintsMade2023}
+
+\paragraph{3D-Modellierungs- und Animationssoftware}
+
+Zunächst wurde die Implementierung von Constraints in der 3D Open-source Software \textit{Blender} untersucht. Die Software besitzt, wie die untersuchten CAD-Software, einen separaten Constraint-Reiter, mit welcher Constraints zur Transformierung, Tracking, Relation zu anderen Objekten und Motion Tracking hinzugefügt werden können. \parencite{index3dAllConstraintsExplained2020}
+
+\begin{figure}[h]
+\includegraphics[width=0.8\textwidth]{abb/blender-constraint list.png}
+\centering
+\caption{Blender Constraint-Liste \parencite{index3dAllConstraintsExplained2020}}
+\label{fig:blender constraint liste}
+\end{figure}
+
+Abbildung \ref{fig:blender constraint liste} zeigt die vollständige Liste der unterstützen Constraints. Hierzu zählen einfache Constraints wie „Copy Location“ für das Kopieren der Position des anderen Objekts, bis hin zu komplexeren Constraints wie „Follow Path“, womit das Objekt an einem anderen Objekt entlang fährt.
+
+\begin{figure}[h]
+\includegraphics[width=0.4\textwidth]{abb/blender-constraint parameter.png}
+\centering
+\caption{Blender Constraint-Parameter \parencite{index3dAllConstraintsExplained2020}}
+\label{fig:blender constraint parameter}
+\end{figure}
+
+Im Gegensatz zu Constraints in den untersuchten CAD-Programmen können Constraints in Blender komplexere Parameter besitzen. Abbildung \ref{fig:blender constraint parameter} zeigt das Einstellungs-Panel für den „Copy Location“-Constraint. In den Einstellungen dieses Constraints kann das Target-Objekt, aber auch die zu kopierenden Achsen sowie deren Invertierung eingestellt werden.
+
+Zusätzlich besitzt der Constraint einen Influence-Parameter. Mit diesem kann die Veränderung am Objekt reduziert werden, beispielsweise, dass eine Veränderung um einen Meter am Quellobjekt nur eine Auswirkung um einen halben Meter auf das Zielobjekt umsetzt.
+
+Insgesamt bietet Blender ein komplexes, stark anpassbares Constraint-System an, mit welchem Objekte untereinander verbunden werden können. 
+
+Zusätzlich zu Blender wurde die 3D-Software \textit{Autodesk Maya} untersucht. Auch diese Software besitzt ein ähnliches System zu den untersuchten CAD-Anwendungen und bietet die Möglichkeit, verschiedenste Relationen zwischen Objekten zu modellieren. \parencite{uhrMayaBasicConstraints2018}
+
+\paragraph{Game Engine}
+
+Bei der Untersuchung von Constraints in Game-Engines scheinen zwischen Editor-Constraints und Game-Constraints unterschieden werden zu müssen. Editor-Constraints, analog zu Constraints in den anderen untersuchten Software, werden vom Entwickler im Interface zwischen zwei Objekten hinzugefügt und schränken beispielsweise die Bewegung ein. Auf der anderen Seite werden Game-Constraints während dem Spielen auf den Spieler oder die Welt angewandt, um z.B. die Platzierung oder Interaktion einzuschränken.
+
+\textit{Unity} besitzt eine Untersützung unterschiedlicher Editor-Constraints, ähnlich zu den Constraints in Blender \parencite{techhamlinLookConstraintsUnity2024}. Game-Constraints müssen jedoch stattdessen vom Entwickler selber hinzugefügt werden, beispielsweise durch Skripte oder unsichtbare Objekte \parencite{yeopBuiltRuleBasedAutoPlacement2025}. 
+
+\paragraph{Videospiele}
+
+Das Videospiel \textit{Super Mario Maker 2} erlaubt es Spielern, eigene Level im Stil von Super Mario zu erstellen. Zwar gibt es keine Möglichkeit für Spieler:innen, eigene Constraints im Level zu definieren, jedoch erzwingt das Spiel bei der Erstellung von Leveln intern einige Regeln. \parencite{dr.badbeardSuperMarioMaker2019}
+
+So prüft das Spiel etwa, dass Objekte nur in bestimmten Bereichen vorhanden sind oder nur bestimmt häufig vorkommen können - beispielsweise darf nur eine Ziellinie existieren. Sollte dies nicht erfüllt sein, wird das Objekt rot hinterlegt angezeigt oder die Auswahl im Menü wird vollständig deaktiviert.
+
+Zusätzlich wird in den Levels ein Limit für die Anzahl der Objekte durchgesetzt \parencite{gamexplainPushingObjectLimit2015}. Nach Erreichen des Limits werden alle Objekte ausgegraut und können nicht weiter platziert werden.
+
+Zuletzt muss die Spielbarkeit vor der Veröffentlichung nachgewiesen werden: Der Author muss das Level einmal erfolgreich durchspielen können, und kann es sonst anderen Spielern nicht zur Verfügung stellen. 
+
+\medskip
+
+Das Videospiel \textit{Roblox} bietet mit der Software \textit{Roblox Studio} eine eigene Game Engine-ähnliche Entwicklungsumgebung zur Erstellung von Welten innerhalb des Spiels. Ähnlich zu Unity bietet auch diese Software eine Reihe von Editor-Constraints an, Game-Constraints müssen jedoch vom Entwickler selbst umgesetzt werden. \parencite{arktalROBLOXBuildingHow2021}
+
+\medskip
+
+Zusammengefasst fokussieren sich Constraint-Systeme in existierender Software vor allem auf die feste Verkettung zwischen zwei oder mehr Objekten und weniger auf die Einschränkung und Validierung der Platzierung.
+
+Software wie Blender zeigen auf, dass auch komplexe Constraints über ein visuelles Interface verwaltet werden können. Auf der anderen Seite fokussieren sich Videospiele wie Super Mario Maker vor allem auf die Simplizität und Intuitivität des Systems und setzen Regeln leichter verständlich um.
 
 \subsection{Stakeholder und Nutzungsszenarien}\label{subsection:Stakeholder und Nutzungsszenarien}
 
