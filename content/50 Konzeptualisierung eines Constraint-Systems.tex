@@ -255,7 +255,21 @@ Abbildung \ref{fig:schema autocomplete} zeigt die Nutzung des Schemas im Code-Ed
 
 Wird stattdessen ein invalider Attributname genutzt, wird dieser im Code-Editor rot unterlegt und erhält die Mitteilung „Property \textit{Parametername} is not allowed“.
 
-\subsection{Aufbereitung geographischer Informationen}
+\subsection{Umgebungssegmentierung}
+
+Während der Untersuchung verwandter Arbeiten in Kapitel \ref{subsection:Umgebungssegmentierung} [S. \pageref{subsection:Umgebungssegmentierung}] wurden vor allem zwei Methoden der Segmentierung herausgearbeitet.
+
+Hierbei existiert die Segmentierung anhand geographischer Kartendaten. Dies erlaubt eine genaue 3D-Segmentierung von Straßen, Gebäuden, und anderen kartographierten Elementen. Zentrale Nachteile aus den untersuchten Arbeiten und für den Zweck dieser Arbeit sind jedoch vor allem die Ungenauigkeit der eigenen Standortdaten, sowie dass nicht-kartographierte Daten wie Bäume und Sitzbänke nicht segmentiert werden können.
+
+Daneben existiert eine Segmentierung anhand der Bilddaten über Machine Learning Modelle. Vorteil ist vor allem eine hohe Genauigkeit der Daten, da diese direkt vom Gerät selber erfasst werden. Nachteile dieser Methode sind jedoch der hohe Rechenaufwand, Verzögerungen durch die Verarbeitung des Bildes, sowie, dass Ergebnisse nur auf der 2D-Plane des Kamerabild und nicht als 3D-Raum erkannt werden.
+
+\medskip
+
+Die Segmentierung der Elemente stellt in sich bereits ein breites Themenfeld dar. Aus diesem Grund soll für das zu entwickelnde System zunächst stattdessen ein statisches Segmentierungsmodell anhand vorgegebener Koordinaten umgesetzt werden.
+
+Hierfür soll das System eine Konfigurationsdatei im GeoJSON-Format\footnote{\url{https://geojson.org/}} erhalten. GeoJSON stellt ein standartisiertes Format für die Darstellung von geographischen Daten in einer JSON-Datei bereit, über welches Flächen mittels verschiedener Geometrie-Typen - wie Polygone, Kreise oder Linien - sowie Informationen über die Art der Fläche - wie Straßen oder  Radwege - definiert werden. \parencite{butlerGeoJSONFormat2016}
+
+Für die Entwicklung dieses Systems soll diese Definition zunächst als statische JSON Datei bereitgestellt werden, in zukünftigen Iterationen könnte dies jedoch über separate, dynamische Segmentierungs-Systeme geschehen. 
 
 \subsection{Darstellung von Rückmeldungen}
 

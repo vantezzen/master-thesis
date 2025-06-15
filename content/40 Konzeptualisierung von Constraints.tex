@@ -46,7 +46,7 @@ Der daraus resultierende Nutzen für Bürger:innen besteht im sofortigen Feedbac
     \hline
     Definition einer Constraint-Syntax & Visueller Editor zur Bearbeitung von Constraints \\
     \hline
-    Segmentierung der Umgebung zwischen Straßen, Gehwegen und Grünflächen & Segmentierung der Umgebung in weitere Kategorien (z.B. Gebäude, Fahrradständer, existierende Objekte etc.) \\
+    Segmentierung der Umgebung zwischen Straßen, Gehwegen und Grünflächen aufgrund statischer Konfigurationen & Segmentierung der Umgebung in weitere Kategorien (z.B. Gebäude, Fahrradständer, existierende Objekte etc.) und mittels dynamischer Techniken (z.B. Machine Learning) \\
     \hline
      & Backend zum Upload und Verwaltung, Benutzerverwaltung und Authentifizierung und Persistente Speicherung von Nutzervorschlägen im Validierungssystem \\
      \hline
@@ -224,13 +224,9 @@ Für die Administration war der primäre Use Case das einfache Definieren und ve
 
 Zuletzt war es für die Entwicklung von hohem Wert, dass die Validierung über ein typisiertes Interface modular konsumiert werden kann.
 
-\subsubsection{Zielmodellierung}
-
-TODO: Goal Model (i* 2.0) zur Ableitung von Constraints als hard goals.
-
 \subsubsection{Szenario-Modellierung}
 
-Viele der Einzelheiten des Systems wurden in den vorherigen Modellen bereits untersucht und definiert. Während der Iteration dieser Modelle wurde zusätzlich eine Modellierung zwei essenzieller Szenarien als Sequenzdiagramm erstellt. Hierdurch konnte das Zusammenspiel der einzelnen Komponenten klarer betrachtet werden und über blinde Flecken zwischen den Schichten iteriert werden.
+Viele der Einzelheiten des Systems wurden in den vorherigen Modellen bereits untersucht und definiert. Während der Iteration dieser Modelle wurde zusätzlich eine Modellierung essenzieller Szenarien als Sequenzdiagramm erstellt. Hierdurch konnte das Zusammenspiel der einzelnen Komponenten klarer betrachtet werden und über blinde Flecken zwischen den Schichten iteriert werden.
 
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{abb/sequenz_constraint_val.png}
@@ -244,8 +240,6 @@ Abbildung \ref{fig:Sequenz Validierung} zeigt das erstellte Sequenzdiagramm zur 
 Wenn der Bürger ein Objekt platziert oder verschiebt, ruft das Basissystem das neue Validierungssystem über die Schnittstelle \textmono{validate()} auf. Das Validierungssystem kann sich aus dem Basissystem die Daten über die Objekte und Platzierungen holen, um diese zu validieren.
 
 Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lasen und die enthaltenden Constraints prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide  zurückgemeldet werden und per visuellem Feedback dem Bürger dargestellt werden.
-
-TODO: Second Diagram
 
 \subsection{Systemanforderungen}\label{subsection:Systemanforderungen}
 
@@ -281,10 +275,33 @@ Zuletzt können optional als finale Objekte Pflanzenkübel und Bäume hinzugefü
 
 Die Objekte sollen in der Umsetzung in der hier genannten Reihenfolge implementiert werden, je nachdem, was für ein Umfang im Rahmen der Arbeit umsetzbar ist. In den drei Iterationen von 3D-Objekten, 2D-Objekten und virtual-virtual Interaktionen können jeweils sehr unterschiedliche Funktionen hinzugefügt und validiert werden.
 
-\subsubsection{Klassifizierung der Constraints}
+\subsubsection{Kreativitäts-Level}
 
-TODO . Nach interview
-z.B. Räumliche Constraints, Semantische Constraints, Interaktive Constraints
+Insbesondere während dem Experteninterview wurde herausgestellt, dass Bürgerbeteiligung auf viele Weisen stattfinden kann. Damit das Zielsystem für möglichst viele dieser Methoden nutzbar bleibt, wurde das Konzept eines \textit{Kreativitäts-Levels} hinzugefügt. Diese folgen aus der User Story \textit{US-SP-006} sowie dem optionalen Requirement \textit{REQ-F-009}.
+
+Beispielsweise bei explorativen Beteiligungen oder grundlegender Neugestaltung von Flächen kann es hinderlich sein, wenn Regeln zwingend und strikt durchgesetzt werden. 
+
+\begin{table}[!h]
+\begin{center}
+    \begin{tabular}{ | p{2cm} | p{3cm} | p{9cm} | }
+      \hline
+      Kreativitäts-Level & Bezeichnung & Umsetzung \\ \hline \hline
+      0 & Standartmodus & Strikte Durchsetzung aller Regeln und Wertung als Fehler. \\ \hline
+      1 & Warnmodus & Prüfung aller Validierungen, jedoch wird Nicht-Einhaltung nur als Warnung gesehen. Geometrische Constraints (z.B. Verhinderung der Rotation) werden weiter strikt umgesetzt. \\ \hline
+      2 & Spielmodus & Nur geometrische Constraints werden umgesetzt. \\ \hline
+      3 & Kreativmodus & Keine Einschränkung der Platzierung, es können z.B. Objekte auch in der Luft platziert werden. \\
+      \hline
+    \end{tabular}
+\caption{Kreativitäts-Level}
+\label{tab:kreativitaets level}
+\end{center}
+\end{table}
+
+Tabelle \ref{tab:kreativitaets level} zeigt die ausgearbeiteten Kreativitäts-Level zur Unterstützung verschiedener partizipativer Methoden. Mit zunehmendem Level werden Regeln progressiv weniger strikt durchgesetzt, um die mögliche Kreativität zu erhöhen.
+
+Im 0-Level werden alle Regeln strikt durchgesetzt und bei Fehlplatzierung ein Fehler gezeigt. Dieser Modus ist Standartmäßig aktiviert, um die freien Vorschläge strikt auf ihre Machbarkeit zu prüfen. Im 1-Level werden weiterhin alle Regeln ausgewertet, jedoch nur noch als Warnung angezeigt.
+
+Das Kreativitäts-Level 2 ist vor allem für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Constraints eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.
 
 \subsection{Priorisierung und Rückverfolgbarkeit}\label{subsection:Priorisierung und Rückverfolgbarkeit}
 
