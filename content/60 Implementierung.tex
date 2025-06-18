@@ -87,15 +87,105 @@ Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bes
 
 Der \textmono{SizeService} stellt die Methode \textmono{getObjectSize} zur Berechnung der Eckpunkte eines Objekts anhand der Objektmodels, der eingestellten Größe, Position und Rotation. Aufgrund der Abhängigkeit des konkreten Objektmodels lädt und cached diese Klasse intern die Objektmodelle im Gltf-Format.
 
-Der \textmono{SegmentationProvider} stellt schließlich eine Möglichkeit, auf die Segmentierungsinformationen an bestimmten Punkten des 3D-Raums zuzugreifen. Da die Segmentierung 
+Der \textmono{SegmentationProvider} stellt schließlich eine Möglichkeit, auf die Segmentierungsinformationen an bestimmten Punkten des 3D-Raums zuzugreifen. Da die Segmentierung, wie in der Konzeptionierung ausgearbeitet, auf diverse Arten umgesetzt werden kann, geschieht dies über das generische Interface \textmono{SegmentationProvider} und die konkrete Implementierung \textmono{GeoJsonSegmentationProvider}. Durch diese Separierung ist es in zukünftigen Iterationen leichter möglich, die Segmentierung durch andere Methoden wie AI-basierte Bilderkennung zu ersetzen.
+
+\medskip
+
+Insgesamt erlaubt diese Aufteilung in einen Infrastructure Layer, ein robustes Sharing von Logik, aber auch Caching-Informationen zwischen Objekt-Validierungen und Klassen.
 
 \subsubsection{AR-Basissystem: Presentation Layer}
 
-// EffectableGltf
+Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zuständig und zeigt generierte Validierungsergebnisse für den Nutzer an. Teile der grundlegenden Logik und Interaktionstechniken konnten aus der vorhergehenden Forschungsarbeit übernommen werden, ein Großteil des Systems wurde jedoch für die Anforderungen dieser Arbeit neu entwickelt.
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{abb/uml presentation.png}
+\centering
+\caption{Klassendiagramm: Presentation Layer}
+\label{fig:uml presentation}
+\end{figure}
+
+Abbildung \ref{fig:uml presentation} visualisiert den Aufbau der Komponenten des Systems. Jede Klasse verfolgt dabei das Single-Responsibility-Principle und übergibt Delegationen an ihre direkten Kind-Elemente. Im Folgenden werden die einzelnen Bausteine im Detail erläutert.
+
+Startpunkt für React während des Render-Vorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von react-three-fiber. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Scene-Graph-Management an \textmono{AppCanvasContent}.
+
+\medskip
+
+Innerhalb dieser 3D-Umgebung befindet sich vor allem die Subkomponente \textmono{AppCanvasContent} für das Szenenmanagement und kombiniert die einzelnen UI-Aspekte:
+
+\begin{itemize}
+  \item \textbf{Interaktionsfluss} über \textmono{InteractionConnector} (Eingabegeräte, Gesten)
+  \item \textbf{Objektdarstellung} durch eine kollektive Instanziierung von \textmono{CanvasObject}
+  \item \textbf{Umgebungslayer} über \textmono{SegmentationVisualization}  
+\end{itemize}
+
+\medskip
+
+Die Subkomponente \textmono{InteractionConnector} sowie die intern genutzte \textmono{Interaction} Klasse bündelt sämtliche Eingabekanäle, um die low-level Events über Mausklicks oder Touchscreen-Interaktionen in deklarative Aktionen (\textmono{place}, \textmono{move}, \textmono{rotate}) umzuwandeln und auf das aktuelle Objekt anzuwenden.
+
+Hierdurch bleiben Präsentationskomponenten input-agnostisch und werden passiv über den \textmono{InteractionConnector} aktualisiert. Durch die Nutzung des Observer Patterns innerhalb der genutzten \textmono{Object}-Klasse, werden bei Veränderungen automatisch alle Validierungssysteme informiert, ohne dass dies explizit durch den Connector geschehen muss.
+
+\medskip
+
+Die Komponente \textmono{SegmentationVisualization} visualisiert die von der Geosegmentierung vorbereiteten Bereiche von Straßen, Gehwegen und Grasflächen - siehe Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}]. Dies ist vor allem für rein virtuelle Testumgebungen sinnvoll und um die GeoJSON-Areale in der AR-Umgebung über den realen Untergrund zu überlagern.
+
+\medskip
+
+Über die Komponente \textmono{CanvasObject} wird ein einzelnes, logisch-fachliches Objekt sowie alle weiteren verbundenen Elemente in der Szene dargestellt. Zur Darstellung der gesamten Szene wird daher durch die \textmono{AppCanvasContent} Komponente ein separates \textmono{CanvasObject} für jedes Objekt erstellt.
+
+Jedes Objekt besteht hierfür intern wiederum aus drei Teilkomponenten:
+
+\begin{enumerate}
+  \item das Rendering des eigentlichen Objekts über \textmono{EffectableGltf}  
+  \item Darstellung der Fehlermeldungen aus der Validierung über \textmono{ValidationErrors}
+  \item Darstellung betroffener Fehlerbereiche durch \textmono{HighlightAreas}
+\end{enumerate}
+
+\medskip
+
+Eine der zentralen Komponenten der Präsentationsschicht ist \textmono{EffectableGltf}.  
+Ziel dieser Klasse ist es, beliebige glTF-Modelle um visuelle Effekte – etwa eine rote Hinterlegung bei Validierungsfehlern oder eine weiße Kontur zur Hervorhebung des aktuell ausgewählten Objekts – zu erweitern.
+
+Im Ökosystem von \textmono{react-three-fiber} existieren zwar mehrere Lösungen für Post-Processing  
+(z.B. \textmono{@react-three/postprocessing}, \textmono{react-three-fiber effects}), diese Bibliotheken beschränken sich jedoch häufig auf primitive Objekte (Würfel, Kugeln) oder erfordern tiefes Eingreifen in den Three-JS-Rendergraph.
+
+Bei komplexen glTF-Strukturen können diese daher meist nicht ohne Umwandlungen genutzt werden, da Effekte rekursiv auf sämtliche \textmono{Mesh}-Knoten angewendet werden müssen. Mehrere Effekte können zusätzlich oft nicht problemlos kombiniert werden, ohne Artefakte oder Overdraw zu erzeugen, oder das dynamische Zu- und Abschalten der Effekte kann Memory Leaks im GPU-Kontext hinterlassen.
+
+Erste Versuche, die Effekte direkt innerhalb der Projektbasis zu implementieren, zeigten einen kontinuierlichen Anstieg der Komplexität, insbesondere beim gleichzeitigen Einsatz mehrerer Overlays und Outlines.  
+Um die Wartbarkeit zu erhöhen und einen Wiederverwendungsnutzen für nachgelagerte Projekte zu schaffen, wurde die Logik daher in eine eigenständige Open-Source-Bibliothek \textmono{@vantezzen/effectable-gltf}\footnote{\url{https://www.npmjs.com/package/@vantezzen/effectable-gltf}} überführt. Die Bibliothek wurde seit ihrer Veröffentlichung zusätzlich bereits in die offizielle Liste von Community-Paketen der React-Three-Fiber Dokumentation aufgenommen \parencite{poimandresCommunityR3FComponents2025}.
+
+Die Bibliothek versteht sich als Drop-in-Replacement für das in \textmono{@react-three/drei} enthaltene \textmono{Gltf}-Element zur Darstellung von glTF-Modellen.
+Effekte werden deklarativ als Kindelemente hinzugefügt; die Bibliothek sorgt intern für Shader-Injection, Depth-Handling und das Aufräumen temporärer Materialien.  
+
+\begin{lstlisting}[language=html,caption={Deklarative Effekte mit \textmono{EffectableGltf}},label={lst:effectable}]
+<EffectableGltf src="/assets/tree.gltf">
+  <OverlayEffect color="red" opacity={0.5} />
+  <OutlineEffect color="white" thickness={0.012} />
+</EffectableGltf>
+\end{lstlisting}
+
+Listing \ref{lst:effectable} bietet ein einfaches Beispiel für die Nutzung der Bibliothek, wobei das Objekt \textmono{tree.gltf} geladen wird und mit den Effekten \textmono{OverlayEffect} in Rot mit 5\% Transparenz sowie \textmono{OutlineEffect} in weiß versehen.
+
+\textmono{EffectableGltf} ermöglicht performante Renderpfade ohne zusätzliche Frame-Kosten (REQ-NF-002) und verständliche visuelle Rückmeldungen für Endnutzerinnen und Endnutzer. Die Auslagerung als dediziertes Paket gewährleistet zugleich die Nachnutzbarkeit in künftigen Projekten und reduziert technischen Schuldaufbau im Hauptrepository.
+
+\medskip
+
+Zusammengefasst besteht die Delegationskette der UI aus folgenden Elementen:
+
+\begin{enumerate}
+  \item \textmono{AppCanvas} initiiert XR-Kontext, delegiert an \textmono{AppCanvasContent}
+  \item \textmono{AppCanvasContent} verteilt State an \textmono{CanvasObject}, \textmono{SegmentationVisualization}, \textmono{InteractionConnector}
+  \item \textmono{CanvasObject} rendert \textmono{EffectableGltf}, \textmono{ValidationErrors}, \textmono{HighlightAreas}
+  \item \textmono{InteractionConnector} abstrahiert Eingaben für alle Child-Komponenten
+  \item \textmono{SegmentationVisualization} zeigt globale Kontextdaten an
+\end{enumerate}
+
+Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validierungslogik und Rendering sauber entkoppelt bleiben.  Gleichzeitig erlaubt das Konzept die einfache Erweiterung um zusätzliche Visualisierungs- oder Interaktionsmodule, ohne bestehende Komponenten zu modifizieren.
+
+\subsubsection{State-System}
 
 \subsection{Testing}
 
-\subsection{Virtuelle Straßenumgebung}
+\subsection{Virtuelle Straßenumgebung}\label{subsection:Virtuelle Straßenumgebung}
 
 \subsection{Performance-Messung}
 
