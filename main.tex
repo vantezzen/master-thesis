@@ -114,6 +114,7 @@
 
 \usepackage{csquotes}
 \usepackage{microtype}
+\usepackage{soul}
 
 % Festlegung Art der Zitierung - Havardmethode: Abkuerzung Autor + Jahr
 %\bibliographystyle{alphadin}
@@ -188,7 +189,17 @@
 
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.95}
-\newcommand{\textmono}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\DeclareRobustCommand{\textmono}[1]{%
+  \begingroup
+    \sethlcolor{light-gray}%  Hintergrund für \hl festlegen
+    \texttt{\hl{#1}}%       Monospace + graues Highlight
+  \endgroup
+}
+
+% custom "quoted" command
+\newcommand*{\quoted}[1]{%
+  \glqq{}#1\grqq{}%
+}
 
 % Indexerstellung
 \makeindex

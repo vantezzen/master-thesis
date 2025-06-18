@@ -1,5 +1,9 @@
 \section{Konzeptualisierung eines Constraint-Systems}\label{section:Konzeptualisierung eines Constraint-Systems}
 
+Das grundsätzliche Constraint-System soll zunächst auf den Erkenntnissen der vorangegangenen Forschungsprojekten aufbauen. 
+
+Für eine native Code-Entwicklung für Webumgebungen wird konzeptioniert, dass der Code in TypeScript umgesetzt werden sollte. Hierdurch können objektorientierte Coding Patterns wie Interfaces und abstrakte Klassen genutzt werden, sowie eine Typisierung innerhalb des Codes ermöglicht. 
+
 \subsection{Erstellung einer Syntax für Constraints}
 
 Die Erstellung einer Syntax zur Definition von Regeln für Objekte wird in dieser Arbeit als \textit{Domain Specific Language} (DSL) Engineering Aufgabe betrachtet. DSL sind solche Programmiersprachen, welche auf spezifische Anwendungsfälle spezialisiert sind und hierdurch eine höhere Ausdruckskraft und Nutzungsfreundlichkeit in diesem Feld als generische Sprachen erreichen können. Im Gegensatz zu generischen Programmiersprachen muss das Ziel einer DSL nicht zwingend sein, einen ausführbaren Code zu generieren, sondern kann vielmehr auch der Ausführung eines größeren Systems dienen. \parencite[S. 316f]{mernikWhenHowDevelop2005}
@@ -129,7 +133,7 @@ Mithilfe dieser Vorüberlegungen kann schließlich ein finales Schema für \text
 \begin{lstlisting}[frame=htrbl, caption={ACS Beispiel}, label={lst:acs-example}, language=php]
 // Tree.constraints.json
 {
-	"$schema": "https://arval.vantezzen.io/acs.schema.json",
+	"$schema": "https://arval.vantezzen.io/schemas/acs.schema.json",
   "name": "Baum",
   "tags": ["tree", "plant", "nature"],
 
@@ -207,7 +211,7 @@ Beispielsweise ist es grundsätzlich nicht sinnvoll, dass der Nutzer einen Baum 
 
 \medskip
 
-Neben dem informellen Design durch ein konkretes Beispiel wurde ein formelles Design durch die Definition eines JSON-Schemas erstellt, erreichbar unter \url{https://arval.vantezzen.io/acs.schema.json}.
+Neben dem informellen Design durch ein konkretes Beispiel wurde ein formelles Design durch die Definition eines JSON-Schemas erstellt, erreichbar unter \url{https://arval.vantezzen.io/schemas/acs.schema.json}.
 
 JSON-Schema Dateien erlauben die Definition von Attributen des Objekts (\textit{Properties}), einer Typisierung und Beschreibung der einzelnen Felder und Definition von verpflichtenden und freiwilligen Feldern.
 
@@ -255,6 +259,8 @@ Abbildung \ref{fig:schema autocomplete} zeigt die Nutzung des Schemas im Code-Ed
 
 Wird stattdessen ein invalider Attributname genutzt, wird dieser im Code-Editor rot unterlegt und erhält die Mitteilung „Property \textit{Parametername} is not allowed“.
 
+// TODO: AGCS
+
 \subsection{Umgebungssegmentierung}
 
 Während der Untersuchung verwandter Arbeiten in Kapitel \ref{subsection:Umgebungssegmentierung} [S. \pageref{subsection:Umgebungssegmentierung}] wurden vor allem zwei Methoden der Segmentierung herausgearbeitet.
@@ -273,4 +279,16 @@ Für die Entwicklung dieses Systems soll diese Definition zunächst als statisch
 
 \subsection{Darstellung von Rückmeldungen}
 
-\subsection{Hilfssysteme zur Platzierung}
+Analog zur Segmentierung stellt auch die Darstellung von Rückmeldungen in sich bereits ein breites Forschungsfeld mit diversen Lösungsansätzen im Bereich der HCI dar \parencite{wangUsingVisualFeedback2023}. Im Rahmen der Elicitation anderer Software in Kapitel \ref{subsection:Elicitation} [S. \pageref{subsection:Elicitation}] wurden bereits verschiedene Visualisierungen untersucht.
+
+Eine ausführliche Aufarbeitung und ein systematischer Vergleich aller Methoden im Kontext von AR-Feedbackdarstellung stellt ein  umfangreiches Forschungsfeld dar und wäre insbesondere im Rahmen empirischer Nutzerstudien zur Bewertung von Intuitivität und Verständlichkeit vielversprechend. Im Rahmen dieser Arbeit wird auf eine solche umfassende Untersuchung verzichtet, da sie den Umfang sprengen würde. Stattdessen orientiert sich die Umsetzung an den bewährten und in verwandten Systemen häufig eingesetzten Visualisierungsansätzen.
+
+Zur Umsetzung oft identifizierter Visualisierungen in anderen Systemen sowie die Einbindung der Requirements an das System sollen vor allem drei Methoden zur Darstellung von Rückmeldungen genutzt werden:
+
+Zunächst soll das Objekt bei Fehlplatzierung, ähnlich wie bei Software wie \textit{Super Mario Maker 2}, rot hinterlegt werden. Hierdurch kann zunächst ein generischer Fehlerstatus an den Nutzer gegeben werden, jedoch noch keine weiteren Informationen über die Ursache.
+
+Aus diesem Grund soll zusätzlich eine Nachricht unterhalb des Objekts gezeigt werden, welches die genauere Fehlerbeschreibung darstellt. Die Fehlermeldungen sollen aus den Begründungsinformationen der Constraints generiert werden, um eine Nachvollziehbarkeit für Nutzer zu ermöglichen.
+
+Zuletzt sollen die Fehlerbereiche selber ebenfalls rot hinterlegt werden. Ist beispielsweise die Platzierung auf einer Straße nicht erlaubt, so soll die Straße als ganzes rot hinterlegt werden. Hierdurch kann erhofft werden, dass die Bereiche verbotener Platzierung für Nutzer direkt ersichtlich werden und nicht erst erprobt werden müssen.
+
+\subsection{Konzeption eines Administrationsinterface}
