@@ -1,6 +1,6 @@
 \section{Konzeptualisierung eines Constraint-Systems}\label{section:Konzeptualisierung eines Constraint-Systems}
 
-Das grundsätzliche Constraint-System soll zunächst auf den Erkenntnissen der vorangegangenen Forschungsprojekten aufbauen. 
+Das grundsätzliche Constraint-System soll zunächst auf den Erkenntnissen den vorangegangenen Forschungsprojekten aufbauen. 
 
 Für eine native Code-Entwicklung für Webumgebungen wird konzeptioniert, dass der Code in TypeScript umgesetzt werden sollte. Hierdurch können objektorientierte Coding Patterns wie Interfaces und abstrakte Klassen genutzt werden, sowie eine Typisierung innerhalb des Codes ermöglicht. 
 
@@ -16,13 +16,13 @@ Der erste Schritt in der Entwicklung eines DSL nach \textcite{mernikWhenHowDevel
 
 Der ARVal Constraint Syntax (nachfolgend \textit{ACS}) kann hierbei als “Data structure representation” typisiert werden, da es die Datenstruktur der Regelpakete als separate Datei darstellt.
 
-Die Spezifizität dieser Art von Daten „relies on initialized data structures whose complexity may make them difficult to write and maintain. Such structures are often more easily expressed using a DSL“ \parencite[S. 323]{mernikWhenHowDevelop2005}. Aus diesem Grund wird die Implementierung eines spezifischeren DSL für den Regel-Syntax als sinvoll angesehen.
+Die Spezifität dieser Art von Daten „relies on initialized data structures whose complexity may make them difficult to write and maintain. Such structures are often more easily expressed using a DSL“ \parencite[S. 323]{mernikWhenHowDevelop2005}. Aus diesem Grund wird die Implementierung eines spezifischeren DSL für die Regelsyntax als sinnvoll angesehen.
 
 \subsubsection{Analyse}
 
 Für die Konzeptionierung einer DSL wird empfohlen, zunächst eine Analyse der Problemdomäne durchzuführen. Teile dieser Ausarbeitung wurde in dieser Arbeit bereits in Kapitel \ref{section:Requirements-Engineering} als Teil des Requirements Engineering durchgeführt.
 
-Abweichend zu \textcite{mernikWhenHowDevelop2005} werden zur besseren Einordnung der benötigten Komponenten der finalen Sprache werden zunächst formale Anforderungen an den Syntax definiert, analog zum bestehenden Requirements Engineering Ansatz.
+Abweichend zu \textcite{mernikWhenHowDevelop2005} werden zur besseren Einordnung der benötigten Komponenten der finalen Sprache werden zunächst formale Anforderungen an der Syntax definiert, analog zum bestehenden Requirements Engineering Ansatz.
 
 \begin{table}[h]
 \centering
@@ -37,6 +37,7 @@ R-4 & Umsetzung als visueller Editor möglich \\ \hline
 R-5 & Eindeutige, nicht-ambigue Definition von Regeln \\ \hline
 R-6 & Konzeptionelle Unterstützung boolscher Operationen (AND / OR) und Verschachtelung \\ \hline
 R-7 & Unterstützung positiver und negativer Regeln \\ \hline
+R-8 & Unterstützung objektspezifischer und globaler Regelsätze \\ \hline
 \end{tabular}
 \caption{Anforderungen an die Constraint-Syntax}
 \label{tab:syntax-requirements}
@@ -74,13 +75,19 @@ Wie in Kapitel \ref{section:Verwandte Arbeiten} erarbeitet, sind Regeln in natü
 
 \medskip
 
-Durch R-6 wird definiert, dass boolsche Operationen von UND- sowie ODER-Verknüpfungen konzeptionell mitgedacht werden sollen, inklusive einer Verschachtelung dieser Operatoren. Hierdurch sollen komplexere, kontextabhängige Regeln umgesetzt werden können wie „Steht die Bank an einem Gehweg, \textit{muss} diese parallel zum Weg stehen \textit{ODER} wenn die Bank auf einer Grünfläche steht, \textit{kann} diese beliebig rotiert werden“.
+Durch R-6 wird definiert, dass boolesche Operationen von UND- sowie ODER-Verknüpfungen konzeptionell mitgedacht werden sollen, inklusive einer Verschachtelung dieser Operatoren. Hierdurch sollen komplexere, kontextabhängige Regeln umgesetzt werden können wie „Steht die Bank an einem Gehweg, \textit{muss} diese parallel zum Weg stehen \textit{ODER} wenn die Bank auf einer Grünfläche steht, \textit{kann} diese beliebig rotiert werden“.
 
 Wie bei der Umsetzung des Editors soll auch diese Funktion zunächst nur konzeptionell eingearbeitet werden, jedoch noch nicht in die Validierungseinheit implementiert werden. Aufgrund der Komplexität der Unterstützung arbiträr verschachtelter Elemente soll der Fokus dieser Arbeit primär auf die Implementierung und Integrierung der tatsächlichen Regeln liegen.
 
 \medskip
 
-Schließlich fügt R-7 hinzu, dass die Sprache sowohl positiv (\textit{Muss}) als auch negativ (\textit{Darf nicht}) formulierte Regeln unterstützen soll. Abhängig von der Regel kann es deutlich übersichtlicher sein, die Regel auf eine statt die andere Art zu definieren \parencite[S. 44]{trinhConstraintbasedApproachModelling2012} - beispielsweise „Eine Bank \textit{muss} auf einer Grünfläche stehen“ ist einfacher zu definieren als „Eine Bank \textit{darf nicht} stehen auf Straßen, Gehwegen, Schotterwegen, Kreuzungsbereichen, ...“.
+R-7 fügt hinzu, dass die Sprache sowohl positiv (\textit{Muss}) als auch negativ (\textit{Darf nicht}) formulierte Regeln unterstützen soll. Abhängig von der Regel kann es deutlich übersichtlicher sein, die Regel auf eine statt die andere Art zu definieren \parencite[S. 44]{trinhConstraintbasedApproachModelling2012} - beispielsweise „Eine Bank \textit{muss} auf einer Grünfläche stehen“ ist einfacher zu definieren als „Eine Bank \textit{darf nicht} stehen auf Straßen, Gehwegen, Schotterwegen, Kreuzungsbereichen, ...“.
+
+\medskip
+
+Zuletzt fügt R-8 hinzu, dass sowohl objektspezifische als auch globale Regelsätze erstellt werden sollen. Viele der Regeln beziehen sich auf einzelne Objekte, daher liegt hier vor ein Hauptfokus - beispielsweise, dass eine Bank nur am Wegesrand platziert werden darf. Jedoch gibt es auch solche Regeln, die auf verschiedenste Objekte angewendet werden müssen, darunter etwa Sperrflächen für Wendeflächen der Feuerwehr, auf welche außer Straßenmarkierungen keine Vorschläge jeglicher Objekttypen getätigt werden sollen.
+
+Um für diese Fälle eine Neudeklaration für jedes Objekt zu vermeiden, sollen globale Regelsätze unterstützt werden. Diese Regelsätze sollen im Validator mit den objektspezifischen Regeln kombiniert und ausgewertet werden, um ein zusammenhängendes Ergebnis zu formen.
 
 \medskip
 
@@ -124,7 +131,11 @@ Die Umsetzung von R-5 (Eindeutige Regeln) wird durch die Nutzung eines festgeleg
 
 \medskip
 
-Für die Unterstützung von R-6 (Boolean Operationen) und R-7 (Positiver und Negativer Regeln) sollen zusätzlich einfache Verknüpfungen von Regeln und Definition einer Regel-Art (positiv/negativ) eingearbeitet werden. Die Integrierung von R-6 (Boolean Operationen) soll starke Inspiration von der Umsetzung in JSON Schema selber nehmen, durch die Nutzung von Subobjekten und Schlüsselwörtern wie „anyOf“.
+Für die Unterstützung von R-6 (Boolean Operationen) und R-7 (positiver und negativer Regeln) sollen zusätzlich einfache Verknüpfungen von Regeln und Definition einer Regel-Art (positiv/negativ) eingearbeitet werden. Die Integrierung von R-6 (Boolean Operationen) soll starke Inspiration von der Umsetzung in JSON Schema selber nehmen, durch die Nutzung von Subobjekten und Schlüsselwörtern wie „anyOf“.
+
+\medskip
+
+Zuletzt wird für die Unterstützung von globalen Regeln für R-8 ein zweites Schema \textit{ARVal Global Constraint Schema (AGCS)} entwickelt werden. Dieses enthält dieselben Regeltypen wie ACS, jedoch werden objektspezifische Elemente ersetzt durch generische Tag-Listen, auf welche die jeweiligen Regeln angewendet werden sollen.
 
 \subsubsection{Schema-Definition}
 
@@ -259,21 +270,55 @@ Abbildung \ref{fig:schema autocomplete} zeigt die Nutzung des Schemas im Code-Ed
 
 Wird stattdessen ein invalider Attributname genutzt, wird dieser im Code-Editor rot unterlegt und erhält die Mitteilung „Property \textit{Parametername} is not allowed“.
 
-// TODO: AGCS
+\medskip
+
+\begin{lstlisting}[frame=htrbl, caption={AGCS Beispiel}, label={lst:agcs-example}, language=php]
+// Firetrucks.global-constraints.json
+{
+  "$schema": "https://arval.vantezzen.io/schemas/agcs.schema.json",
+  "name": "Feuerwehr Wendekreise",
+  "scope": "global",
+
+  "rules": [
+    {
+      "action": "forbid",
+      "subject": "area",
+      "appliesToTags": ["plant", "furniture"],
+
+      "reason": "Die Feuerweht benotigt diese Flache als Wendekreis.",
+      "reasonType": "full",
+
+      "area": {
+        "type": "circle",
+        "center": [0, 7],
+        "radius": 5
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+Neben dem objektspezifischen ACS-Schema wurde das globale AGCS-Schema erstellt und formalisiert. Ein Beispiel für eine Konfiguration ist in Listing \ref{lst:agcs-example} abgebildet.
+
+Wie ACS besitzt auch das AGCS-Schema ein \textmono{name}-Feld, jedoch rein als interne Beschreibung. AGCS besitzt darüber hinaus lediglich ein \textmono{rules}-Array mit einem Schema wie \textmono{placement}-Regeln in ACS. Ein zentraler Unterschied ist die neue Liste \textmono{appliesToTags}, mit welchem eingeschränkt werden kann, auf welche Objektarten diese Regel Anwendung findet.
+
+Durch diesen spezifischen Aufbau kann das Validierungssystem alle anwendbaren globalen Regeln filtern und anschließend die Regeln über dasselbe Regelsystem wie bei objektspezifischen Regeln auswerten, ohne dass ein separates Regelsystem benötigt wird.
+
+Im Beispiel-Regelset wird eine Koordinaten-gebundene Regel definiert, welche die Platzierung in einem Bereich verhindert. Hierfür existiert das \textmono{area} Attribut, mit einem eine geografische Fläche im GeoJSON-Format, z.B. als Polygon oder Kreis, festgelegt werden kann.
 
 \subsection{Umgebungssegmentierung}
 
 Während der Untersuchung verwandter Arbeiten in Kapitel \ref{subsection:Umgebungssegmentierung} [S. \pageref{subsection:Umgebungssegmentierung}] wurden vor allem zwei Methoden der Segmentierung herausgearbeitet.
 
-Hierbei existiert die Segmentierung anhand geographischer Kartendaten. Dies erlaubt eine genaue 3D-Segmentierung von Straßen, Gebäuden, und anderen kartographierten Elementen. Zentrale Nachteile aus den untersuchten Arbeiten und für den Zweck dieser Arbeit sind jedoch vor allem die Ungenauigkeit der eigenen Standortdaten, sowie dass nicht-kartographierte Daten wie Bäume und Sitzbänke nicht segmentiert werden können.
+Hierbei existiert die Segmentierung anhand geografischer Kartendaten. Dies erlaubt eine genaue 3D-Segmentierung von Straßen, Gebäuden, und anderen kartografierten Elementen. Zentrale Nachteile aus den untersuchten Arbeiten und für den Zweck dieser Arbeit sind jedoch vor allem die Ungenauigkeit der eigenen Standortdaten, sowie dass nicht-kartografierte Daten wie Bäume und Sitzbänke nicht segmentiert werden können.
 
-Daneben existiert eine Segmentierung anhand der Bilddaten über Machine Learning Modelle. Vorteil ist vor allem eine hohe Genauigkeit der Daten, da diese direkt vom Gerät selber erfasst werden. Nachteile dieser Methode sind jedoch der hohe Rechenaufwand, Verzögerungen durch die Verarbeitung des Bildes, sowie, dass Ergebnisse nur auf der 2D-Plane des Kamerabild und nicht als 3D-Raum erkannt werden.
+Daneben existiert eine Segmentierung anhand der Bilddaten über Machine-Learning-Modelle. Vorteil ist vor allem eine hohe Genauigkeit der Daten, da diese direkt vom Gerät selber erfasst werden. Nachteile dieser Methode sind jedoch der hohe Rechenaufwand, Verzögerungen durch die Verarbeitung des Bildes, sowie, dass Ergebnisse nur auf der 2D-Plane des Kamerabilds und nicht als 3D-Raum erkannt werden.
 
 \medskip
 
 Die Segmentierung der Elemente stellt in sich bereits ein breites Themenfeld dar. Aus diesem Grund soll für das zu entwickelnde System zunächst stattdessen ein statisches Segmentierungsmodell anhand vorgegebener Koordinaten umgesetzt werden.
 
-Hierfür soll das System eine Konfigurationsdatei im GeoJSON-Format\footnote{\url{https://geojson.org/}} erhalten. GeoJSON stellt ein standartisiertes Format für die Darstellung von geographischen Daten in einer JSON-Datei bereit, über welches Flächen mittels verschiedener Geometrie-Typen - wie Polygone, Kreise oder Linien - sowie Informationen über die Art der Fläche - wie Straßen oder  Radwege - definiert werden. \parencite{butlerGeoJSONFormat2016}
+Hierfür soll das System eine Konfigurationsdatei im GeoJSON-Format\footnote{\url{https://geojson.org/}} erhalten. GeoJSON stellt ein standardisiertes Format für die Darstellung von geografischen Daten in einer JSON-Datei bereit, über welches Flächen mittels verschiedener Geometrie-Typen - wie Polygone, Kreise oder Linien - sowie Informationen über die Art der Fläche - wie Straßen oder  Radwege - definiert werden. \parencite{butlerGeoJSONFormat2016}
 
 Für die Entwicklung dieses Systems soll diese Definition zunächst als statische JSON Datei bereitgestellt werden, in zukünftigen Iterationen könnte dies jedoch über separate, dynamische Segmentierungs-Systeme geschehen. 
 
@@ -289,6 +334,58 @@ Zunächst soll das Objekt bei Fehlplatzierung, ähnlich wie bei Software wie \te
 
 Aus diesem Grund soll zusätzlich eine Nachricht unterhalb des Objekts gezeigt werden, welches die genauere Fehlerbeschreibung darstellt. Die Fehlermeldungen sollen aus den Begründungsinformationen der Constraints generiert werden, um eine Nachvollziehbarkeit für Nutzer zu ermöglichen.
 
-Zuletzt sollen die Fehlerbereiche selber ebenfalls rot hinterlegt werden. Ist beispielsweise die Platzierung auf einer Straße nicht erlaubt, so soll die Straße als ganzes rot hinterlegt werden. Hierdurch kann erhofft werden, dass die Bereiche verbotener Platzierung für Nutzer direkt ersichtlich werden und nicht erst erprobt werden müssen.
+Zuletzt sollen die Fehlerbereiche selber ebenfalls rot hinterlegt werden. Ist beispielsweise die Platzierung auf einer Straße nicht erlaubt, so soll die Straße als ganzes Rot hinterlegt werden. Hierdurch kann erhofft werden, dass die Bereiche verbotener Platzierung für Nutzer direkt ersichtlich werden und nicht erst erprobt werden müssen.
 
 \subsection{Konzeption eines Administrationsinterface}
+
+Zwar ist eine vollständige Implementierung eines Administrationsinterface außerhalb des Projektrahmens dieser Arbeit, jedoch wurde für die Validierung der Umsetzung von R-4 (Umsetzbarkeit als visueller Editor) dieser konzeptionell entworfen.
+
+Für die Konzeption wurden zunächst Design-Richtlinen zur Gestaltung verständlicher Nutzerinterfaces, insbesondere Apples \quoted{Human Interface Guidelines (HIG)}, herangezogen \parencite{appleinc.HumanInterfaceGuidelines2025}.
+
+Auf diesen Richtlinien aufbauend wurde ein Papierprototyp erstellt, welcher im dritten Schritt in einen digitalen Design-Prototyp in der Software Figma\footnote{https://www.figma.com/design/IXf9EIPrWoUYAVRMo6vJ0v/ARVal} überführt wurde.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{abb/Global Editor.png}
+\centering
+\caption{Design-Prototyp für den globalen Regeleditor}
+\label{fig:Global Editor}
+\end{figure}
+
+Abbildung \ref{fig:Global Editor} stellt den finalen Design-Prototyp für die Erstellung von globalen Regelsets (AGCS) dar. Die Anwendung folgt dem Split-View-Paradigma, mit einer persistenten Seitenleiste für Regeldefinitionen auf der linken Seite, sowie einer interaktiven 3D-Karte über Apple Karten auf der rechten Seite. Dieses zweigeteilte Layout entspricht dem HIG-Muster \quoted{Sidebar + Content} für Desktop-Anwendungen und orientiert sich daher an den vorgegebenen HIG-Vorschlägen, beispielsweise zu Hierarchien und Symbolen.
+
+Die linke Seitenleiste besitzt einen Seitenrand für Funktionen des Regelsets, darunter eine Speicherfunktion, die Möglichkeit, das Regelsets in einer Vorschau zu nutzen, sowie das Regelset zu teilen, z.B. damit andere Stadtplaner dies kontrollieren können.
+
+Der Hauptbereich der linken Leiste widmet sich der Definition einzelner Regeln über Regelbereiche. Einzelne Regeln werden hierfür über Ausdrücke natürlicher Sprache definiert, beispielsweise \quoted{Im Bereich 1 dürfen keine Objekt mit dem Tag [...] stehen}. Jede Regel muss darüber hinaus eine Begründung besitzen, wobei die in ACS definierte Auswahl zwischen atomaren Begründungen und vollen Begründungssätzen getroffen werden kann.
+
+\medskip
+
+Auf der rechten Seite des Designs befindet sich eine große Kartenansicht, über welches Bereiche definiert und visualisiert werden. Für die Darstellung wurde die Kartenfunktion \textit{Apple Karten} genutzt, da diese eine stilisierte, jedoch realitätstreue Abbildung von Details wie Straßenmarkierungen und Bäumen besitzt. Über der Karte werden die definierten Bereiche visualisiert und nummeriert, damit eine Zuordnung zur Regel im linken Bereich möglich ist.
+
+\medskip
+
+Für den Interaktionsfluss bei der Erstellung neuer Regelbereiche soll nach dem Klick auf den Button \quoted{Regel hinzufügen} vom Nutzer ein Freihand-Polygon in der Kartenansicht erstellt werden. Anschließend erscheint in der Seitenleiste automatisch eine neue Karte mit einem Platzhalter-Satz, welche über die Interaktionselemente der Karte angepasst werden kann.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{abb/Object Editor.png}
+\centering
+\caption{Design-Prototyp für den objektspezifischen Regeleditor}
+\label{fig:Object Editor}
+\end{figure}
+
+Abbildung \ref{fig:Object Editor} stellt den Design-Prototyp für den Regeleditor objektspezifischer Regeln dar. Der grundsätzliche Aufbau und Design orientiert sich am globalen Editor, jedoch wird das Interface in ein drei-Spalten Layout umgewandelt.
+
+Am linken Rand existiert erneut eine Funktionsleiste derselben Grundfunktionen zu Speicherung, Vorschau und Teilens. Über die linke der drei Hauptspalten werden die grundlegenden Metadaten und Transformationsregeln festgelegt. Hierfür können über die jeweiligen Eingabemasken der Name des Objekts sowie zutreffende Tags definiert werden.
+
+Darunter befinden sich erneut Karten für die verschiedenen Transformationsregeln des Objekts. Genau wie globale Regeln, werden Transformationsregeln über natürliche Sprachdefinitionen definiert, beispielsweise \quoted{Das Objekt darf nur rotiert werden um die Y-Achse}.
+
+\medskip
+
+Die zusätzliche zweite Spalte dient zur Definition von Platzierungsregeln, etwa \quoted{Das Objekt darf nicht einen Abstand unter 1 Meter zu Objekten mit dem Tag \textit{street} haben}. Wie bei globalen Regeln müssen auch Platzierungsregeln eine Begründung liefern, welche erneut als atomare oder Volltext-Begründung definiert werden kann.
+
+\medskip
+
+Um die Kartenansicht zu ersetzen, stellt die dritte Spalte schließlich das 3D-Objekt dar. Sollte der Nutzer mehrere Editoren verschiedener Objekte in verschiedenen Browsertabs öffnen, kann durch dieses große Designelement schnell visuell erfasst werden, in welchem Objekteditor sich der Nutzer gerade befindet.
+
+\medskip
+
+Zusammengefasst konnte die Umsetzbarkeit der Syntax als visueller Editor (R-4) erfolgreich validiert werden. Regeln können hierfür als natürliche Sprache und eine Kartenansicht deklariert werden und anschließend in dieser Form direkt in die Felder der Syntax überführt werden.
