@@ -18,7 +18,7 @@ Die Codebasis wurde in drei Haupteinheiten geteilt: Der Application Layer stellt
 
 In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Application und Infrastructure zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst werden. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
 
-\subsubsection{Kernsystem: Application Layer}
+\subsubsection{Kernsystem: Application Layer}\label{subsection:Kernsystem}
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml core system.png}
@@ -95,7 +95,7 @@ Insgesamt erlaubt diese Aufteilung in einen Infrastructure Layer, ein robustes S
 
 \subsubsection{AR-Basissystem: Presentation Layer}
 
-Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zuständig und zeigt generierte Validierungsergebnisse für den Nutzer an. Teile der grundlegenden Logik und Interaktionstechniken konnten aus der vorhergehenden Forschungsarbeit übernommen werden, ein Großteil des Systems wurde jedoch für die Anforderungen dieser Arbeit neu entwickelt.
+Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zuständig und zeigt generierte Validierungsergebnisse für den Nutzer an. Teile der grundlegenden Logik und Interaktionstechniken konnten aus der vorhergehenden Forschungsarbeit übernommen werden, ein Großteil des Systems wurde jedoch für die Anforderungen dieser Arbeit neu entwickelt. Die Behandlung der visuellen Ausgabe dieser Schicht erfolgt in Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}].
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml presentation.png}
@@ -183,9 +183,55 @@ Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validie
 
 \subsubsection{State-System}
 
+Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textmono{zustand}\footnote{\url{http://npmjs.com/package/zustand}} genutzt. \textmono{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
+
+In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche die vorgegebenen Daten speichern und Methoden zur Veränderung der Werte bereitstellen. ARVal definiert hierfür zwei Systeme:
+
+\begin{enumerate}
+    \item \textmono{ObjectStore}: Dieses System speichert die Liste aller \textmono{Object}-Instanzen (vgl. Kapitel \ref{subsection:Kernsystem} Kernsystem: Application Layer [S. \pageref{subsection:Kernsystem}]) sowie das aktuell editierte Objekt. Zur Verwaltung der Objekte stellt das System die Methoden \textmono{addObject}, \textmono{removeObject} sowie \textmono{setEditingObject} bereit.
+    \item \textmono{ThreeStore}: Dieses System speichert die Referenz zur aktuellen 3D-Szene. Die ist nötig, damit HTML-Elemente wie das Pop-up zum Hinzufügen neuer Objekte, auf Informationen der Szene zugreifen können.
+\end{enumerate}
+
 \subsection{Testing}
 
-\subsection{Virtuelle Straßenumgebung}\label{subsection:Virtuelle Straßenumgebung}
+// TODO
+
+\subsection{Darstellung und virtuelle Straßenumgebung}\label{subsection:Virtuelle Straßenumgebung}
+
+Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtuelle 3D-Sicht darzustellen, was vor allem für die Entwicklung des Systems sinnvoll ist. Da das aktuelle Validierungssystem auf Grundlage einer statischen GeoJSON-Konfiguration validiert und somit nicht abhängig von einer realen Umgebung ist, kann sowohl die AR- als auch die virtuelle Ansicht dieselbe Datengrundlage nutzen.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{abb/arval-street.jpg}
+\centering
+\caption{Visuelle Ausgabe des Systems}
+\label{fig:arval-street}
+\end{figure}
+
+Abbildung \ref{fig:arval-street} stellt die Ausgabe der 3D-Szene des Systems im virtuellen Modus dar. In der Mitte der Abbildung befindet sich als Testobjekt eine Sitzbank mit einer weißen Umrandung, da diese ausgewählt ist. Unter dem Objekt befindet sich die formatierte Fehlermeldung des Validierungssystems, welche das System aus zwei atomaren Begründungen zu einer kohärenten Gesamtmeldung kombiniert hat.
+
+Das Objekt befindet sich auf der von der \textmono{SegmentationVisualization} erstellten Visualisierung der GeoJSON-Bereiche. In der Mitte befindet sich als breitestes Element eine Straße, links und rechts von dieser in Blau ein Radweg, gefolgt von jeweils einem Gehweg in Hellgrau. Abgeschlossen wird das Objekt jeweils von einem grünen Grasbereich.
+
+Es ist erkennbar, dass der Straßenbereich Rot eingefärbt wurde, da es der Grund für das Fehlschlagen der Validierung ist. Die Einfärbung erfolgt durch die Darstellung einer transparent-roten Fläche über den GeoJSON-Bereich, sodass die Visualisierung auch über realen Flächen sichtbar wird und nicht auf den visuellen Modus beschränkt ist.
+
+Am unteren Rand der Abbildung befindet sich die Funktionsleiste mit der Funktion \quoted{Enter AR} zum Wechsel in den AR-Modus, sowie ein \quoted{+}-Button zum Hinzufügen neuer Objekte.
+
+Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für die Darstellung der Performance-Daten wird die Bibliothek \textit{r3f-perf}\footnote{\url{https://github.com/utsuboco/r3f-perf}} genutzt, welche automatisch die benötigte Zeit für das Rendering, die Bildrate, Anzahl der Dreiecke und Shader in der Szene darstellt. Zur Bibliothek wurde zusätzlich die Laufzeit des Validierungssystems in Millisekunden zur Durchführung von Performance-Messungen hinzugefügt. 
 
 \subsection{Performance-Messung}
 
+Zur Verbesserung und Bewertung der Performance des Validierungssystems wurde eine zweiteilige Performance-Analyse durchgeführt.
+
+Im ersten Schritt wurde die Funktion des \textit{Flame Graph} im Chrome Browser sowie ein eigener Performance-Profiler genutzt, um die Laufzeit der einzelnen Komponenten und Engpässe des Systems zu ermitteln. Mittels dieser Analysen wurden mögliche Engpässe analysiert und ihre Laufzeit verbessert.
+
+Ein Flame Graph ist eine Visualisierungsform zur Analyse von Laufzeitverhalten und Performance von Code. In dem Graph wird die Aufrufhierarchie von Funktionen oder Methoden als gestapelte, farblich kodierte Balken dargestellt. Die horizontale Breite eines Balkens entspricht der Laufzeit der jeweiligen Funktion inklusive ihrer Kindaufrufe. Funktionen, die häufig oder lange ausgeführt werden, erscheinen dadurch horizontal breiter. Die vertikale Anordnung zeigt die Aufrufstruktur: Eine Funktion, die von einer anderen aufgerufen wird, liegt direkt darunter. Flame Graphs zeigen auf einen Blick, welche Codestellen den größten Einfluss auf die Gesamtverarbeitung haben.
+
+Zusätzlich wurde ein eigener Performance-Profiler \textmono{ValidationPerformance} erstellt, um die kumulierte Laufzeit der einzelnen Phasen über mehrere Durchläufe zu analysieren. Hierzu können einzelne Funktionen einen benannten Zeitabschnitt starten und beenden. Am Ende von jeweils 50 Durchläufen bietet der Profiler schließlich eine Übersicht über die Gesamtlaufzeit, durchschnittliche Laufzeit sowie Anzahl der Durchläufe der einzelnen benannten Anschnitte.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{abb/flamegraph.png}
+\centering
+\caption{Flame Graph nach der Verbesserung der Laufzeit}
+\label{fig:flamegraph}
+\end{figure}
+
+Abbildung \ref{fig:flamegraph} liefert den generierten Flame Graph nach der Umsetzung aller Verbesserungen.
