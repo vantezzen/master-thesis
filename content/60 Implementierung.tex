@@ -221,17 +221,94 @@ Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für
 
 Zur Verbesserung und Bewertung der Performance des Validierungssystems wurde eine zweiteilige Performance-Analyse durchgeführt.
 
+\subsubsection{Laufzeitprofilierung}
+
 Im ersten Schritt wurde die Funktion des \textit{Flame Graph} im Chrome Browser sowie ein eigener Performance-Profiler genutzt, um die Laufzeit der einzelnen Komponenten und Engpässe des Systems zu ermitteln. Mittels dieser Analysen wurden mögliche Engpässe analysiert und ihre Laufzeit verbessert.
 
 Ein Flame Graph ist eine Visualisierungsform zur Analyse von Laufzeitverhalten und Performance von Code. In dem Graph wird die Aufrufhierarchie von Funktionen oder Methoden als gestapelte, farblich kodierte Balken dargestellt. Die horizontale Breite eines Balkens entspricht der Laufzeit der jeweiligen Funktion inklusive ihrer Kindaufrufe. Funktionen, die häufig oder lange ausgeführt werden, erscheinen dadurch horizontal breiter. Die vertikale Anordnung zeigt die Aufrufstruktur: Eine Funktion, die von einer anderen aufgerufen wird, liegt direkt darunter. Flame Graphs zeigen auf einen Blick, welche Codestellen den größten Einfluss auf die Gesamtverarbeitung haben.
 
 Zusätzlich wurde ein eigener Performance-Profiler \textmono{ValidationPerformance} erstellt, um die kumulierte Laufzeit der einzelnen Phasen über mehrere Durchläufe zu analysieren. Hierzu können einzelne Funktionen einen benannten Zeitabschnitt starten und beenden. Am Ende von jeweils 50 Durchläufen bietet der Profiler schließlich eine Übersicht über die Gesamtlaufzeit, durchschnittliche Laufzeit sowie Anzahl der Durchläufe der einzelnen benannten Anschnitte.
 
+Wichtig zu beachten ist, dass die Nutzung des Flame Graphs, aber insbesondere auch die Ausführung des Performance-Profilers, zusätzliche Laufzeit zur Berechnung und Speicherung von Laufzeiten sowie die Auswertung der Daten hinzufügt. Zusätzlich befindet sich während der Messung das Build-System Vite im Entwicklungsmodus, damit Funktionen mit Klarnamen angezeigt werden können. Außerhalb des Entwicklungsmodus wendet Vite zusätzliche, automatische Optimierungen auf die Code-Struktur an, um die Ausführungszeit zu verbessern.
+
+Aufgrund dieser Einschränkungen der Performance bilden die Laufzeiten nicht die tatsächlichen Zeiten im finalen System ab - diese werden daher über den darauffolgenden Performancetest ermittelt. Stattdessen können die detaillierten Zahlen dafür genutzt werden, ein Bild über die Verteilung der Gesamtlaufzeit, prozentual auf die einzelnen Funktionen verteilt, zu ermitteln.
+
+\medskip
+
+In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{UndergroundValidator} zur Einschränkung des Untergrundtyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
+
+Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrößen, jedoch wurde über den Dependency Injection Container für jede Regel eine eigene Instanz des Service erstellt. Aus diesem Grund wurde dieser interne Cache für jeden Durchlauf zurückgesetzt und das Objekt musste neu geladen werden. Über die explizite Deklaration des Service als Singleton konnte dieser Performance-Engpass schließlich gelöst werden, und die durchschnittliche Ausführungszeit auf 2-7ms reduziert werden.
+
+\medskip
+
+Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod}\footnote{\url{https://zod.dev/}} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validators fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
+
+\medskip
+
+Ein Aspekt zur Verringerung der Last auf den Prozessor wurde durch die Nutzung einer \textit{debounced} Validierung umgesetzt. Im vorherigen Status wurde die Validierung bei jeder Veränderung, und damit meist bei jedem Frame, ausgeführt. Durch das debouncing wird die Validierung stattdessen auf eine Ausführung alle 200ms reduziert. Hierdurch erhalten Nutzer weiterhin eine zeitnahe Rückmeldung in den von \textit{REQ-NF-001} festegelegten 500ms, jedoch wird die Prozessorauslastung reduziert.
+
+\medskip
+
+Eine weitere Verbesserung wurde in der Bestimmung des Untergrunds durch die Umsetzung von Caching erzielt: bei Durchläufen der Validierungseinheit müssen meist mehrere Regel-Validatoren auf den Untergrundtyp des Objekts zugreifen, jedoch ist die Berechnung dieser Werte aufwändig mit der Interaktion in die Segmentierungseinheit, \textit{SizeService} sowie diverser Punktberechnungen über Three.js. Durch das Hinzufügen von Caching muss diese Berechnung nur einmal pro Durchlauf durchgeführt werden und kann daraufhin über alle Regeln verteilt genutzt werden. Die Berechnung kann in diesen Fällen von etwa 10ms pro Regel auf unter 1ms für nachfolgende Regeln reduziert werden.
+
 \begin{figure}[h]
-\includegraphics[width=\textwidth]{abb/flamegraph.png}
+\includegraphics[width=.6\textwidth]{abb/flamegraph.png}
 \centering
 \caption{Flame Graph nach der Verbesserung der Laufzeit}
 \label{fig:flamegraph}
 \end{figure}
 
-Abbildung \ref{fig:flamegraph} liefert den generierten Flame Graph nach der Umsetzung aller Verbesserungen.
+Abbildung \ref{fig:flamegraph} liefert den generierten Flame Graph nach der Umsetzung aller Verbesserungen. In der obersten Zeile ist das Timing der Framedarstellung abgebildet. Es ist erkennbar, dass die Generierung eines Frames in unter 8.5ms geschehen kann, wodurch eine Bildrate von etwa 120fps erreicht werden kann.
+
+Im Hauptbereich des Graphs ist die Ausführung der Validierung erkennbar, von der Bewegung des Objekts als \textmono{mousemove}-Event, über die Aktualisierung der \textmono{Object}-Klasse über \textmono{set position} und schließlich die Validierung über \textmono{debouncedValidate}.
+
+\subsubsection{Skalierungsprofilierung}
+
+Im zweiten Schritt wurde daraufhin ein Performancetest zur Skalierung des Systems mit allen aktivierten Verbesserungen sowie dem Vite Produktivmodus getestet. Hierfür wurden die bisherigen Performance-Profiler, Flame Graph deaktiviert und automatisierte Code-Verbesserungen über Vite aktiviert, wodurch deutlich bessere und repräsentative Laufzeitergebisse erhalten wurden.
+
+Als Referenzsystem wurde ein iPhone 13 Pro mit iOS 18.5 im Safari-Browser verwendet. Über ein eigenes Skript \textmono{generatePerformanceTest} kann ein Regelset mit einer beliebigen Anzahl zufälliger, valider Regeln erstellt und zur Performancemessung genutzt werden. Es wurden jeweils der Durchschnitt über 100 Validierungsdurchläufe genommen, der erste Durchlauf des Systems wird jedoch ignoriert, da in diesem zunächst die internen Caches gefüllt werden.
+
+\begin{figure}[h]
+\includegraphics[width=.8\textwidth]{abb/runtime per rule.png}
+\centering
+\caption{Laufzeit von Performancetests}
+\label{fig:runtime per rule}
+\end{figure}
+
+Im Liniendiagramm in Abbildung \ref{fig:runtime per rule} ist die Veränderung der Gesamtlaufzeit sowie Dateigröße der Regeldatei auf Grundlage der Anzahl der Regeln erkennbar. Auf der horizontalen Achse sind die Anzahl der generierten Regeln zwischen zehn bis 10.000, auf der linken vertikalen Achse sowie in Blau die Laufzeit in Millisekunden sowie in der rechten vertikalen Achse die Dateigröße der Regeldatei in Kilobyte abgebildet.
+
+\medskip
+
+Es ist erkennbar, dass eine nahezu lineare Skalierung der Dateigröße sowie Laufzeit stattfindet. Bei einer Größe von 10 Regeln wurde eine durchschnittliche Laufzeit von 1.5ms gemessen, bei 1.000 Regeln wurden 20ms erreicht und bei der größten Messung von 10.000 Regeln eine Laufzeit von 173ms.
+
+Die Laufzeit pro Regel liegt im kleinsten Test bei 150µs, in den größeren Tests nähert sich dies einem Wert von 17µs da Cachingdaten öfter wiederverwendet werden können, sowie der feste Overhead des restlichen Systems geringer ins Gewicht fällt.
+
+Durch diese Annäherung an 17µs pro Test sowie Nutzung von Caches konnte ermittelt werden, dass der Overhead des Regelsystems durch das Setup, Regel-Resolving und Auswertung bei etwa 1ms liegt.
+
+\subsubsection{Mögliche Verbesserungen}
+
+Neben den umgesetzten Verbesserungen wurden weitere mögliche Verbesserungen ermittelt, welche in zukünftigen Iterationen und bei Bedarf von höherer Performance umsetzbar sind.
+
+Bei der ermittelten Annäherung an 17µs, welche pro Test benötigt werden, sowie einer angestrebten Bildrate von 60fps ($\approx 17ms$ pro Frame) ergeben sich eine Anzahl von $17.00017µs / 17µs = 1.000$ Regeln, welche in der Zeit eines Frames ausgewertet werden können. Realistisch ist diese Zahl jedoch geringer, da in diesen 17ms ebenfalls die eigentliche Bildgenerierung stattfinden muss.
+
+\medskip
+
+Das JavaScript dieser beiden Funktionen wird standardmäßig Single-Threaded und blockierend ausgeführt: solange die Validierungseinheit ausgeführt werden, können keine neuen Bilder generiert werden, wodurch es zu Ausfällen in der Generierung (Frame Drops) kommen kann. 
+
+Zur Auflösung dieser Blockierung sind vor allem zwei Methoden denkbar: Einführung von Processing Gaps oder die Nutzung von WebWorkern für Multithreading.
+
+Moderne Browser führen JavaScript in einer Eventschleife aus, bei welcher eingehende Ereignisse, wie etwa ein Klick-Event oder die Generierung eines neuen Frames, zunächst in eine Warteschlange gefügt werden \parencite{mdncontributorsJavaScriptExecutionModel2025}. Aktuell findet die Ausführung der Validierungseinheit als ein einzelner Task der Eventschleife statt, wodurch alle anderen Tasks auf die vollständige Ausführung warten.
+
+Um diese Blockierung aufzubrechen, können JavaScript-Funktionen wie \textmono{setImmediate} oder \textmono{setTimeout} genutzt werden \parencite{mdncontributorsWindowSetImmediateMethod2024}. Die Nutzung dieser Funktionen ähnelt dem Konzept des kooperativen Multitasking und dem Browser wird die Erlaubnis gegeben, andere Elemente der Warteschleife abzuarbeiten, bevor mit dieser Funktion fortgefahren wird \parencite{sanchhayaeducationprivateltd.DifferencePreemptiveCooperative2024}.
+
+Alternativ ist die Nutzung von tatsächlichem Multithreading über WebWorker möglich \parencite{mdncontributorsWebWorkersAPI2025}. Hierdurch könnte die Berechnung aller Validierungen unabhängig von der Bildgenerierung erfolgen, jedoch müsste eine manuelle Übertragung aller Daten zwischen Haupt- und Nebenthreads erfolgen.
+
+\medskip
+
+Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Anwendungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über den Untergrund selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
+
+Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich beispielsweise eine Bank weit entfernt von dem Polygon einer Regel, wird trotzdem ein detaillierter Raytracing-Test durchgeführt. Hier könnte stattdessen eine simplere Bounding-Box zunächst klären, ob sich das Objekt überhaupt im näheren Umfeld der Areale befindet und genauer berechnet werden muss.
+
+\medskip
+
+Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems denkbar. Jedoch resultieren diese auf dem Referenzsystem erst bei einer Anzahl von über 1.000 Regeln in einem spürbaren Unterschied, da die blockierende Ausführung im Hauptthread darunter in der Zeit eines einzelnen Frames vollständig ausgeführt werden kann.
