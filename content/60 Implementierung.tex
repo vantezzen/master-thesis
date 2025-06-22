@@ -192,10 +192,6 @@ In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche
     \item \textmono{ThreeStore}: Dieses System speichert die Referenz zur aktuellen 3D-Szene. Die ist nötig, damit HTML-Elemente wie das Pop-up zum Hinzufügen neuer Objekte, auf Informationen der Szene zugreifen können.
 \end{enumerate}
 
-\subsection{Testing}
-
-// TODO
-
 \subsection{Darstellung und virtuelle Straßenumgebung}\label{subsection:Virtuelle Straßenumgebung}
 
 Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtuelle 3D-Sicht darzustellen, was vor allem für die Entwicklung des Systems sinnvoll ist. Da das aktuelle Validierungssystem auf Grundlage einer statischen GeoJSON-Konfiguration validiert und somit nicht abhängig von einer realen Umgebung ist, kann sowohl die AR- als auch die virtuelle Ansicht dieselbe Datengrundlage nutzen.
@@ -312,3 +308,13 @@ Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich beispi
 \medskip
 
 Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems denkbar. Jedoch resultieren diese auf dem Referenzsystem erst bei einer Anzahl von über 1.000 Regeln in einem spürbaren Unterschied, da die blockierende Ausführung im Hauptthread darunter in der Zeit eines einzelnen Frames vollständig ausgeführt werden kann.
+
+\subsection{Testing}
+
+Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest}\footnote{\url{https://vitest.dev/}} verwendet. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selber, dass Regeln korrekt ausgewertet werden, Edge-Cases korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
+
+Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systeme eingegriffen werden.
+
+Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
+
+Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validationssystem erreicht werden, um die korrekte Funktion zu gewährleisten.
