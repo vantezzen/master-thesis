@@ -145,6 +145,7 @@ Mithilfe dieser Vorüberlegungen kann schließlich ein finales Schema für \text
 // Tree.constraints.json
 {
 	"$schema": "https://arval.vantezzen.io/schemas/acs.schema.json",
+    "version": 1,
   "name": "Baum",
   "tags": ["tree", "plant", "nature"],
 
@@ -198,6 +199,7 @@ Listing \ref{lst:acs-example} zeigt ein Beispiel für ein Regelpaket eines Baums
 
 \begin{enumerate}
     \item \textmono{\$schema}: Über den Schema-Syntax kann Code-Editoren mitgeteilt werden, nach welchem JSON-Schema das Dokument geprüft werden soll. Über den Schlüssel \textmono{\$id} wird hierbei eine URL definiert, welche eine Konfiguration aller erlaubten Daten enthält.
+    \item \textmono{version}: Die genutzte Schema-Version. Dies erlaubt es, in der Zukunft Aktualisierungen am Schema vorzunehmen und Kompatibilität zur vorherigen Version aufrecht zu erhalten
     \item \textmono{name}: Der Name stellt einen lesbaren Namen für das Objekt dar und wird im späteren System insbesondere zur Erstellung lesbarer Fehlermeldungen wie „Der \textit{Baum} darf nicht auf dem \textit{Weg} gestellt werden“ genutzt.
     \item \textmono{tags}: Dieses Array definiert alle Tags, die diesem Objekt zugeordnet werden. Diese Liste sollte aus spezifischen (\textmono{tree}) bis generischen (\textmono{nature}) Tags zusammengesetzt werden.
     \item \textmono{transform}: Diese Liste definiert alle Regeln, welche bereits während der Bewegung des Objekts genutzt werden sollen. Diese Regeln sind für das AR-Basissystem von Bedeutung, da hierdurch die Transformation verändert wird.
@@ -276,6 +278,7 @@ Wird stattdessen ein invalider Attributname genutzt, wird dieser im Code-Editor 
 // Firetrucks.global-constraints.json
 {
   "$schema": "https://arval.vantezzen.io/schemas/agcs.schema.json",
+  "version": 1,
   "name": "Feuerwehr Wendekreise",
   "scope": "global",
 

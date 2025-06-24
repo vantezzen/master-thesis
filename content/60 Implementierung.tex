@@ -213,6 +213,17 @@ Am unteren Rand der Abbildung befindet sich die Funktionsleiste mit der Funktion
 
 Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für die Darstellung der Performance-Daten wird die Bibliothek \textit{r3f-perf}\footnote{\url{https://github.com/utsuboco/r3f-perf}} genutzt, welche automatisch die benötigte Zeit für das Rendering, die Bildrate, Anzahl der Dreiecke und Shader in der Szene darstellt. Zur Bibliothek wurde zusätzlich die Laufzeit des Validierungssystems in Millisekunden zur Durchführung von Performance-Messungen hinzugefügt. 
 
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth, angle=90]{abb/testwelt.png}
+\centering
+\caption{Aufbau Testwelt}
+\label{fig:testwelt}
+\end{figure}
+
+Abbildung \ref{fig:testwelt} stellt eine Vogelperspektive der Testwelt dar. Dunkelgraue Bereiche stellen Straßen dar, blaue Bereiche Fahrradwege, hellgraue Bereiche Gehwege und grüne Bereiche Grasflächen. Zusätzlich werden in Gelb Kreuzungsbereiche gekennzeichnet.
+
+Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen sowie verschiedene Constraint-Arten nutzen zu können.
+
 \subsection{Performance-Messung}
 
 Zur Verbesserung und Bewertung der Performance des Validierungssystems wurde eine zweiteilige Performance-Analyse durchgeführt.
@@ -285,7 +296,7 @@ Durch diese Annäherung an 17µs pro Test sowie Nutzung von Caches konnte ermitt
 
 Neben den umgesetzten Verbesserungen wurden weitere mögliche Verbesserungen ermittelt, welche in zukünftigen Iterationen und bei Bedarf von höherer Performance umsetzbar sind.
 
-Bei der ermittelten Annäherung an 17µs, welche pro Test benötigt werden, sowie einer angestrebten Bildrate von 60fps ($\approx 17ms$ pro Frame) ergeben sich eine Anzahl von $17.00017µs / 17µs = 1.000$ Regeln, welche in der Zeit eines Frames ausgewertet werden können. Realistisch ist diese Zahl jedoch geringer, da in diesen 17ms ebenfalls die eigentliche Bildgenerierung stattfinden muss.
+Bei der ermittelten Annäherung an 17$\mu s$, welche pro Test benötigt werden, sowie einer angestrebten Bildrate von 60fps ($\approx 17ms$ pro Frame) ergeben sich eine Anzahl von $17.000\mu s / 17\mu s = 1.000$ Regeln, welche in der Zeit eines Frames ausgewertet werden können. Realistisch ist diese Zahl jedoch geringer, da in diesen 17ms ebenfalls die eigentliche Bildgenerierung stattfinden muss.
 
 \medskip
 
