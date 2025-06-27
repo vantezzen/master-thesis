@@ -23,7 +23,7 @@ In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applicati
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/core-synced.png}
 \centering
-\caption{Klassendiagramm: Application Layer}
+\caption{Klassendiagramm: Application Layer (eigene Abbildung)}
 \label{fig:uml core system}
 \end{figure}
 
@@ -42,6 +42,8 @@ Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execu
 \medskip
 
 Die tatsächliche Ausführung der Logik erfolgt über Validatoren, welche auf der abtrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen positiv-Test auf den Constraint durchzuführen.
+
+Jeder Validator besitzt zusätzlich eine \textmono{validatesRule}-Funktion, mit welcher geprüft wird, ob der Validator für eine spezielle Regel verantwortlich ist. Durch die Umsetzung als freie Funktion anstatt als statischer Konfiguration ist es zukünftig möglich, ähnliche Regeltypen durch einen gemeinsamen Validator zu validieren oder Regeltypen mit komplexen Untertypen auf mehrere Validatoren aufzuteilen.
 
 Für die Erstellung der Validatoren wird das Factory Pattern angwendet, bei welchem die Factory-Funktion \textmono{createValidators} Instanzen aller Validatoren über den IoC-Container auflöst.
 
@@ -62,13 +64,64 @@ Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/validators-synced.png}
 \centering
-\caption{Klassendiagramm: Validatoren}
+\caption{Klassendiagramm: Validatoren (eigene Abbildung)}
 \label{fig:uml validators}
 \end{figure}
 
-Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zu einem Ausschnintt der konkreten Validatoren dar. Zentral sind hierbei vor allem der \textmono{SurfaceValidator} zur Validierung des Untergrunds, auf welchem das Objekt steht, \textmono{DistanceToValidator} zur Validierung der Abstands zu bestimmten Objektarten, sowie \textmono{AreaValidator} zur Validierung, ob sich das Objekt in einem bestimmten GeoJSON-Bereich befindet.
+Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zur Umsetzung der konkreten Validatoren dar. Es ist erkennbar, dass alle Validatoren jeweils von der abstrakten Klasse \textmono{Validator} vererben, und die konkreten Funktionen zur Validierung hinzufügen. 
 
-Für das System wird hierfür das Strategy Pattern implementiert, bei welchem die einzelnen Klassen die abstrakte Basisklasse erweitern, um geteilte Logik zu vererben, und erweitern diese mit konkreten Implementierungen der eigenen Validierung.
+Für das System wird hierfür das Strategy Pattern implementiert, um geteilte Logik zu vererben, und diese nur mit konkreten Implementierungen der eigenen Validierung zu erweitern.
+
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{abb/rules/rule surface.jpg}
+\centering
+\caption{Nutzung des SurfaceValidator (eigene Abbildung)}
+\label{fig:rule surface}
+\end{figure}
+
+Abbildung \ref{fig:rule surface} stellt die Umsetzung der Oberflächenvalidierung nach REQ-C-001 und REQ-C-002 dar. In der linken Hälfte ist erkennbar, wie eine Bank teilweise auf einen grauen Bereich eines asphaltierten Gehweges ragt und daher als ungültig markiert wird. Dagegen befindet sich in der rechten Hälfte die Sitzbank vollständig auf einer grünen Grasfläche und wird daher ohne Fehler gekennzeichnet.
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{abb/rules/rule distance.jpg}
+\centering
+\caption{Nutzung des DistanceValidator (eigene Abbildung)}
+\label{fig:rule distance}
+\end{figure}
+
+Abbildung \ref{fig:rule distance} stellt die Umsetzung der Abstandsvalidierung nach REQ-C-003 dar. Es ist erkennbar, wie in der linken Hälfte die Bank sich in der Nähe, jedoch nicht auf einer dunkelgrau dargestellten Straße befindet und aus diesem Grund ein Abstandsfehler dargestellt wird. In der rechten Hälfte hingegen wurde die Sitzbank weiter von der Straße entfernt und daher nicht mehr als fehlerhaft angezeigt.
+
+\begin{figure}[h]
+\includegraphics[width=0.6\textwidth]{abb/rules/rule intersection forbid.png}
+\centering
+\caption{Nutzung des IntersectionValidator (eigene Abbildung)}
+\label{fig:rule intersection forbid}
+\end{figure}
+
+Abbildung \ref{fig:rule intersection forbid} stellt zwei Sitzbänke dar, welcher ineinander platziert sind. Aufgrund des \textmono{IntersectionValidator} wird die jeweilige Bounding Box der Objekte verglichen, um Überschneidungen zu erkennen und diese als Fehler darzustellen.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{abb/rules/rule intersection.jpg}
+\centering
+\caption{Nutzung des IntersectionValidator über \quoted{allow-only} (eigene Abbildung)}
+\label{fig:rule intersection}
+\end{figure}
+
+Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Validators mittels der \quoted{allow-only} Methode dar. Hierdurch wird die Position nur akzeptiert, falls sich das Objekt vollständig einerhalb eines anderen Objekts befindet, um REQ-C-005 umzusetzen. In der linken Hälfte ist erkennbar, dass sich die Pflanze außerhalb des Pflanzkübels befindet und daher als nicht valide dargestellt wird. Hingegen in der rechten Hälfte wurde die Pflanze vollständig innerhalb des Kübels platziert und erhält daher keinen Fehler.
+
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{abb/rules/rule area.png}
+\centering
+\caption{Nutzung des AreaValidator (eigene Abbildung)}
+\label{fig:rule area}
+\end{figure}
+
+Zuletzt stellt Abbildung \ref{fig:rule area} die Nutzung der Prüfung nach einem bestimmten GeoJSON-Bereich dar. Hierfür wurde eine Kreisfläche als Feherwehr-Wendekreis definiert. In der Abbildung befindet sich die Sitzbank innerhalb dieses rot dargestellten Kreises und erhält daher einen Fehler.
+
+\medskip
+
+Eine Besonderheit unter den Validierungseinheiten stellt der \textmono{TransformationValidator} für Anforderung REQ-C-004 dar. Dieser Validierer greift direkt in das Basissystem ein, statt nur nachträglich über das Validierungssystem ausgeführt zu werden. Es baut daher als einzige Klasse nicht auf der abstrakten Grundklasse auf, sondern definiert eigene Funktionen zur direkten Prüfung der erlaubten Transformationen, welche wiederum direkt vom Basissystem genutzt werden.
 
 \subsubsection{Service-System: Infrastructure Layer}
 
@@ -77,13 +130,13 @@ Der Infrastructure Layer stellt diverse geteilte Services zur Verfügung, welche
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/services-synced.png}
 \centering
-\caption{Klassendiagramm: Infrastructure Layer}
+\caption{Klassendiagramm: Infrastructure Layer (eigene Abbildung)}
 \label{fig:uml infrastructure}
 \end{figure}
 
 Abbildung \ref{fig:uml infrastructure} zeigt ein UML Klassendiagramm des Aufbaus der Layers, wobei die einzelnen Services innerhalb der Validatoren mittels des IoC ServiceContainers aufgelöst werden.
 
-Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bestimmung, welche Untergrundarten sich unter einem Objekt befindet. Intern prüft diese Funktion, welcher Untergrund sich an den vier äußersten Ecken des Objekts befindet. Zur Berechnung der Ecken nutzt der Service daher den \textmono{SizeService}.
+Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bestimmung, welche Oberflächenarten sich unter einem Objekt befindet. Intern prüft diese Funktion, welche Oberfläche sich an den vier äußersten Ecken des Objekts befindet. Zur Berechnung der Ecken nutzt der Service daher den \textmono{SizeService}.
 
 Der \textmono{SizeService} stellt die Methode \textmono{getObjectSize} zur Berechnung der Eckpunkte eines Objekts anhand der Objektmodels, der eingestellten Größe, Position und Rotation. Aufgrund der Abhängigkeit des konkreten Objektmodels lädt und cached diese Klasse intern die Objektmodelle im Gltf-Format.
 
@@ -100,7 +153,7 @@ Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zustän
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/presentation-synced.png}
 \centering
-\caption{Klassendiagramm: Presentation Layer}
+\caption{Klassendiagramm: Presentation Layer (eigene Abbildung)}
 \label{fig:uml presentation}
 \end{figure}
 
@@ -126,7 +179,7 @@ Hierdurch bleiben Präsentationskomponenten input-agnostisch und werden passiv �
 
 \medskip
 
-Die Komponente \textmono{SegmentationVisualization} visualisiert die von der Geosegmentierung vorbereiteten Bereiche von Straßen, Gehwegen und Grasflächen - siehe Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}]. Dies ist vor allem für rein virtuelle Testumgebungen sinnvoll und um die GeoJSON-Areale in der AR-Umgebung über den realen Untergrund zu überlagern.
+Die Komponente \textmono{SegmentationVisualization} visualisiert die von der Geosegmentierung vorbereiteten Bereiche von Straßen, Gehwegen und Grasflächen - siehe Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}]. Dies ist vor allem für rein virtuelle Testumgebungen sinnvoll und um die GeoJSON-Areale in der AR-Umgebung über die realen Oberfläche zu überlagern.
 
 \medskip
 
@@ -206,7 +259,7 @@ Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtu
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{abb/arval-street.jpg}
 \centering
-\caption{Visuelle Ausgabe des Systems}
+\caption{Visuelle Ausgabe des Systems (eigene Abbildung)}
 \label{fig:arval-street}
 \end{figure}
 
@@ -223,7 +276,7 @@ Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth, angle=90]{abb/testwelt.png}
 \centering
-\caption{Aufbau Testwelt}
+\caption{Aufbau Testwelt (eigene Abbildung)}
 \label{fig:testwelt}
 \end{figure}
 
@@ -249,7 +302,7 @@ Aufgrund dieser Einschränkungen der Performance bilden die Laufzeiten nicht die
 
 \medskip
 
-In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{SurfaceValidator} zur Einschränkung des Untergrundtyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
+In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{SurfaceValidator} zur Einschränkung des Oberflächentyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
 
 Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrößen, jedoch wurde über den Dependency Injection Container für jede Regel eine eigene Instanz des Service erstellt. Aus diesem Grund wurde dieser interne Cache für jeden Durchlauf zurückgesetzt und das Objekt musste neu geladen werden. Über die explizite Deklaration des Service als Singleton konnte dieser Performance-Engpass schließlich gelöst werden, und die durchschnittliche Ausführungszeit auf 2-7ms reduziert werden.
 
@@ -263,12 +316,12 @@ Ein Aspekt zur Verringerung der Last auf den Prozessor wurde durch die Nutzung e
 
 \medskip
 
-Eine weitere Verbesserung wurde in der Bestimmung des Untergrunds durch die Umsetzung von Caching erzielt: bei Durchläufen der Validierungseinheit müssen meist mehrere Regel-Validatoren auf den Untergrundtyp des Objekts zugreifen, jedoch ist die Berechnung dieser Werte aufwändig mit der Interaktion in die Segmentierungseinheit, \textit{SizeService} sowie diverser Punktberechnungen über Three.js. Durch das Hinzufügen von Caching muss diese Berechnung nur einmal pro Durchlauf durchgeführt werden und kann daraufhin über alle Regeln verteilt genutzt werden. Die Berechnung kann in diesen Fällen von etwa 10ms pro Regel auf unter 1ms für nachfolgende Regeln reduziert werden.
+Eine weitere Verbesserung wurde in der Bestimmung der Oberfläche durch die Umsetzung von Caching erzielt: bei Durchläufen der Validierungseinheit müssen meist mehrere Regel-Validatoren auf den Oberflächentyp des Objekts zugreifen, jedoch ist die Berechnung dieser Werte aufwändig mit der Interaktion in die Segmentierungseinheit, \textit{SizeService} sowie diverser Punktberechnungen über Three.js. Durch das Hinzufügen von Caching muss diese Berechnung nur einmal pro Durchlauf durchgeführt werden und kann daraufhin über alle Regeln verteilt genutzt werden. Die Berechnung kann in diesen Fällen von etwa 10ms pro Regel auf unter 1ms für nachfolgende Regeln reduziert werden.
 
 \begin{figure}[h]
 \includegraphics[width=.6\textwidth]{abb/flamegraph.png}
 \centering
-\caption{Flame Graph nach der Verbesserung der Laufzeit}
+\caption{Flame Graph nach der Verbesserung der Laufzeit (eigene Abbildung)}
 \label{fig:flamegraph}
 \end{figure}
 
@@ -285,7 +338,7 @@ Als Referenzsystem wurde ein iPhone 13 Pro mit iOS 18.5 im Safari-Browser verwen
 \begin{figure}[h]
 \includegraphics[width=.8\textwidth]{abb/runtime per rule.png}
 \centering
-\caption{Laufzeit von Performancetests}
+\caption{Laufzeit von Performancetests (eigene Abbildung)}
 \label{fig:runtime per rule}
 \end{figure}
 
@@ -319,7 +372,7 @@ Alternativ ist die Nutzung von tatsächlichem Multithreading über WebWorker mö
 
 \medskip
 
-Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Anwendungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über den Untergrund selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
+Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Anwendungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über die Oberfläche selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
 
 Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich beispielsweise eine Bank weit entfernt von dem Polygon einer Regel, wird trotzdem ein detaillierter Raytracing-Test durchgeführt. Hier könnte stattdessen eine simplere Bounding-Box zunächst klären, ob sich das Objekt überhaupt im näheren Umfeld der Areale befindet und genauer berechnet werden muss.
 
@@ -336,6 +389,3 @@ Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit,
 Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
 
 Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validationssystem erreicht werden, um die korrekte Funktion zu gewährleisten.
-
-\subsection{Validierungen}
-
