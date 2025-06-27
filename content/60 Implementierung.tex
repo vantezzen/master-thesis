@@ -21,7 +21,7 @@ In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applicati
 \subsubsection{Kernsystem: Application Layer}\label{subsection:Kernsystem}
 
 \begin{figure}[h]
-\includegraphics[width=1\textwidth]{abb/uml core system.png}
+\includegraphics[width=1\textwidth]{abb/uml/core-synced.png}
 \centering
 \caption{Klassendiagramm: Application Layer}
 \label{fig:uml core system}
@@ -60,13 +60,13 @@ Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an 
 \medskip
 
 \begin{figure}[h]
-\includegraphics[width=1\textwidth]{abb/uml validators.png}
+\includegraphics[width=1\textwidth]{abb/uml/validators-synced.png}
 \centering
 \caption{Klassendiagramm: Validatoren}
 \label{fig:uml validators}
 \end{figure}
 
-Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zu einem Ausschnintt der konkreten Validatoren dar. Zentral sind hierbei vor allem der \textmono{UndergroundValidator} zur Validierung des Untergrunds, auf welchem das Objekt steht, \textmono{DistanceToValidator} zur Validierung der Abstands zu bestimmten Objektarten, sowie \textmono{AreaValidator} zur Validierung, ob sich das Objekt in einem bestimmten GeoJSON-Bereich befindet.
+Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zu einem Ausschnintt der konkreten Validatoren dar. Zentral sind hierbei vor allem der \textmono{SurfaceValidator} zur Validierung des Untergrunds, auf welchem das Objekt steht, \textmono{DistanceToValidator} zur Validierung der Abstands zu bestimmten Objektarten, sowie \textmono{AreaValidator} zur Validierung, ob sich das Objekt in einem bestimmten GeoJSON-Bereich befindet.
 
 Für das System wird hierfür das Strategy Pattern implementiert, bei welchem die einzelnen Klassen die abstrakte Basisklasse erweitern, um geteilte Logik zu vererben, und erweitern diese mit konkreten Implementierungen der eigenen Validierung.
 
@@ -75,7 +75,7 @@ Für das System wird hierfür das Strategy Pattern implementiert, bei welchem di
 Der Infrastructure Layer stellt diverse geteilte Services zur Verfügung, welche in den Validierungen gebraucht werden.
 
 \begin{figure}[h]
-\includegraphics[width=1\textwidth]{abb/uml infrastructure.png}
+\includegraphics[width=1\textwidth]{abb/uml/services-synced.png}
 \centering
 \caption{Klassendiagramm: Infrastructure Layer}
 \label{fig:uml infrastructure}
@@ -98,7 +98,7 @@ Insgesamt erlaubt diese Aufteilung in einen Infrastructure Layer, ein robustes S
 Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zuständig und zeigt generierte Validierungsergebnisse für den Nutzer an. Teile der grundlegenden Logik und Interaktionstechniken konnten aus der vorhergehenden Forschungsarbeit übernommen werden, ein Großteil des Systems wurde jedoch für die Anforderungen dieser Arbeit neu entwickelt. Die Behandlung der visuellen Ausgabe dieser Schicht erfolgt in Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}].
 
 \begin{figure}[h]
-\includegraphics[width=1\textwidth]{abb/uml presentation.png}
+\includegraphics[width=1\textwidth]{abb/uml/presentation-synced.png}
 \centering
 \caption{Klassendiagramm: Presentation Layer}
 \label{fig:uml presentation}
@@ -169,6 +169,12 @@ Listing \ref{lst:effectable} bietet ein einfaches Beispiel für die Nutzung der 
 
 \medskip
 
+Eine weitere Besonderheit stellt das Portalsystem für HTML-Elemente dar über die \textmono{PortalContent}-Komponente dar. Zur Darstellung von HTML-Elementen in einer AR-Ansicht bietet WebXR mit der Unterstützung von \quoted{DOM Overlay} Modulen eine Möglichkeit zur Mischung von 3D- und klassischem Webinhalten \parencite{w3cimmersivewebgroupWebXRDOMOverlays2025}.
+
+Dieses Modul unterstützt jedoch nur die Definition eines einzelnen HTML-Elements, welches dargestellt wird. Da diese Elemente jedoch über die verschiedenen Komponenten wie \textmono{ValidationErrors} und andere Visualisierungen verteilt sind, werden im System mehrere HTML-Elemente genutzt. Zur Lösung wurde daher ein Portal-System entwickelt, welches an beliebigen Stellen des Systems Komponenten innerhalb von \quoted{Portalen} darstellen kann. Statt diese Elemente direkt darzustellen, sammelt das Portal-System diese zunächst in einem zentralen Speicher und stellt diese separat innerhalb eines einzelnen DOM-Overlay Moduls dar. Ohne dieses System müssten die Komponenten aufwändig umstrukturiert und Informationen zu Inhalten einzelner Komponenten jeweils separat verteilt und ausgelesen werden.
+
+\medskip
+
 Zusammengefasst besteht die Delegationskette der UI aus folgenden Elementen:
 
 \begin{enumerate}
@@ -177,6 +183,7 @@ Zusammengefasst besteht die Delegationskette der UI aus folgenden Elementen:
   \item \textmono{CanvasObject} rendert \textmono{EffectableGltf}, \textmono{ValidationErrors}, \textmono{HighlightAreas}
   \item \textmono{InteractionConnector} abstrahiert Eingaben für alle Child-Komponenten
   \item \textmono{SegmentationVisualization} zeigt globale Kontextdaten an
+  \item Die einzelnen Subkomponenten fügen Elemente zum Portalsystem hinzu, welches schließlich über \textmono{PortalContent} gebündelt dargestellt wird
 \end{enumerate}
 
 Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validierungslogik und Rendering sauber entkoppelt bleiben.  Gleichzeitig erlaubt das Konzept die einfache Erweiterung um zusätzliche Visualisierungs- oder Interaktionsmodule, ohne bestehende Komponenten zu modifizieren.
@@ -242,7 +249,7 @@ Aufgrund dieser Einschränkungen der Performance bilden die Laufzeiten nicht die
 
 \medskip
 
-In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{UndergroundValidator} zur Einschränkung des Untergrundtyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
+In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{SurfaceValidator} zur Einschränkung des Untergrundtyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
 
 Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrößen, jedoch wurde über den Dependency Injection Container für jede Regel eine eigene Instanz des Service erstellt. Aus diesem Grund wurde dieser interne Cache für jeden Durchlauf zurückgesetzt und das Objekt musste neu geladen werden. Über die explizite Deklaration des Service als Singleton konnte dieser Performance-Engpass schließlich gelöst werden, und die durchschnittliche Ausführungszeit auf 2-7ms reduziert werden.
 
@@ -329,3 +336,6 @@ Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit,
 Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
 
 Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validationssystem erreicht werden, um die korrekte Funktion zu gewährleisten.
+
+\subsection{Validierungen}
+
