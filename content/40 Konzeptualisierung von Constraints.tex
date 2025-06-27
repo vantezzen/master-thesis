@@ -103,57 +103,55 @@ Insgesamt bestätigt das Interview sowohl die Relevanz als auch die Grenzen des 
 
 Es kann keine vollständige Abbildung der Relationen und Interessen aller Parteien abgebildet werden, da die Erstellung eines all-umfänglichen System für die Verwaltung aller Interessen weit über ARVal hinaus geht. Trotzdem können einige der grundlegenden Prüfungen automatisiert und formell abgebildet werden.
 
-\subsubsection{Analyse existierender Constraint-Systeme}\label{subsubsection:Analyse existierender Constraint-Systeme}
+\subsubsection{Analyse existierender Regelsysteme}\label{subsubsection:Analyse existierender Constraint-Systeme}
 
-Zusätzlich zum Experteninterview wurden für die Elicitation existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht.
-
-\medskip
+Zusätzlich zum Experteninterview wurden für die Elicitation existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht. Hierfür wurden vor allem eigene Erfahrungen mit den Systemen gesammelt sowie Videos über die Nutzung in komplexeren Projekten genutzt.
 
 \paragraph{CAD Software}
 
-Es wurden Anleitungen für die Programme \textit{AutoCAD} und \textit{Autodesk Fusion 360} genutzt, um die eingebauten Constraint-Systeme zu untersuchen.
+Es wurden Anleitungen für die Programme \textit{AutoCAD} und \textit{Autodesk Fusion 360} genutzt, um die eingebauten Regelsysteme zu untersuchen.
 
-\textit{AutoCAD} enthält für die Erstellung und Verwaltung von Constraints einen eigenen „Parametric“ Tab. Der Tab erlaubt vor allem das Hinzufügen von Relationen zwischen zwei Linien im Design. Hierdurch kann etwa vorgegeben werden, dass zwei Linien immer parallel sein müssen, die gleiche Länge besitzen müssen oder einen Eckpunkt besitzen müssen. Die hinzugefügten Constraints werden daraufhin neben den Linien als Icon dargestellt und während Veränderungen am Design durchgängig umgesetzt. Die meisten Constraints besitzen keine oder nur simple Parameter, etwa bei Constraint auf einen bestimmten Winkel. \parencite{micrographicsConstraintsParametersAutoCAD2021}
+\textit{AutoCAD} enthält für die Erstellung und Verwaltung von Regeln einen eigenen „Parametric“ Tab. Der Tab erlaubt vor allem das Hinzufügen von Relationen zwischen zwei Linien im Design. Hierdurch kann etwa vorgegeben werden, dass zwei Linien immer parallel sein müssen, die gleiche Länge besitzen müssen oder einen Eckpunkt besitzen müssen. Die hinzugefügten Regeln werden daraufhin neben den Linien als Icon dargestellt und während Veränderungen am Design durchgängig umgesetzt. Die meisten Regeln besitzen keine oder nur simple Parameter, etwa bei Regeln auf einen bestimmten Winkel. \parencite{micrographicsConstraintsParametersAutoCAD2021}
 
-Eine ähnliche Umsetzung existiert in Autodesk Fusion 360. Auch hier existiert eine eigene Constraint-Bar im Sketchmodus des Programms, über welche Relationen zwischen Objekten erstellt werden können. Die Constraints werden daraufhin ebenfalls mit einem Icon dargestellt und bei Veränderungen durchgesetzt. Als Besonderheit werden Objekte, welche „under-constrained“, also nicht vollständig gesichert sind, farblich hervorgehoben und sollten ausgebessert werden. \parencite{autodeskfusionSketchConstraintsMade2023}
+Eine ähnliche Umsetzung existiert in Autodesk Fusion 360. Auch hier existiert eine eigene Regel-Einheit im Sketchmodus des Programms, über welche Relationen zwischen Objekten erstellt werden können. Die Regeln werden daraufhin ebenfalls mit einem Icon dargestellt und bei Veränderungen durchgesetzt. Als Besonderheit werden Objekte, welche „under-constrained“, also nicht vollständig gesichert sind, farblich hervorgehoben und sollten ausgebessert werden. \parencite{autodeskfusionSketchConstraintsMade2023}
 
 \paragraph{3D-Modellierungs- und Animationssoftware}
 
-Zunächst wurde die Implementierung von Constraints in der 3D Open-source Software \textit{Blender} untersucht. Die Software besitzt, wie die untersuchten CAD-Software, einen separaten Constraint-Reiter, mit welcher Constraints zur Transformierung, Tracking, Relation zu anderen Objekten und Motion Tracking hinzugefügt werden können. \parencite{index3dAllConstraintsExplained2020}
+Zunächst wurde die Implementierung von Regeln in der 3D Open-source Software \textit{Blender} untersucht. Die Software besitzt, wie die untersuchten CAD-Software, einen separaten Regel-Reiter, mit welcher Regeln zur Transformierung, Tracking, Relation zu anderen Objekten und Motion Tracking hinzugefügt werden können. \parencite{index3dAllConstraintsExplained2020}
 
 \begin{figure}[h]
 \includegraphics[width=0.8\textwidth]{abb/blender-constraint list.png}
 \centering
-\caption{Blender Constraint-Liste \parencite{index3dAllConstraintsExplained2020}}
+\caption{Blender Regelliste \parencite{index3dAllConstraintsExplained2020}}
 \label{fig:blender constraint liste}
 \end{figure}
 
-Abbildung \ref{fig:blender constraint liste} zeigt die vollständige Liste der unterstützen Constraints. Hierzu zählen einfache Constraints wie „Copy Location“ für das Kopieren der Position des anderen Objekts, bis hin zu komplexeren Constraints wie „Follow Path“, womit das Objekt an einem anderen Objekt entlang fährt.
+Abbildung \ref{fig:blender constraint liste} zeigt die vollständige Liste der unterstützen Regeln. Hierzu zählen einfache Regeln wie „Copy Location“ für das Kopieren der Position des anderen Objekts, bis hin zu komplexeren Regeln wie „Follow Path“, womit das Objekt an einem anderen Objekt entlang fährt.
 
 \begin{figure}[h]
 \includegraphics[width=0.4\textwidth]{abb/blender-constraint parameter.png}
 \centering
-\caption{Blender Constraint-Parameter \parencite{index3dAllConstraintsExplained2020}}
+\caption{Blender Regelparameter \parencite{index3dAllConstraintsExplained2020}}
 \label{fig:blender constraint parameter}
 \end{figure}
 
-Im Gegensatz zu Constraints in den untersuchten CAD-Programmen können Constraints in Blender komplexere Parameter besitzen. Abbildung \ref{fig:blender constraint parameter} zeigt das Einstellungs-Panel für den „Copy Location“-Constraint. In den Einstellungen dieses Constraints kann das Target-Objekt, aber auch die zu kopierenden Achsen sowie deren Invertierung eingestellt werden.
+Im Gegensatz zu Regeln in den untersuchten CAD-Programmen können Regeln in Blender komplexere Parameter besitzen. Abbildung \ref{fig:blender constraint parameter} zeigt das Einstellungs-Panel für die „Copy Location“-Regel. In den Einstellungen dieser Regel kann das Target-Objekt, aber auch die zu kopierenden Achsen sowie deren Invertierung eingestellt werden.
 
-Zusätzlich besitzt der Constraint einen Influence-Parameter. Mit diesem kann die Veränderung am Objekt reduziert werden, beispielsweise, dass eine Veränderung um einen Meter am Quellobjekt nur eine Auswirkung um einen halben Meter auf das Zielobjekt umsetzt.
+Zusätzlich besitzt die Regel einen Influence-Parameter. Mit diesem kann die Veränderung am Objekt reduziert werden, beispielsweise, dass eine Veränderung um einen Meter am Quellobjekt nur eine Auswirkung um einen halben Meter auf das Zielobjekt umsetzt.
 
-Insgesamt bietet Blender ein komplexes, stark anpassbares Constraint-System an, mit welchem Objekte untereinander verbunden werden können. 
+Insgesamt bietet Blender ein komplexes, stark anpassbares Regelsystem an, mit welchem Objekte untereinander verbunden werden können. 
 
 Zusätzlich zu Blender wurde die 3D-Software \textit{Autodesk Maya} untersucht. Auch diese Software besitzt ein ähnliches System zu den untersuchten CAD-Anwendungen und bietet die Möglichkeit, verschiedenste Relationen zwischen Objekten zu modellieren. \parencite{uhrMayaBasicConstraints2018}
 
 \paragraph{Game Engine}
 
-Bei der Untersuchung von Constraints in Game-Engines scheinen zwischen Editor-Constraints und Game-Constraints unterschieden werden zu müssen. Editor-Constraints, analog zu Constraints in den anderen untersuchten Software, werden vom Entwickler im Interface zwischen zwei Objekten hinzugefügt und schränken beispielsweise die Bewegung ein. Auf der anderen Seite werden Game-Constraints während dem Spielen auf den Spieler oder die Welt angewandt, um z.B. die Platzierung oder Interaktion einzuschränken.
+Bei der Untersuchung von Regeln in Game-Engines scheinen zwischen Editor-Regeln und Spielregeln unterschieden werden zu müssen. Editor-Regeln, analog zu Regeln in den anderen untersuchten Software, werden vom Entwickler im Interface zwischen zwei Objekten hinzugefügt und schränken beispielsweise die Bewegung ein. Auf der anderen Seite werden Spielregeln während dem Spielen auf den Spieler oder die Welt angewandt, um z.B. die Platzierung oder Interaktion einzuschränken.
 
-\textit{Unity} besitzt eine Untersützung unterschiedlicher Editor-Constraints, ähnlich zu den Constraints in Blender \parencite{techhamlinLookConstraintsUnity2024}. Game-Constraints müssen jedoch stattdessen vom Entwickler selber hinzugefügt werden, beispielsweise durch Skripte oder unsichtbare Objekte \parencite{yeopBuiltRuleBasedAutoPlacement2025}. 
+\textit{Unity} besitzt eine Untersützung unterschiedlicher Editor-Regeln, ähnlich zu den Regeln in Blender \parencite{techhamlinLookConstraintsUnity2024}. Spielregeln müssen jedoch stattdessen vom Entwickler selber hinzugefügt werden, beispielsweise durch Skripte oder unsichtbare Objekte \parencite{yeopBuiltRuleBasedAutoPlacement2025}. 
 
 \paragraph{Videospiele}
 
-Das Videospiel \textit{Super Mario Maker 2} erlaubt es Spielern, eigene Level im Stil von Super Mario zu erstellen. Zwar gibt es keine Möglichkeit für Spieler:innen, eigene Constraints im Level zu definieren, jedoch erzwingt das Spiel bei der Erstellung von Leveln intern einige Regeln. \parencite{dr.badbeardSuperMarioMaker2019}
+Das Videospiel \textit{Super Mario Maker 2} erlaubt es Spielern, eigene Level im Stil von Super Mario zu erstellen. Zwar gibt es keine Möglichkeit für Spieler:innen, eigene Regeln im Level zu definieren, jedoch erzwingt das Spiel bei der Erstellung von Leveln intern einige Regeln. \parencite{dr.badbeardSuperMarioMaker2019}
 
 So prüft das Spiel etwa, dass Objekte nur in bestimmten Bereichen vorhanden sind oder nur bestimmt häufig vorkommen können - beispielsweise darf nur eine Ziellinie existieren. Sollte dies nicht erfüllt sein, wird das Objekt rot hinterlegt angezeigt oder die Auswahl im Menü wird vollständig deaktiviert.
 
@@ -163,13 +161,13 @@ Zuletzt muss die Spielbarkeit vor der Veröffentlichung nachgewiesen werden: Der
 
 \medskip
 
-Das Videospiel \textit{Roblox} bietet mit der Software \textit{Roblox Studio} eine eigene Game Engine-ähnliche Entwicklungsumgebung zur Erstellung von Welten innerhalb des Spiels. Ähnlich zu Unity bietet auch diese Software eine Reihe von Editor-Constraints an, Game-Constraints müssen jedoch vom Entwickler selbst umgesetzt werden. \parencite{arktalROBLOXBuildingHow2021}
+Das Videospiel \textit{Roblox} bietet mit der Software \textit{Roblox Studio} eine eigene Game Engine-ähnliche Entwicklungsumgebung zur Erstellung von Welten innerhalb des Spiels. Ähnlich zu Unity bietet auch diese Software eine Reihe von Editor-Regeln an, Spielregeln müssen jedoch vom Entwickler selbst umgesetzt werden. \parencite{arktalROBLOXBuildingHow2021}
 
 \medskip
 
-Zusammengefasst fokussieren sich Constraint-Systeme in existierender Software vor allem auf die feste Verkettung zwischen zwei oder mehr Objekten und weniger auf die Einschränkung und Validierung der Platzierung.
+Zusammengefasst fokussieren sich Regelsysteme in existierender Software vor allem auf die feste Verkettung zwischen zwei oder mehr Objekten und weniger auf die Einschränkung und Validierung der Platzierung.
 
-Software wie Blender zeigen auf, dass auch komplexe Constraints über ein visuelles Interface verwaltet werden können. Auf der anderen Seite fokussieren sich Videospiele wie Super Mario Maker vor allem auf die Simplizität und Intuitivität des Systems und setzen Regeln leichter verständlich um.
+Software wie Blender zeigen auf, dass auch komplexe Regeln über ein visuelles Interface verwaltet werden können. Auf der anderen Seite fokussieren sich Videospiele wie Super Mario Maker vor allem auf die Simplizität und Intuitivität des Systems und setzen Regeln leichter verständlich um.
 
 \subsection{Stakeholder und Nutzungsszenarien}\label{subsection:Stakeholder und Nutzungsszenarien}
 
@@ -188,7 +186,7 @@ Abbildung \ref{fig:Stakeholder Onion Model} stellt das entwickelte Onion-Model z
 
 Als primäre Nutzergruppe wurden Bürger:innen identifiziert, die das System aktiv zur Validierung ihrer AR-Platzierungen nutzen. Diese Gruppe steht in direktem Kontakt mit den Ausgaben des Systems und nutzen dieses, um die eigenen Vorschläge zu verbessern.
 
-Als sekundäre Nutzergruppe wurden Stadtplaner:innen eruiert, welche die Definition der Constraints über den auszuarbeitenden Constraint-Syntax definieren.
+Als sekundäre Nutzergruppe wurden Stadtplaner:innen eruiert, welche die Definition der Regeln über den auszuarbeitenden Regel-Syntax definieren.
 
 Ebenfalls sekundäre Nutzer, welche der Infrastruktur zugeordnet wurden, sind Verwaltungen, welche von den verbesserten Vorschlägen durch die Validierung profitieren.
 
@@ -208,7 +206,7 @@ Aufbauend auf den erarbeiteten Informationen zu Stakeholdern wurden User Stories
 
 Zu den User Stories für Bürger:innen zählen hierbei insbesondere solche, die sicherstellen, dass die Validierung schnell und verständlich stattfindet. Hierzu zählen Stories zur Darstellung eines Live-Status bei der Verschiebung und eine Auskunft durch die Hinterlegung des Objekts in roter Farbe.
 
-Für Stadtplaner:innen fokussieren sich die Stories auf die Definition der formalen Constraints sowie bestimmte Arten von Constraints - etwa Einschränkung der Rotation oder Untergründe.
+Für Stadtplaner:innen fokussieren sich die Stories auf die Definition der formalen Regeln sowie bestimmte Arten von Regeln - etwa Einschränkung der Rotation oder Untergründe.
 
 Für Entwickler:innen des Systems liegt der Fokus insbesondere auf die Erstellung eines stabilen, performanten Interfaces.
 
@@ -220,7 +218,7 @@ Die Use-Cases folgen dem Namensschema „UC-\textit{Bereich}-\textit{Nummer}“,
 
 Für die Validierung aus Sicht von Bürger:innen wurde hierbei als primäre Use Cases definiert, dass die Objektplatzierung validiert werden kann und während der Verschiebung von Objekten eine direkte Rückmeldung erfolgt.
 
-Für die Administration war der primäre Use Case das einfache Definieren und verwalten von Constraints der einzelnen Objekte.
+Für die Administration war der primäre Use Case das einfache Definieren und verwalten von Regeln der einzelnen Objekte.
 
 Zuletzt war es für die Entwicklung von hohem Wert, dass die Validierung über ein typisiertes Interface modular konsumiert werden kann.
 
@@ -239,7 +237,7 @@ Abbildung \ref{fig:Sequenz Validierung} zeigt das erstellte Sequenzdiagramm zur 
 
 Wenn der Bürger ein Objekt platziert oder verschiebt, ruft das Basissystem das neue Validierungssystem über die Schnittstelle \textmono{validate()} auf. Das Validierungssystem kann sich aus dem Basissystem die Daten über die Objekte und Platzierungen holen, um diese zu validieren.
 
-Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lasen und die enthaltenden Constraints prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide  zurückgemeldet werden und per visuellem Feedback dem Bürger dargestellt werden.
+Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lasen und die enthaltenden Regeln prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide  zurückgemeldet werden und per visuellem Feedback dem Bürger dargestellt werden.
 
 \subsection{Systemanforderungen}\label{subsection:Systemanforderungen}
 
@@ -247,27 +245,27 @@ Durch die strukturierte, iterative Bearbeitung der Stakeholder, Projektziele und
 
 Auf Basis dieser Informationen wurde nachfolgend eine finale Liste an Systemanforderungen erstellt. Die Anforderungen wurden anhand der 17 Regeln des SOPHIST-REgelwerks validiert und iteriert, um eindeutige, umsetzbare Ziele zu definieren \parencite[S. 174-191]{ruppRequirementsEngineeringUndManagement2021}
 
-Die Nummerierung erfolgt hierbei im IEEE-Format als „REQ-\textit{Typ}-\textit{Nummer}“, z.B. \textit{REQ-F-002} für eine funktionale Anforderung. Zusätzlich zu funktionalen (\textit{F}) und nicht-funktionalen (\textit{NF}) Anforderungen, werden zusätzlich Constraint-Anforderungen (\textit{C}) aufgeführt, für die konkreten Constraint-Arten, welche implementiert werden sollen.
+Die Nummerierung erfolgt hierbei im IEEE-Format als „REQ-\textit{Typ}-\textit{Nummer}“, z.B. \textit{REQ-F-002} für eine funktionale Anforderung. Zusätzlich zu funktionalen (\textit{F}) und nicht-funktionalen (\textit{NF}) Anforderungen, werden zusätzlich Regelanforderungen (\textit{C}) aufgeführt, für die konkreten Regelarten, welche implementiert werden sollen.
 
 \medskip
 
 Die Tabelle aller Systemanforderungen ist als Tabelle \ref{tab:Systemanforderungen} [S. \pageref{tab:Systemanforderungen}, \ref{anh:Systemanforderungen}] zu finden.
 
-Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schema-Funktionen (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisconstraints, welche aus der Elicitation-Phase erarbeitet wurden (z.B. REQ-C-001).
+Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schema-Funktionen (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisregeln, welche aus der Elicitation-Phase erarbeitet wurden (z.B. REQ-C-001).
 
-Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen des Constraint-Syntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
+Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen des Regelsyntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
 
 \subsubsection{Abgedeckte Objektklassen}
 
-Zur effektiven Prüfung des Validierungssystems soll eine kleine Auswahl von Objekten ermittelt werden, auf welche eine große Breite unterschiedlicher Constraints angewendet werden kann.
+Zur effektiven Prüfung des Validierungssystems soll eine kleine Auswahl von Objekten ermittelt werden, auf welche eine große Breite unterschiedlicher Regeln angewendet werden kann.
 
-Die Fokus liegt hierbei auf einer geringen Auswahl von Objekten mit einer großen Bandbreite von Constraints, anstatt einer großen Bandbreite von Objekten auf die größtenteils die gleichen Constraints angewendet werden müssen.
+Die Fokus liegt hierbei auf einer geringen Auswahl von Objekten mit einer großen Bandbreite von Regeln, anstatt einer großen Bandbreite von Objekten auf die größtenteils die gleichen Regeln angewendet werden müssen.
 
 Auf Basis der Ergebnisse der Elicitation-Phase (Kapitel \ref{subsection:Elicitation}) wurde eine Liste von geeigneten Objekten definiert.
 
 Zunächst wird eine Sitzbank als 3D-Basisobjekt gewählt. Diese bildet ein generisches Beispiel für viele ähnliche Objekte dar, etwa Fahrradständer, Laternen oder Sportfreizeitgeräte. Auf das Objekt können grundlegende Regeln wie eine Platzierung nur auf Grünflächen und eine Rotation nur um die y-Achse angewendet werden, ohne direkt eine zu hohe Spezialisierung zu benötigen. Das Objekt eignet sich daher gut, um als Erstes in das System implementiert zu werden und für die grundlegende Systemvalidierung zu dienen.
 
-Als zweites Element wurde ein Zebrastreifen gewählt. Diese Straßenmarkierung dient als Basisobjekt für ähnliche 2D-Objekte, ohne eine zu hohe Komplexität zu bieten. Das Objekt kann mit einer Standardbreite einer typischen 2-spurigen Straße angelegt werden und geht so nicht in den Out of Scope Bereich der komplexen Objektmanipulation ein. Auch bei diesem Objekt können einige Constraints wie die flache Platzierung und vollständiges Auflegen auf der Straße umgesetzt werden.
+Als zweites Element wurde ein Zebrastreifen gewählt. Diese Straßenmarkierung dient als Basisobjekt für ähnliche 2D-Objekte, ohne eine zu hohe Komplexität zu bieten. Das Objekt kann mit einer Standardbreite einer typischen 2-spurigen Straße angelegt werden und geht so nicht in den Out of Scope Bereich der komplexen Objektmanipulation ein. Auch bei diesem Objekt können einige Regeln wie die flache Platzierung und vollständiges Auflegen auf der Straße umgesetzt werden.
 
 Zuletzt können optional als finale Objekte ein Pflanzbeet und eine Pflanze hinzugefügt werden. Diese Objektkombination bietet eine interessante Kombination an, bei welcher eine Pflanze zwingend in einem Pflanzbeet stehen muss, andere Objekte jedoch nicht. Hierdurch können Interaktionen zwischen virtuellen Objekten validiert und umgesetzt werden.
 
@@ -287,8 +285,8 @@ Beispielsweise bei explorativen Beteiligungen oder grundlegender Neugestaltung v
       \hline
       Kreativitäts-Level & Bezeichnung & Umsetzung \\ \hline \hline
       0 & Standartmodus & Strikte Durchsetzung aller Regeln und Wertung als Fehler. \\ \hline
-      1 & Warnmodus & Prüfung aller Validierungen, jedoch wird Nicht-Einhaltung nur als Warnung gesehen. Geometrische Constraints (z.B. Verhinderung der Rotation) werden weiter strikt umgesetzt. \\ \hline
-      2 & Spielmodus & Nur geometrische Constraints werden umgesetzt. \\ \hline
+      1 & Warnmodus & Prüfung aller Validierungen, jedoch wird Nicht-Einhaltung nur als Warnung gesehen. Geometrische Regeln (z.B. Verhinderung der Rotation) werden weiter strikt umgesetzt. \\ \hline
+      2 & Spielmodus & Nur geometrische Regeln werden umgesetzt. \\ \hline
       3 & Kreativmodus & Keine Einschränkung der Platzierung, es können z.B. Objekte auch in der Luft platziert werden. \\
       \hline
     \end{tabular}
@@ -301,4 +299,4 @@ Tabelle \ref{tab:kreativitaets level} zeigt die ausgearbeiteten Kreativitäts-Le
 
 Im 0-Level werden alle Regeln strikt durchgesetzt und bei Fehlplatzierung ein Fehler gezeigt. Dieser Modus ist Standartmäßig aktiviert, um die freien Vorschläge strikt auf ihre Machbarkeit zu prüfen. Im 1-Level werden weiterhin alle Regeln ausgewertet, jedoch nur noch als Warnung angezeigt.
 
-Das Kreativitäts-Level 2 ist vor allem für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Constraints eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.
+Das Kreativitäts-Level 2 ist vor allem für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Regeln eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.

@@ -6,35 +6,35 @@ Das untersuchte Feld greift in viele Bereiche der Informatik und Human-Computer 
 
 Jeder der Einzelaspekte und Anwendungsbereichen beinhaltet hierbei eine große Bandbreite an existierender Forschung. Aus diesem Grund fokussieren sich die nachfolgenden Abschnitte primär auf Werke, welche stark relevant für die Implementierung des Zielsystems sind und neue Ansätze aufbringen.
 
-\subsection{Constraint-basierte Platzierung}
+\subsection{Regelbasierte Platzierung}
 
-\textcite{stuerzlingerValueConstraints3D2011a} demonstrieren in ihrer Arbeit den Mehrwert von Constraints für 3D Interfaces, um die Nutzerfreundlichkeit zu verbessern. Als Grundsatz stellen die Autoren hierfür auf, „humans are not necessarily as proficient in full 6DOF manipulation tasks as many believe“ \parencite[S. 9]{stuerzlingerValueConstraints3D2011a}. Die Möglichkeit einer uneingeschränkten Veränderung in 3D wird hierbei in Aufgaben der realen Welt kaum genutzt. So findet etwa das Laufen und Schauen in einem Flugzeug primär in vier Dimensionen statt, und weitere Dimensionen wie die Neigung des Kopfes wird nicht genutzt. Die Autoren stellen weiter auf, dass Aufgaben, welche alle DOF benötigen, nur mit speziellem, langjährigem Training möglich sind - darunter die Aufgabe von Astronauten.
+\textcite{stuerzlingerValueConstraints3D2011a} demonstrieren in ihrer Arbeit den Mehrwert von Regeln für 3D Interfaces, um die Nutzerfreundlichkeit zu verbessern. Als Grundsatz stellen die Autoren hierfür auf, „humans are not necessarily as proficient in full 6DOF manipulation tasks as many believe“ \parencite[S. 9]{stuerzlingerValueConstraints3D2011a}. Die Möglichkeit einer uneingeschränkten Veränderung in 3D wird hierbei in Aufgaben der realen Welt kaum genutzt. So findet etwa das Laufen und Schauen in einem Flugzeug primär in vier Dimensionen statt, und weitere Dimensionen wie die Neigung des Kopfes wird nicht genutzt. Die Autoren stellen weiter auf, dass Aufgaben, welche alle DOF benötigen, nur mit speziellem, langjährigem Training möglich sind - darunter die Aufgabe von Astronauten.
 
 Die Arbeit stellt hierfür zehn Richtlinien zur Einschränkung von 3D-Interfaces auf. Hierunter zählt unter anderem, dass nur sichtbare und keine verdeckten Objekte manipuliert werden können, oder dass die Rotation von Objekten auf logische Bewegungen reduziert wird. Als Beispiel wird hierzu ein Stuhl genannt, welcher eine feste Ausrichtung nach „oben“ erhält, da die Rotation um diese Achse sonst nicht sinnvoll ist.
 
 \medskip
 
-Mit dem Projekt des \textit{MIVE}-System haben \textcite{smith3DSceneManipulation2001} ein 3D-Programm mit Constraint-basierter Platzierung konzeptioniert und entwickelt. Als Teil des Systems werden \textit{binding areas}, wie die Unterseite einer Lampe, definiert. Diese Bereiche können im System auf \textit{offer areas} anderer Objekte, wie die Oberfläche eines Tisches platziert werden. Hierdurch ist es möglich, eine Hierarchie zwischen Objekten herzustellen und jederzeit auf eine valide Position zu prüfen. Diese Areale können im System frei und von der eigentlichen Geometrie getrennt platziert werden, um etwa eine \textit{offer area} vor einem Tisch anzubringen, um die Platzierung eines Stuhls an jener Stelle zu ermöglichen.
+Mit dem Projekt des \textit{MIVE}-System haben \textcite{smith3DSceneManipulation2001} ein 3D-Programm mit regelbasierter Platzierung konzeptioniert und entwickelt. Als Teil des Systems werden \textit{binding areas}, wie die Unterseite einer Lampe, definiert. Diese Bereiche können im System auf \textit{offer areas} anderer Objekte, wie die Oberfläche eines Tisches platziert werden. Hierdurch ist es möglich, eine Hierarchie zwischen Objekten herzustellen und jederzeit auf eine valide Position zu prüfen. Diese Areale können im System frei und von der eigentlichen Geometrie getrennt platziert werden, um etwa eine \textit{offer area} vor einem Tisch anzubringen, um die Platzierung eines Stuhls an jener Stelle zu ermöglichen.
 
 \medskip
 
 \textcite{grossElementsThatFollow1996} dokumentiert die Entwicklung des \textit{Construction Builder Kit (CBK)} Programms als eigene CAD-Software für Architektur.
-Ein großer Aspekt sind hierbei Schwierigkeiten, falls Constraints zwischen beweglichen Objekten erstellt und aufgelöst werden. Ein großes Problem ist hierbei unter anderen die zyklische Abhängigkeit bei der Validierung, welches in CBK durch die Einführung eines Dominanz-Werts gelöst wurde. Dieser Wert entscheidet bei Konflikten, welches Objekt nachgeben muss - sodass sich etwa beim Konflikt zwischen einer Wand und einem Rohr nicht die gesamte Wand verschiebt.
+Ein großer Aspekt sind hierbei Schwierigkeiten, falls Regeln zwischen beweglichen Objekten erstellt und aufgelöst werden. Ein großes Problem ist hierbei unter anderen die zyklische Abhängigkeit bei der Validierung, welches in CBK durch die Einführung eines Dominanz-Werts gelöst wurde. Dieser Wert entscheidet bei Konflikten, welches Objekt nachgeben muss - sodass sich etwa beim Konflikt zwischen einer Wand und einem Rohr nicht die gesamte Wand verschiebt.
 Eine weitere Schwierigkeit ist, dass durch jede Bewegung eines Objekts die Validierung aller anderen Objekte der Szene re-validiert werden muss. In CBK wurde dieses Problem durch die Einführung eines eigenständigen \textit{Constraint Management Moduls} gelöst.
 
 \medskip
 
-\textcite{vassionInvestigatingConstrainedObjects2023a} untersucht die Implementierung von Constraints innerhalb von Objekten in AR. Hierfür untersucht die Arbeit, wie reale Objekte, wie Hände, mit virtuellen Objekten interagieren können. Die Constraints werden hierbei direkt in die virtuellen Objekte anhand vorgegebener Constraint-typen integriert.
+\textcite{vassionInvestigatingConstrainedObjects2023a} untersucht die Implementierung von Regeln innerhalb von Objekten in AR. Hierfür untersucht die Arbeit, wie reale Objekte, wie Hände, mit virtuellen Objekten interagieren können. Die Regeln werden hierbei direkt in die virtuellen Objekte anhand vorgegebener Regeltypen integriert.
 
 Das Ergebnis der Arbeit liefert eine AR-Applikation, ähnlich wie die IKEA App, mit welcher virtuelle Möbel in die reale Umgebung platziert werden können. Der Unterschied zu bisherigen Lösungen ist es jedoch, dass mit den virtuellen Möbeln direkt interagiert werden kann, um beispielsweise eine virtuelle Schranktür mit den eigenen Händen zu öffnen.
 
-Das System wurde hierfür mittels der Unity Game Engine, der Vuforia AR Integration und eigenen Skripts für die Implementierung der Constraints umgesetzt.
+Das System wurde hierfür mittels der Unity Game Engine, der Vuforia AR Integration und eigenen Skripts für die Implementierung der Regeln umgesetzt.
 
 \medskip
 
-In vielen Fällen wird der Bereich der Objekt-Constraints zusammen mit der automatischen Platzierung von Objekten untersucht.
+In vielen Fällen wird der Bereich der Objektregeln zusammen mit der automatischen Platzierung von Objekten untersucht.
 
-\textcite{xuConstraintbasedAutomaticPlacement2002} entwickelt ein System zur vereinfachten Erstellung komplexer 3D-Szenen mit hunderten Einzelobjekten. Das Systemimplementiert hierfür vier elementare Constraint-Typen welche für eine optimale Platzierung nach einem Cost Optimization Algorithmus optimiert werden.
+\textcite{xuConstraintbasedAutomaticPlacement2002} entwickelt ein System zur vereinfachten Erstellung komplexer 3D-Szenen mit hunderten Einzelobjekten. Das Systemimplementiert hierfür vier elementare Regeltypen, welche für eine optimale Platzierung nach einem Cost Optimization Algorithmus optimiert werden.
 
 Ein Beispiel für die definierten Typen sind „Proximity Constraints“, welche ein Abstand zwischen Objekten vorgibt. Hierüber kann etwa definiert werden, dass ein Kühlschrank einen Maximalabstand zur nächsten Arbeitsplatte haben kann, oder dass ein Regal einen Minimalabstand zum nächsten Regal benötigt.
 
@@ -48,19 +48,19 @@ Als Ausblick wird hierbei gegeben, auch die Implementierung von abstrakten Klass
 
 \medskip
 
-\textcite{galFLAREFastLayout2014} ist eine Arbeit von Microsoft-Mitarbeitern im Zuge der Erstellung der Microsoft HoloLens und Unterstützung komplexer, mehrräumiger AR Applikationen. Die Arbeit konzeptioniert ein System zur automatischen, gleichzeitigen Platzierung mehrerer, unabhängiger AR Anwendungen im Raum und nutzt hierzu ebenfalls das Konzept der Regelbasierten Platzierung. Die Regeln werden hierbei von der jeweiligen Anwendung selber über eine eigene Skriptsprache pder API-Schnittstelle definiert und von der zentralen Einheit ausgewertet. Es wird hierzu ebenfalls versucht ein Cost Optimization über die Constraints jeder Anwendung durchzuführen.
+\textcite{galFLAREFastLayout2014} ist eine Arbeit von Microsoft-Mitarbeitern im Zuge der Erstellung der Microsoft HoloLens und Unterstützung komplexer, mehrräumiger AR Applikationen. Die Arbeit konzeptioniert ein System zur automatischen, gleichzeitigen Platzierung mehrerer, unabhängiger AR Anwendungen im Raum und nutzt hierzu ebenfalls das Konzept der Regelbasierten Platzierung. Die Regeln werden hierbei von der jeweiligen Anwendung selber über eine eigene Skriptsprache pder API-Schnittstelle definiert und von der zentralen Einheit ausgewertet. Es wird hierzu ebenfalls versucht ein Cost Optimization über die Regeln jeder Anwendung durchzuführen.
 
-Als Besonderheit können auch dem Environment als ganzes bestimmte Constraints hinzugefügt werden, etwa wie voll der gesamte Raum werden darf. Hierdurch kann sichergestellt werden, dass nicht nur jede einzelne Anwendung sondern auch das Gesamtwerk sinnvoll für den Nutzer erscheint und nicht überfordernd wirkt.
+Als Besonderheit können auch dem Environment als ganzes bestimmte Regeln hinzugefügt werden, etwa wie voll der gesamte Raum werden darf. Hierdurch kann sichergestellt werden, dass nicht nur jede einzelne Anwendung sondern auch das Gesamtwerk sinnvoll für den Nutzer erscheint und nicht überfordernd wirkt.
 
-Zur Optimierung der Constraint-Ausführung über die verschiedenen Ebenen wird das Konzept der \textit{Locally Satisfyable Rules} eingeführt. Diese Regeln beziehen sich nur auf das direkte Umfeld einer einzelnen Anwendung und können so ohne Beachtung des Gesamtraums schnell evaluriert werden.
+Zur Optimierung der Regelausführung über die verschiedenen Ebenen wird das Konzept der \textit{Locally Satisfyable Rules} eingeführt. Diese Regeln beziehen sich nur auf das direkte Umfeld einer einzelnen Anwendung und können so ohne Beachtung des Gesamtraums schnell evaluriert werden.
 
 \medskip
 
-\textcite{xuMethodologyModelling3D2017} fasst zusammen, dass Constraints in der Literatur in diverse Kategorien eingeteilt werden können. Zu den klassischen Typen zählen dabei \textit{domain constraints}, \textit{key and relationship structural constraints} sowie \textit{general semantic integrity constraints}. Diese wurden laut \textcite{cockcroftTaxonomySpatialData1997} um räumliche Klassen wie \textit{topological}, \textit{semantic} und \textit{user-defined constraints} erweitert. Eine weiterführende Detaillierung findet sich bei \textcite{louwsmaSpecifyingImplementingConstraints2006}, die zusätzlich \textit{directional}, \textit{metric}, \textit{temporal}, \textit{quantity}, \textit{thematic}, \textit{topological} und \textit{mixed relationships} als Kategorien vorschlagen. \textcite{xuMethodologyModelling3D2017} selber führt die Einteilung hierbei in \textit{general-level constraints}, \textit{parameterised constraints}, Constraints für Ausnahmefälle sowie Constraints für die Darstellung über mehrere Level of Detail (LoD) durch.
+\textcite{xuMethodologyModelling3D2017} fasst zusammen, dass Regeln in der Literatur in diverse Kategorien eingeteilt werden können. Zu den klassischen Typen zählen dabei \textit{domain constraints}, \textit{key and relationship structural constraints} sowie \textit{general semantic integrity constraints}. Diese wurden laut \textcite{cockcroftTaxonomySpatialData1997} um räumliche Klassen wie \textit{topological}, \textit{semantic} und \textit{user-defined constraints} erweitert. Eine weiterführende Detaillierung findet sich bei \textcite{louwsmaSpecifyingImplementingConstraints2006}, die zusätzlich \textit{directional}, \textit{metric}, \textit{temporal}, \textit{quantity}, \textit{thematic}, \textit{topological} und \textit{mixed relationships} als Kategorien vorschlagen. \textcite{xuMethodologyModelling3D2017} selber führt die Einteilung hierbei in \textit{general-level constraints}, \textit{parameterised constraints}, Regeln für Ausnahmefälle sowie Regeln für die Darstellung über mehrere Level of Detail (LoD) durch.
 
-Die Vielzahl dieser Typen verdeutlicht, dass Constraints je nach Anwendungsdomäne sehr unterschiedliche Eigenschaften besitzen können – etwa in Bezug auf ihre räumliche, semantische oder zeitliche Dimension. Für die Entwicklung eines constraint-basierten Validierungssystems im Kontext städtischer AR-Planung ist daher eine differenzierte Betrachtung und Auswahl geeigneter Constraint-Typen erforderlich. Eine genauere Klassifizierung und Adaption erfolgt in Kapitel~\ref{section:Konzeptualisierung eines Constraint-Systems}.
+Die Vielzahl dieser Typen verdeutlicht, dass Regeln je nach Anwendungsdomäne sehr unterschiedliche Eigenschaften besitzen können – etwa in Bezug auf ihre räumliche, semantische oder zeitliche Dimension. Für die Entwicklung eines regelbasierten Validierungssystems im Kontext städtischer AR-Planung ist daher eine differenzierte Betrachtung und Auswahl geeigneter Regeltypen erforderlich. Eine genauere Klassifizierung und Adaption erfolgt in Kapitel~\ref{section:Konzeptualisierung eines Constraint-Systems}.
 
-\subsection{Syntax zur Constraint-Definition}
+\subsection{Syntax zur Regeldefinition}
 
 Die Definition und Auswertung von Regeln zur Platzierung von Objekten findet in diverser Kreativsoftware Anwendung. Die Speicherung und Auswertung der Regeln findet in unterschiedlichen eigenen Sprachen und Syntax statt. Die verschiedenen Ansätze werden in diesem Kapitel jeweils kurz beleuchtet, eine genauere Analyse und Klassifizierung möglicher Syntax findet stattdessen in Kapitel \ref{section:Konzeptualisierung eines Constraint-Systems} statt.
 
@@ -70,7 +70,7 @@ Im Bereich des BIM werden detaillierte Modelle von Neubauten erstellt, um Vorgä
 
 \medskip
 
-\textcite{kalogianniINTERLISLanguageModelling2017} beschreibt das \textit{INTERLIS}-System welches in der Schweiz zur Führung des Landes-Kataster genutzt wird. Es enthält neben der Geometrie auch Informationen zu Attributen, sozialen sowie rechtlichen Semantiken bestimmter Grundstücke in 3D. \textit{INTERLIS} als Gesamtsystem ist umfangreich und umfasst viele Phasen und Funktionen, von der ersten Stadtplanung bis zur vollständigen Verwaltung. Die Forscher des Systems haben eine Reihe an Arbeiten zu den Details veröffentlicht, das behandelte Paper geht hierbei jedoch unter anderem auf die Konzeption des Constraint-Systems ein.
+\textcite{kalogianniINTERLISLanguageModelling2017} beschreibt das \textit{INTERLIS}-System welches in der Schweiz zur Führung des Landes-Kataster genutzt wird. Es enthält neben der Geometrie auch Informationen zu Attributen, sozialen sowie rechtlichen Semantiken bestimmter Grundstücke in 3D. \textit{INTERLIS} als Gesamtsystem ist umfangreich und umfasst viele Phasen und Funktionen, von der ersten Stadtplanung bis zur vollständigen Verwaltung. Die Forscher des Systems haben eine Reihe an Arbeiten zu den Details veröffentlicht, das behandelte Paper geht hierbei jedoch unter anderem auf die Konzeption des Regelsystems ein.
 
 Die Arbeit stellt zunächst die Object Constraint Language (OCL) vor, welche als Erweiterung von UML fungiert. Diese ermöglicht es, zwischen vorher entwickelten UML-Modellen Regeln aufzustellen. Als zentraler Nachteil wird jedoch genannt, dass die in OCL definierten Regeln primär in der Phase des Systems Engineering Anwendung finden und nicht direkt in Programmiercode umgewandelt oder ausgewertet werden können.
 
@@ -85,7 +85,7 @@ END Bench;
 \end{lstlisting}
 
 
-Constraints in \textit{INTERLIS} werden stattdessen über die eigene \textit{INTERLIS constraint language} definiert. Listing \ref{lst:interlis} bietet ein Beispiel für eine vollständige Constraint-Definition, abgeleitet für den Anwendungsfall dieser Arbeit. Der Code definitiert zunächst die Klasse „Bench“, welches von der Grundklasse „Furniture“ ableitet. Für die Klasse werden die Attribute der Position und Oberfläche des Untergrunds definiert. Über das Stichwort „Mandatory Constraint“ kann schließlich eine Regel definiert werden, dass die Bank nur auf Gras oder Sand gestellt werden darf.
+Regeln in \textit{INTERLIS} werden stattdessen über die eigene \textit{INTERLIS constraint language} definiert. Listing \ref{lst:interlis} bietet ein Beispiel für eine vollständige Regeldefinition, abgeleitet für den Anwendungsfall dieser Arbeit. Der Code definitiert zunächst die Klasse „Bench“, welches von der Grundklasse „Furniture“ ableitet. Für die Klasse werden die Attribute der Position und Oberfläche des Untergrunds definiert. Über das Stichwort „Mandatory Constraint“ kann schließlich eine Regel definiert werden, dass die Bank nur auf Gras oder Sand gestellt werden darf.
 
 \medskip
 
@@ -106,7 +106,7 @@ Trotz dieser mathematischen Korrektheit der Regeln weisen die Autoren darauf hin
 
 \medskip
 
-\textcite{schwabeBIMApplicationsRuleBased2016a} stellt die vier elementaren Schritte für die Erstellung eines Constraint-Systems auf. In diesem System ist der erste Schritt die Überführung und Interpretation der Regeln in eine adäquate, maschinen-lesbare Sprache.
+\textcite{schwabeBIMApplicationsRuleBased2016a} stellt die vier elementaren Schritte für die Erstellung eines Regelsystems auf. In diesem System ist der erste Schritt die Überführung und Interpretation der Regeln in eine adäquate, maschinen-lesbare Sprache.
 
 Im zweiten Schritt müssen alle Objekte der 3D-Szene vorbereitet werden. Dies kann laut den Autoren etwa bedeuten, Objekten Parameter zuzuweisen, mit welchen diese in den Regeln gefiltert werden können.
 
@@ -130,7 +130,7 @@ Tabelle \ref{tab:bim table rule} zeigt eine vereinfachte Regeldefinition. Über 
 
 Die Autoren nehmen hierbei an diesem Ansatz jedoch selber Kritik vor, da es über dieses System kaum möglich ist, komplexe oder verschachtelte Regeln zu definieren. Als weiterer Kritikpunkt ist denkbar, dass die Reihenfolge und Anzahl der Parameter nur über die externe Dokumentation sichtbar wird und nicht direkt aus der Tabellenstruktur. 
 
-Ein interessantes Implementierungsdetail in der Arbeit ist es, dass die Klassen der „Regel“ und „Konflikt“ separat definiert sind. Hierdurch kann ein einzelne Regel 0-n Konflikte generieren und so auch komplexe, mehrteilige Konflikte darstellen.
+Ein interessantes Implementierungsdetail in der Arbeit ist es, dass die Klassen der „Regel“ und „Konflikt“ separat definiert sind. Hierdurch kann eine einzelne Regel 0-n Konflikte generieren und so auch komplexe, mehrteilige Konflikte darstellen.
 
 \medskip
 
@@ -140,7 +140,7 @@ Trotzdem ergeben sich über die verschiedenen Arbeite Gemeinsamkeiten. So wird i
 
 \subsection{Umgebungssegmentierung}\label{subsection:Umgebungssegmentierung}
 
-Für die Umsetzung des Constraint-Systems ist es nötig, die Elemente in der Umgebung des Nutzers zu segmentieren. Das System kann etwa eine Regel gegen die Platzierung auf einer Straße nur umsetzen, wenn es weiß, wo Straßen platziert sind.
+Für die Umsetzung des Regelsystems ist es nötig, die Elemente in der Umgebung des Nutzers zu segmentieren. Das System kann etwa eine Regel gegen die Platzierung auf einer Straße nur umsetzen, wenn es weiß, wo Straßen platziert sind.
 
 In \textcite{kasperiOcclusionOutdoorAugmented2017} wird ein System zur Okklusion von virtuellen Objekten hinter realen Gebäuden durch eine Integration zum Kartenanbieter OpenStreetMap (OSM) umgesetzt.
 

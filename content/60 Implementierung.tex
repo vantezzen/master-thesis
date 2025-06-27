@@ -1,6 +1,6 @@
-\section{Implementierung des Constraint-Systems}\label{section:Implementierung des Constraint-Systems}
+\section{Implementierung des Regelsystems}\label{section:Implementierung des Constraint-Systems}
 
-Das Constraint-System baut, wie in der Konzeptionalisierung aufgezeigt, auf den Ergebnissen der vorherigen Forschungsarbeiten auf.
+Das Regelsystem baut, wie in der Konzeptionierung aufgezeigt, auf den Ergebnissen der vorherigen Forschungsarbeiten auf. Der vollständige Code des Systems ist verfügbar auf \url{https://github.com/vantezzen/arval}.
 
 Als Basis der Codebasis wird das JavaScript Build-System \textit{Vite} genutzt \parencite{voidzeroinc.Vite2025}. Das System automatisiert den für moderne Webanwendungen nötigen Übersetzungs- und Optimierungsprozess, bei welchem der Quelltext in TypeScript in eine für Browser interpretierbare Ausgabe umgewandelt wird. Vite löst hierfür Modulabhängigkeiten auf und bündelt statische Ressourcen, wodurch ein lauffähiges Artefakt entsteht.
 
@@ -14,20 +14,20 @@ Der Code für React-Anwendungen geschieht durch einen funktionalen Codestil, der
 
 \subsection{Aufbau des Codes}
 
-Die Codebasis wurde in drei Haupteinheiten geteilt: Der Application Layer stellt den Kern des Validierungssystem und ist für das Parsing und Auswerten von Validierungen zuständig. Der Infrastructure Layer stellt Hilfssysteme für die Auswertung, darunter etwa zur Segmentierung der Umgebung. Zuletzt ist der Presentation Layer für die Darstellung der 3D Objekte und Validierungsergebnisse über React-Three-Fiber zuständig.
+Die Codebasis wurde in drei Haupteinheiten geteilt: Die Applikationsschicht stellt den Kern des Validierungssystem und ist für das Parsing und Auswerten von Validierungen zuständig. Die Infrastrukturschicht stellt Hilfssysteme für die Auswertung, darunter etwa zur Segmentierung der Umgebung. Zuletzt ist die Präsentationsschicht für die Darstellung der 3D Objekte und Validierungsergebnisse über React-Three-Fiber zuständig.
 
-In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Application und Infrastructure zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst werden. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
+In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikation und Infrastruktur zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen, wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript-Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst werden. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
 
-\subsubsection{Kernsystem: Application Layer}\label{subsection:Kernsystem}
+\subsubsection{Kernsystem: Applikationsschicht}\label{subsection:Kernsystem}
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/core-synced.png}
 \centering
-\caption{Klassendiagramm: Application Layer (eigene Abbildung)}
+\caption{Klassendiagramm: Applikationsschicht (eigene Abbildung)}
 \label{fig:uml core system}
 \end{figure}
 
-Abbildung \ref{fig:uml core system} zeigt ein UML Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Deligierung der Aufgaben an die einzelnen Subklassen unternimmt und für den Presentation Layer eine einheitliche API bereitstellt. Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
+Abbildung \ref{fig:uml core system} zeigt ein UML Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Deligierung der Aufgaben an die einzelnen Subklassen unternimmt und für die Präsentationsschicht eine einheitliche API bereitstellt. Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
 
 Wie zuvor aufgezeigt erfolgt die Auflösung der Verbindungen zu den Subklassen über den Dependency Injection IoC-Container, um die einzelnen Aufgaben weiterzugeben.
 
@@ -35,40 +35,40 @@ Zur zentralen Verwaltung aller Objekte wurde eine Klasse \textmono{Object} umges
 
 \medskip
 
-Zunächst ruft der Delegator daraufhin die Klasse \textmono{ValidationRuleResolver} mit der Funktion \textmono{resolveRulesetForObject} auf. Diese Klasse lädt alle Constraint-Rulset Dateien, um die objektspezifischen Regeln über die interne Methode \textmono{resolveDirectRulesetsForObject} sowie global anwendbaren Regeln über die interne Methode \textmono{resolveGlobalRulesForTags} aufzulösen. Alle anwendbaren Regeln werden schließlich zu einem \textmono{ResolvedRuleset} verbunden, welches von späteren Einheiten ausgeführt werden kann.
+Zunächst ruft der Delegator daraufhin die Klasse \textmono{ValidationRuleResolver} mit der Funktion \textmono{resolveRulesetForObject} auf. Diese Klasse lädt alle Regelset-Dateien, um die objektspezifischen Regeln über die interne Methode \textmono{resolveDirectRulesetsForObject} sowie global anwendbaren Regeln über die interne Methode \textmono{resolveGlobalRulesForTags} aufzulösen. Alle anwendbaren Regeln werden schließlich zu einem \textmono{ResolvedRuleset} verbunden, welches von späteren Einheiten ausgeführt werden kann.
 
-Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execute(object: Object, rules: ResolvedRuleset)} des \textmono{ValidationExecutor} auf. Innerhalb dieser Methode werden die benötigten Validatoren erstellt und ausgeführt.
-
-\medskip
-
-Die tatsächliche Ausführung der Logik erfolgt über Validatoren, welche auf der abtrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen positiv-Test auf den Constraint durchzuführen.
-
-Jeder Validator besitzt zusätzlich eine \textmono{validatesRule}-Funktion, mit welcher geprüft wird, ob der Validator für eine spezielle Regel verantwortlich ist. Durch die Umsetzung als freie Funktion anstatt als statischer Konfiguration ist es zukünftig möglich, ähnliche Regeltypen durch einen gemeinsamen Validator zu validieren oder Regeltypen mit komplexen Untertypen auf mehrere Validatoren aufzuteilen.
-
-Für die Erstellung der Validatoren wird das Factory Pattern angwendet, bei welchem die Factory-Funktion \textmono{createValidators} Instanzen aller Validatoren über den IoC-Container auflöst.
+Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execute(object: Object, rules: ResolvedRuleset)} des \textmono{ValidationExecutor} auf. Innerhalb dieser Methode werden die benötigten Validierungsmodule erstellt und ausgeführt.
 
 \medskip
 
-Durch die einzelnen Validatoren sowie den \textmono{ValidationExecutor} werden schließlich ein Array an \textmono{ValidationCheckResult} zurückgemeldet, welche Informationen über den Fehlerstatus sowie betroffene Bereiche der Szene liefern.
+Die tatsächliche Ausführung der Logik erfolgt über Validierungsmodule, welche auf der abtrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen positiv-Test auf den Regeln durchzuführen.
 
-Diese Information wird schließlich vom \textmono{ValidationOrchestrator} an die Subklasse \textmono{ValidationReporter} deligiert, welcher die einzelnen Fehler in zusammenhängende Fehlermeldungen zusammenfasst und über den \textmono{ErrorMessageService} formatiert.
+Jedes Validierungsmodul besitzt zusätzlich eine \textmono{validatesRule}-Funktion, mit welcher geprüft wird, ob es für eine spezielle Regel verantwortlich ist. Durch die Umsetzung als freie Funktion anstatt als statischer Konfiguration ist es zukünftig möglich, ähnliche Regeltypen durch ein gemeinsames Validierungsmodul zu validieren oder Regeltypen mit komplexen Untertypen auf mehrere Validierungsmodule aufzuteilen.
+
+Für die Erstellung der Validierungsmodule wird das Factory Pattern angewendet, bei welchem die Factory-Funktion \textmono{createValidators} Instanzen aller Validierungsmodule über den IoC-Container auflöst.
 
 \medskip
 
-Ein zentraler Aspekt des Containt-Syntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaten Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
+Durch die einzelnen Validierungsmodule sowie den \textmono{ValidationExecutor} werden schließlich ein Array an \textmono{ValidationCheckResult} zurückgemeldet, welche Informationen über den Fehlerstatus sowie betroffene Bereiche der Szene liefern.
 
-Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an den Presentation Layer gemeldet, damit diese dort dargestellt werden können.
+Diese Information wird schließlich vom \textmono{ValidationOrchestrator} an die Subklasse \textmono{ValidationReporter} delegiert, welcher die einzelnen Fehler in zusammenhängende Fehlermeldungen zusammenfasst und über den \textmono{ErrorMessageService} formatiert.
+
+\medskip
+
+Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaten Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
+
+Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an die Präsentationsschicht gemeldet, damit diese dort dargestellt werden können.
 
 \medskip
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/validators-synced.png}
 \centering
-\caption{Klassendiagramm: Validatoren (eigene Abbildung)}
+\caption{Klassendiagramm: Validierungsmodule (eigene Abbildung)}
 \label{fig:uml validators}
 \end{figure}
 
-Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zur Umsetzung der konkreten Validatoren dar. Es ist erkennbar, dass alle Validatoren jeweils von der abstrakten Klasse \textmono{Validator} vererben, und die konkreten Funktionen zur Validierung hinzufügen. 
+Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zur Umsetzung der konkreten Validierungsmodule dar. Es ist erkennbar, dass alle Validierungsmodule jeweils von der abstrakten Klasse \textmono{Validator} vererben, und die konkreten Funktionen zur Validierung hinzufügen. 
 
 Für das System wird hierfür das Strategy Pattern implementiert, um geteilte Logik zu vererben, und diese nur mit konkreten Implementierungen der eigenen Validierung zu erweitern.
 
@@ -107,7 +107,7 @@ Abbildung \ref{fig:rule intersection forbid} stellt zwei Sitzbänke dar, welcher
 \label{fig:rule intersection}
 \end{figure}
 
-Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Validators mittels der \quoted{allow-only} Methode dar. Hierdurch wird die Position nur akzeptiert, falls sich das Objekt vollständig einerhalb eines anderen Objekts befindet, um REQ-C-005 umzusetzen. In der linken Hälfte ist erkennbar, dass sich die Pflanze außerhalb des Pflanzkübels befindet und daher als nicht valide dargestellt wird. Hingegen in der rechten Hälfte wurde die Pflanze vollständig innerhalb des Kübels platziert und erhält daher keinen Fehler.
+Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Validierungsmoduls mittels der \quoted{allow-only} Methode dar. Hierdurch wird die Position nur akzeptiert, falls sich das Objekt vollständig einerhalb eines anderen Objekts befindet, um REQ-C-005 umzusetzen. In der linken Hälfte ist erkennbar, dass sich die Pflanze außerhalb des Pflanzkübels befindet und daher als nicht valide dargestellt wird. Hingegen in der rechten Hälfte wurde die Pflanze vollständig innerhalb des Kübels platziert und erhält daher keinen Fehler.
 
 
 \begin{figure}[h]
@@ -123,18 +123,18 @@ Zuletzt stellt Abbildung \ref{fig:rule area} die Nutzung der Prüfung nach einem
 
 Eine Besonderheit unter den Validierungseinheiten stellt der \textmono{TransformationValidator} für Anforderung REQ-C-004 dar. Dieser Validierer greift direkt in das Basissystem ein, statt nur nachträglich über das Validierungssystem ausgeführt zu werden. Es baut daher als einzige Klasse nicht auf der abstrakten Grundklasse auf, sondern definiert eigene Funktionen zur direkten Prüfung der erlaubten Transformationen, welche wiederum direkt vom Basissystem genutzt werden.
 
-\subsubsection{Service-System: Infrastructure Layer}
+\subsubsection{Service-System: Infrastrukturschicht}
 
-Der Infrastructure Layer stellt diverse geteilte Services zur Verfügung, welche in den Validierungen gebraucht werden.
+Die Infrastrukturschicht stellt diverse geteilte Services zur Verfügung, welche in den Validierungen gebraucht werden.
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/services-synced.png}
 \centering
-\caption{Klassendiagramm: Infrastructure Layer (eigene Abbildung)}
+\caption{Klassendiagramm: Infrastrukturschicht (eigene Abbildung)}
 \label{fig:uml infrastructure}
 \end{figure}
 
-Abbildung \ref{fig:uml infrastructure} zeigt ein UML Klassendiagramm des Aufbaus der Layers, wobei die einzelnen Services innerhalb der Validatoren mittels des IoC ServiceContainers aufgelöst werden.
+Abbildung \ref{fig:uml infrastructure} zeigt ein UML Klassendiagramm des Aufbaus der Schicht, wobei die einzelnen Services innerhalb der Validierungsmodule mittels des IoC ServiceContainers aufgelöst werden.
 
 Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bestimmung, welche Oberflächenarten sich unter einem Objekt befindet. Intern prüft diese Funktion, welche Oberfläche sich an den vier äußersten Ecken des Objekts befindet. Zur Berechnung der Ecken nutzt der Service daher den \textmono{SizeService}.
 
@@ -144,22 +144,22 @@ Der \textmono{SegmentationProvider} stellt schließlich eine Möglichkeit, auf d
 
 \medskip
 
-Insgesamt erlaubt diese Aufteilung in einen Infrastructure Layer, ein robustes Sharing von Logik, aber auch Caching-Informationen zwischen Objekt-Validierungen und Klassen.
+Insgesamt erlaubt diese Aufteilung in eine Infrastrukturschicht, ein robustes Sharing von Logik, aber auch Caching-Informationen zwischen Objekt-Validierungen und Klassen.
 
-\subsubsection{AR-Basissystem: Presentation Layer}
+\subsubsection{AR-Basissystem: Präsentationsschicht}
 
 Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zuständig und zeigt generierte Validierungsergebnisse für den Nutzer an. Teile der grundlegenden Logik und Interaktionstechniken konnten aus der vorhergehenden Forschungsarbeit übernommen werden, ein Großteil des Systems wurde jedoch für die Anforderungen dieser Arbeit neu entwickelt. Die Behandlung der visuellen Ausgabe dieser Schicht erfolgt in Kapitel \ref{subsection:Virtuelle Straßenumgebung} [S. \pageref{subsection:Virtuelle Straßenumgebung}].
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/uml/presentation-synced.png}
 \centering
-\caption{Klassendiagramm: Presentation Layer (eigene Abbildung)}
+\caption{Klassendiagramm: Präsentationsschicht (eigene Abbildung)}
 \label{fig:uml presentation}
 \end{figure}
 
 Abbildung \ref{fig:uml presentation} visualisiert den Aufbau der Komponenten des Systems. Jede Klasse verfolgt dabei das Single-Responsibility-Principle und übergibt Delegationen an ihre direkten Kind-Elemente. Im Folgenden werden die einzelnen Bausteine im Detail erläutert.
 
-Startpunkt für React während des Render-Vorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von react-three-fiber. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Scene-Graph-Management an \textmono{AppCanvasContent}.
+Startpunkt für React während des Render-Vorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von react-three-fiber. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Szenenmanagement an \textmono{AppCanvasContent}.
 
 \medskip
 
@@ -168,7 +168,7 @@ Innerhalb dieser 3D-Umgebung befindet sich vor allem die Subkomponente \textmono
 \begin{itemize}
   \item \textbf{Interaktionsfluss} über \textmono{InteractionConnector} (Eingabegeräte, Gesten)
   \item \textbf{Objektdarstellung} durch eine kollektive Instanziierung von \textmono{CanvasObject}
-  \item \textbf{Umgebungslayer} über \textmono{SegmentationVisualization}  
+  \item \textbf{Umgebungsschicht} über \textmono{SegmentationVisualization}  
 \end{itemize}
 
 \medskip
@@ -248,7 +248,7 @@ Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die
 In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche die vorgegebenen Daten speichern und Methoden zur Veränderung der Werte bereitstellen. ARVal definiert hierfür zwei Systeme:
 
 \begin{enumerate}
-    \item \textmono{ObjectStore}: Dieses System speichert die Liste aller \textmono{Object}-Instanzen (vgl. Kapitel \ref{subsection:Kernsystem} Kernsystem: Application Layer [S. \pageref{subsection:Kernsystem}]) sowie das aktuell editierte Objekt. Zur Verwaltung der Objekte stellt das System die Methoden \textmono{addObject}, \textmono{removeObject} sowie \textmono{setEditingObject} bereit.
+    \item \textmono{ObjectStore}: Dieses System speichert die Liste aller \textmono{Object}-Instanzen (vgl. Kapitel \ref{subsection:Kernsystem} Kernsystem: Applikationsschicht [S. \pageref{subsection:Kernsystem}]) sowie das aktuell editierte Objekt. Zur Verwaltung der Objekte stellt das System die Methoden \textmono{addObject}, \textmono{removeObject} sowie \textmono{setEditingObject} bereit.
     \item \textmono{ThreeStore}: Dieses System speichert die Referenz zur aktuellen 3D-Szene. Die ist nötig, damit HTML-Elemente wie das Pop-up zum Hinzufügen neuer Objekte, auf Informationen der Szene zugreifen können.
 \end{enumerate}
 
@@ -282,7 +282,7 @@ Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für
 
 Abbildung \ref{fig:testwelt} stellt eine Vogelperspektive der Testwelt dar. Dunkelgraue Bereiche stellen Straßen dar, blaue Bereiche Fahrradwege, hellgraue Bereiche Gehwege und grüne Bereiche Grasflächen. Zusätzlich werden in Gelb Kreuzungsbereiche gekennzeichnet.
 
-Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen sowie verschiedene Constraint-Arten nutzen zu können.
+Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen sowie verschiedene Regelarten nutzen zu können.
 
 \subsection{Performance-Messung}
 
@@ -308,7 +308,7 @@ Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrö�
 
 \medskip
 
-Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod}\footnote{\url{https://zod.dev/}} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validators fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
+Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod}\footnote{\url{https://zod.dev/}} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validierungsmoduls fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
 
 \medskip
 
@@ -316,7 +316,7 @@ Ein Aspekt zur Verringerung der Last auf den Prozessor wurde durch die Nutzung e
 
 \medskip
 
-Eine weitere Verbesserung wurde in der Bestimmung der Oberfläche durch die Umsetzung von Caching erzielt: bei Durchläufen der Validierungseinheit müssen meist mehrere Regel-Validatoren auf den Oberflächentyp des Objekts zugreifen, jedoch ist die Berechnung dieser Werte aufwändig mit der Interaktion in die Segmentierungseinheit, \textit{SizeService} sowie diverser Punktberechnungen über Three.js. Durch das Hinzufügen von Caching muss diese Berechnung nur einmal pro Durchlauf durchgeführt werden und kann daraufhin über alle Regeln verteilt genutzt werden. Die Berechnung kann in diesen Fällen von etwa 10ms pro Regel auf unter 1ms für nachfolgende Regeln reduziert werden.
+Eine weitere Verbesserung wurde in der Bestimmung der Oberfläche durch die Umsetzung von Caching erzielt: bei Durchläufen der Validierungseinheit müssen meist mehrere Regelvalidierungsmodule auf den Oberflächentyp des Objekts zugreifen, jedoch ist die Berechnung dieser Werte aufwändig mit der Interaktion in die Segmentierungseinheit, \textit{SizeService} sowie diverser Punktberechnungen über Three.js. Durch das Hinzufügen von Caching muss diese Berechnung nur einmal pro Durchlauf durchgeführt werden und kann daraufhin über alle Regeln verteilt genutzt werden. Die Berechnung kann in diesen Fällen von etwa 10ms pro Regel auf unter 1ms für nachfolgende Regeln reduziert werden.
 
 \begin{figure}[h]
 \includegraphics[width=.6\textwidth]{abb/flamegraph.png}
@@ -331,7 +331,7 @@ Im Hauptbereich des Graphs ist die Ausführung der Validierung erkennbar, von de
 
 \subsubsection{Skalierungsprofilierung}
 
-Im zweiten Schritt wurde daraufhin ein Performancetest zur Skalierung des Systems mit allen aktivierten Verbesserungen sowie dem Vite Produktivmodus getestet. Hierfür wurden die bisherigen Performance-Profiler, Flame Graph deaktiviert und automatisierte Code-Verbesserungen über Vite aktiviert, wodurch deutlich bessere und repräsentative Laufzeitergebisse erhalten wurden.
+Im zweiten Schritt wurde daraufhin ein Performancetest zur Skalierung des Systems mit allen aktivierten Verbesserungen sowie dem Vite Produktivmodus getestet. Hierfür wurden die bisherigen Performance-Profiler, Flame Graph deaktiviert und automatisierte Code-Verbesserungen über Vite aktiviert, wodurch deutlich bessere und repräsentative Laufzeitergebnisse erhalten wurden.
 
 Als Referenzsystem wurde ein iPhone 13 Pro mit iOS 18.5 im Safari-Browser verwendet. Über ein eigenes Skript \textmono{generatePerformanceTest} kann ein Regelset mit einer beliebigen Anzahl zufälliger, valider Regeln erstellt und zur Performancemessung genutzt werden. Es wurden jeweils der Durchschnitt über 100 Validierungsdurchläufe genommen, der erste Durchlauf des Systems wird jedoch ignoriert, da in diesem zunächst die internen Caches gefüllt werden.
 

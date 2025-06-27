@@ -1,10 +1,10 @@
-\section{Konzeptualisierung eines Constraint-Systems}\label{section:Konzeptualisierung eines Constraint-Systems}
+\section{Konzeptualisierung eines Regelsystems}\label{section:Konzeptualisierung eines Constraint-Systems}
 
-Das grundsätzliche Constraint-System soll zunächst auf den Erkenntnissen den vorangegangenen Forschungsprojekten aufbauen. 
+Das grundsätzliche Regelsystem soll zunächst auf den Erkenntnissen den vorangegangenen Forschungsprojekten aufbauen. 
 
 Für eine native Code-Entwicklung für Webumgebungen wird konzeptioniert, dass der Code in TypeScript umgesetzt werden sollte. Hierdurch können objektorientierte Coding Patterns wie Interfaces und abstrakte Klassen genutzt werden, sowie eine Typisierung innerhalb des Codes ermöglicht. 
 
-\subsection{Erstellung einer Syntax für Constraints}
+\subsection{Erstellung einer Syntax für Regeln}
 
 Die Erstellung einer Syntax zur Definition von Regeln für Objekte wird in dieser Arbeit als \textit{Domain Specific Language} (DSL) Engineering Aufgabe betrachtet. DSL sind solche Programmiersprachen, welche auf spezifische Anwendungsfälle spezialisiert sind und hierdurch eine höhere Ausdruckskraft und Nutzungsfreundlichkeit in diesem Feld als generische Sprachen erreichen können. Im Gegensatz zu generischen Programmiersprachen muss das Ziel einer DSL nicht zwingend sein, einen ausführbaren Code zu generieren, sondern kann vielmehr auch der Ausführung eines größeren Systems dienen. \parencite[S. 316f]{mernikWhenHowDevelop2005}
 
@@ -39,7 +39,7 @@ R-6 & Konzeptionelle Unterstützung boolscher Operationen (AND / OR) und Verscha
 R-7 & Unterstützung positiver und negativer Regeln \\ \hline
 R-8 & Unterstützung objektspezifischer und globaler Regelsätze \\ \hline
 \end{tabular}
-\caption{Anforderungen an die Constraint-Syntax}
+\caption{Anforderungen an die Regelsyntax}
 \label{tab:syntax-requirements}
 \end{table}
 
@@ -51,7 +51,7 @@ Bei Nutzung einer bestehenden Syntax (z.B. JSON, XML etc.) kann das Text-Parsing
 
 \medskip
 
-Durch R-2 wird definiert, dass der Syntax erweiterbar für neue Elemente und Methoden sein soll. Werden beispielsweise in Zukunft neue Segmentierungsarten wie „Kreuzungsbereich“ genutzt, soll das neue Element ohne eine Neudefinition der Syntax nutzbar sein. Analog soll beispielsweise das Hinzufügen neuer Constraint-Methoden wie „nur Vertikal zu ...“ ebenfalls ohne Neudefinition ermöglicht werden.
+Durch R-2 wird definiert, dass der Syntax erweiterbar für neue Elemente und Methoden sein soll. Werden beispielsweise in Zukunft neue Segmentierungsarten wie „Kreuzungsbereich“ genutzt, soll das neue Element ohne eine Neudefinition der Syntax nutzbar sein. Analog soll beispielsweise das Hinzufügen neuer Regelmethoden wie „nur Vertikal zu ...“ ebenfalls ohne Neudefinition ermöglicht werden.
 
 \medskip
 
@@ -87,7 +87,7 @@ R-7 fügt hinzu, dass die Sprache sowohl positiv (\textit{Muss}) als auch negati
 
 Zuletzt fügt R-8 hinzu, dass sowohl objektspezifische als auch globale Regelsätze erstellt werden sollen. Viele der Regeln beziehen sich auf einzelne Objekte, daher liegt hier vor ein Hauptfokus - beispielsweise, dass eine Bank nur am Wegesrand platziert werden darf. Jedoch gibt es auch solche Regeln, die auf verschiedenste Objekte angewendet werden müssen, darunter etwa Sperrflächen für Wendeflächen der Feuerwehr, auf welche außer Straßenmarkierungen keine Vorschläge jeglicher Objekttypen getätigt werden sollen.
 
-Um für diese Fälle eine Neudeklaration für jedes Objekt zu vermeiden, sollen globale Regelsätze unterstützt werden. Diese Regelsätze sollen im Validator mit den objektspezifischen Regeln kombiniert und ausgewertet werden, um ein zusammenhängendes Ergebnis zu formen.
+Um für diese Fälle eine Neudeklaration für jedes Objekt zu vermeiden, sollen globale Regelsätze unterstützt werden. Diese Regelsätze sollen in Validierungseinheiten mit den objektspezifischen Regeln kombiniert und ausgewertet werden, um ein zusammenhängendes Ergebnis zu formen.
 
 \medskip
 
@@ -101,7 +101,7 @@ Der dritte Schritt in der Syntax-Definition nach \textcite{mernikWhenHowDevelop2
 
 \medskip
 
-Zur Umsetzung von R-2 zur Erweiterbarkeit wurden bisherige Constraint-Systeme aus Kapitel \ref{section:Verwandte Arbeiten} und der Elicitation-Phase des Requirements Engineering untersucht.
+Zur Umsetzung von R-2 zur Erweiterbarkeit wurden bisherige Regelsysteme aus Kapitel \ref{section:Verwandte Arbeiten} und der Elicitation-Phase des Requirements Engineering untersucht.
 
 Viele der Sprachen besitzen Tagging-ähnliche Systeme wie \textit{Object Properties} \parencite{sydoraRulebasedComplianceChecking2020}, \textit{Attachable Scripts} \parencite{vassionInvestigatingConstrainedObjects2023a} oder Klassen \parencite{xuMethodologyModelling3D2017} zur Identifizierung von Objekten nach bestimmten Eigenschaften.
 
@@ -117,9 +117,9 @@ Die Nutzung eines Tagging-System ermöglicht zudem die Nutzung eines geeigneten 
 
 Zur Erfüllung der Anforderung R-1 soll das Konzept der Language Specification genutzt werden, um die Infrastruktur einer bestehenden Host-Sprache zu nutzen und für die eigenen DSL zu spezifizieren. 
 
-\textcite{mernikWhenHowDevelop2005} untersucht primär XML-basierte DSL. JSON bietet mittlerweile jedoch ebenfalls eine hohe Unterstützung zu bestehenden Werkzeugen an und besitzt mit JSON Schemas eine Möglichkeit, den Constraint-Syntax zu formalisieren und automatisch in bestehenden Code-Editoren validieren zu lassen \parencite{jsonschemaorganisationJSONSchema2025}.
+\textcite{mernikWhenHowDevelop2005} untersucht primär XML-basierte DSL. JSON bietet mittlerweile jedoch ebenfalls eine hohe Unterstützung zu bestehenden Werkzeugen an und besitzt mit JSON Schemas eine Möglichkeit, den Regelsyntax zu formalisieren und automatisch in bestehenden Code-Editoren validieren zu lassen \parencite{jsonschemaorganisationJSONSchema2025}.
 
-Neben dem JSON-basierten Ansatz wurden zusätzlich andere Ansätze als SQL-ähnliche Statements, Code-ähnliche Methodenaufrufe oder OCL-ähnliche Aussagen untersucht, welche in Listing \ref{lst:schemaformate} [S. \pageref{lst:schemaformate}, \ref{anh:Schemaformate}] dargestellt sind. Die untersuchten Formate ergeben sich aus anderen Constraint-Sprachen, welche in den vorherigen Kapiteln untersucht wurden.
+Neben dem JSON-basierten Ansatz wurden zusätzlich andere Ansätze als SQL-ähnliche Statements, Code-ähnliche Methodenaufrufe oder OCL-ähnliche Aussagen untersucht, welche in Listing \ref{lst:schemaformate} [S. \pageref{lst:schemaformate}, \ref{anh:Schemaformate}] dargestellt sind. Die untersuchten Formate ergeben sich aus anderen Regelsprachen, welche in den vorherigen Kapiteln untersucht wurden.
 
 Inhaltlich besitzen alle untersuchten Formate ähnliche Elemente, damit die aufgestellten Anforderungen an der Syntax erfüllt werden. So besitzt der Syntax jeweils eine Möglichkeit, um das Tagging des Objekts vorzunehmen, die Transformation einzuschränken und die Platzierung zu validieren. 
 
@@ -335,7 +335,7 @@ Zur Umsetzung oft identifizierter Visualisierungen in anderen Systemen sowie die
 
 Zunächst soll das Objekt bei Fehlplatzierung, ähnlich wie bei Software wie \textit{Super Mario Maker 2}, rot hinterlegt werden. Hierdurch kann zunächst ein generischer Fehlerstatus an den Nutzer gegeben werden, jedoch noch keine weiteren Informationen über die Ursache.
 
-Aus diesem Grund soll zusätzlich eine Nachricht unterhalb des Objekts gezeigt werden, welches die genauere Fehlerbeschreibung darstellt. Die Fehlermeldungen sollen aus den Begründungsinformationen der Constraints generiert werden, um eine Nachvollziehbarkeit für Nutzer zu ermöglichen.
+Aus diesem Grund soll zusätzlich eine Nachricht unterhalb des Objekts gezeigt werden, welches die genauere Fehlerbeschreibung darstellt. Die Fehlermeldungen sollen aus den Begründungsinformationen der Regeln generiert werden, um eine Nachvollziehbarkeit für Nutzer zu ermöglichen.
 
 Zuletzt sollen die Fehlerbereiche selber ebenfalls rot hinterlegt werden. Ist beispielsweise die Platzierung auf einer Straße nicht erlaubt, so soll die Straße als ganzes Rot hinterlegt werden. Hierdurch kann erhofft werden, dass die Bereiche verbotener Platzierung für Nutzer direkt ersichtlich werden und nicht erst erprobt werden müssen.
 
