@@ -4,19 +4,19 @@ Das Regelsystem baut, wie in der Konzeptionierung aufgezeigt, auf den Ergebnisse
 
 Als Basis der Codebasis wird das JavaScript Build-System \textit{Vite} genutzt \parencite{voidzeroinc.Vite2025}. Das System automatisiert den für moderne Webanwendungen nötigen Übersetzungs- und Optimierungsprozess, bei welchem der Quelltext in TypeScript in eine für Browser interpretierbare Ausgabe umgewandelt wird. Vite löst hierfür Modulabhängigkeiten auf und bündelt statische Ressourcen, wodurch ein lauffähiges Artefakt entsteht.
 
-Über den reinen Transpilationsschritt hinaus führt Vite in einem Produktionsbuild zusätzliche Optimierungen – etwa Code-Splitting, Tree-Shaking und Minifizierung – durch, um Ladezeiten und Bandbreitenbedarf zu minimieren.
+Über die reine Transpilation hinaus führt Vite in der Produktionsumgebung zusätzliche Optimierungen – etwa Code-Splitting, Tree-Shaking und Minifizierung – durch, um Ladezeiten und Bandbreitenbedarf zu minimieren.
 
 \medskip
 
-Wie in im Kapitel \ref{section:Technische Grundlagen} [S. \pageref{section:Technische Grundlagen}] zu technischen Grundlagen bereits aufgearbeitet, wird als Basis für die Darstellung React, react-three-fiber sowie die Erweiterung @react-three/xr genutzt.
+Wie in im Kapitel \ref{section:Technische Grundlagen} [S. \pageref{section:Technische Grundlagen}] zu technischen Grundlagen bereits aufgearbeitet, wird als Basis für die Darstellung React, RTF sowie die Erweiterung @react-three/xr genutzt.
 
-Der Code für React-Anwendungen geschieht durch einen funktionalen Codestil, der Rest des Validierungssystem soll jedoch über eine objektorientierte Architektur umgesetzt werden.
+Der Code für React-Anwendungen geschieht durch einen funktionalen Codestil, der Rest des Validierungssystems soll jedoch über eine objektorientierte Architektur umgesetzt werden.
 
 \subsection{Aufbau des Codes}
 
-Die Codebasis wurde in drei Haupteinheiten geteilt: Die Applikationsschicht stellt den Kern des Validierungssystem und ist für das Parsing und Auswerten von Validierungen zuständig. Die Infrastrukturschicht stellt Hilfssysteme für die Auswertung, darunter etwa zur Segmentierung der Umgebung. Zuletzt ist die Präsentationsschicht für die Darstellung der 3D Objekte und Validierungsergebnisse über React-Three-Fiber zuständig.
+Die Codebasis wurde in drei Haupteinheiten geteilt: Die Applikationsschicht stellt den Kern des Validierungssystems dar und ist für das Parsing und Auswerten von Validierungen zuständig. Die Infrastrukturschicht stellt Hilfssysteme für die Auswertung bereit, darunter etwa zur Segmentierung der Umgebung. Zuletzt ist die Präsentationsschicht für die Darstellung der 3D-Objekte und Validierungsergebnisse über RTF zuständig.
 
-In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikation und Infrastruktur zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen, wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript-Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst werden. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
+In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikation und Infrastruktur zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen, wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript-Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
 
 \subsubsection{Kernsystem: Applikationsschicht}\label{subsection:Kernsystem}
 
@@ -27,11 +27,11 @@ In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikati
 \label{fig:uml core system}
 \end{figure}
 
-Abbildung \ref{fig:uml core system} zeigt ein UML Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Deligierung der Aufgaben an die einzelnen Subklassen unternimmt und für die Präsentationsschicht eine einheitliche API bereitstellt. Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
+Abbildung \ref{fig:uml core system} zeigt ein UML-Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Delegierung der Aufgaben an die einzelnen Subklassen unternimmt und für die Präsentationsschicht eine einheitliche API bereitstellt. Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
 
 Wie zuvor aufgezeigt erfolgt die Auflösung der Verbindungen zu den Subklassen über den Dependency Injection IoC-Container, um die einzelnen Aufgaben weiterzugeben.
 
-Zur zentralen Verwaltung aller Objekte wurde eine Klasse \textmono{Object} umgesetzt. Diese Klasse enthält alle Informationen zum Objekttyp, Position, Skalierung, Rotation sowie einer Objekt ID zur eindeutigen Identifizierung einzelner Objekte im System. Zusätzlich setzt die Klasse das Observer Pattern durch die Implementierung eines \textmono{EventEmitters} um, wodurch alle Komponenten des Systems bei Veränderungen informiert werden.
+Zur zentralen Verwaltung aller Objekte wurde eine Klasse \textmono{Object} umgesetzt. Diese Klasse enthält alle Informationen zum Objekttyp, Position, Skalierung, Rotation sowie eine Objekt-ID zur eindeutigen Identifizierung einzelner Objekte im System. Zusätzlich setzt die Klasse das Observer-Pattern durch die Implementierung eines \textmono{EventEmitters} um, wodurch alle Komponenten des Systems bei Veränderungen informiert werden.
 
 \medskip
 
@@ -41,7 +41,7 @@ Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execu
 
 \medskip
 
-Die tatsächliche Ausführung der Logik erfolgt über Validierungsmodule, welche auf der abtrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen positiv-Test auf den Regeln durchzuführen.
+Die tatsächliche Ausführung der Logik erfolgt über Validierungsmodule, welche auf der abstrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen Positiv-Test auf den Regeln durchzuführen.
 
 Jedes Validierungsmodul besitzt zusätzlich eine \textmono{validatesRule}-Funktion, mit welcher geprüft wird, ob es für eine spezielle Regel verantwortlich ist. Durch die Umsetzung als freie Funktion anstatt als statischer Konfiguration ist es zukünftig möglich, ähnliche Regeltypen durch ein gemeinsames Validierungsmodul zu validieren oder Regeltypen mit komplexen Untertypen auf mehrere Validierungsmodule aufzuteilen.
 
@@ -51,11 +51,11 @@ Für die Erstellung der Validierungsmodule wird das Factory Pattern angewendet, 
 
 Durch die einzelnen Validierungsmodule sowie den \textmono{ValidationExecutor} werden schließlich ein Array an \textmono{ValidationCheckResult} zurückgemeldet, welche Informationen über den Fehlerstatus sowie betroffene Bereiche der Szene liefern.
 
-Diese Information wird schließlich vom \textmono{ValidationOrchestrator} an die Subklasse \textmono{ValidationReporter} delegiert, welcher die einzelnen Fehler in zusammenhängende Fehlermeldungen zusammenfasst und über den \textmono{ErrorMessageService} formatiert.
+Diese Information wird schließlich von der Klasse \textmono{ValidationOrchestrator} an die Subklasse \textmono{ValidationReporter} delegiert, welche die einzelnen Fehler in zusammenhängende Fehlermeldungen zusammenfasst und über den \textmono{ErrorMessageService} formatiert.
 
 \medskip
 
-Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaten Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
+Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaren Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
 
 Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an die Präsentationsschicht gemeldet, damit diese dort dargestellt werden können.
 
@@ -68,7 +68,7 @@ Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an 
 \label{fig:uml validators}
 \end{figure}
 
-Abbildung \ref{fig:uml validators} stellt ein weiteres UML Klassendiagramm zur Umsetzung der konkreten Validierungsmodule dar. Es ist erkennbar, dass alle Validierungsmodule jeweils von der abstrakten Klasse \textmono{Validator} vererben, und die konkreten Funktionen zur Validierung hinzufügen. 
+Abbildung \ref{fig:uml validators} stellt ein weiteres UML-Klassendiagramm zur Umsetzung der konkreten Validierungsmodule dar. Es ist erkennbar, dass alle Validierungsmodule jeweils von der abstrakten Klasse \textmono{Validator} vererben und die konkreten Funktionen zur Validierung hinzufügen. 
 
 Für das System wird hierfür das Strategy Pattern implementiert, um geteilte Logik zu vererben, und diese nur mit konkreten Implementierungen der eigenen Validierung zu erweitern.
 
@@ -80,7 +80,7 @@ Für das System wird hierfür das Strategy Pattern implementiert, um geteilte Lo
 \label{fig:rule surface}
 \end{figure}
 
-Abbildung \ref{fig:rule surface} stellt die Umsetzung der Oberflächenvalidierung nach REQ-C-001 und REQ-C-002 dar. In der linken Hälfte ist erkennbar, wie eine Bank teilweise auf einen grauen Bereich eines asphaltierten Gehweges ragt und daher als ungültig markiert wird. Dagegen befindet sich in der rechten Hälfte die Sitzbank vollständig auf einer grünen Grasfläche und wird daher ohne Fehler gekennzeichnet.
+Abbildung \ref{fig:rule surface} stellt die Umsetzung der Oberflächenvalidierung nach REQ-C-001 und REQ-C-002 dar. In der linken Hälfte ist erkennbar, wie eine Bank teilweise auf einen grauen Bereich eines asphaltierten Gehweges ragt und daher als ungültig markiert wird. Dagegen befindet sich in der rechten Hälfte die Sitzbank vollständig auf einer grünen Grasfläche und wird daher fehlerfrei gekennzeichnet.
 
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{abb/rules/rule distance.jpg}
@@ -89,7 +89,7 @@ Abbildung \ref{fig:rule surface} stellt die Umsetzung der Oberflächenvalidierun
 \label{fig:rule distance}
 \end{figure}
 
-Abbildung \ref{fig:rule distance} stellt die Umsetzung der Abstandsvalidierung nach REQ-C-003 dar. Es ist erkennbar, wie in der linken Hälfte die Bank sich in der Nähe, jedoch nicht auf einer dunkelgrau dargestellten Straße befindet und aus diesem Grund ein Abstandsfehler dargestellt wird. In der rechten Hälfte hingegen wurde die Sitzbank weiter von der Straße entfernt und daher nicht mehr als fehlerhaft angezeigt.
+Abbildung \ref{fig:rule distance} stellt die Umsetzung der Abstandsvalidierung nach REQ-C-003 dar. Es ist erkennbar, wie sich in der linken Hälfte die Bank in der Nähe, jedoch nicht auf einer dunkelgrau dargestellten Straße befindet und aus diesem Grund ein Abstandsfehler dargestellt wird. In der rechten Hälfte hingegen wurde die Sitzbank weiter von der Straße entfernt und daher nicht mehr als fehlerhaft angezeigt.
 
 \begin{figure}[h]
 \includegraphics[width=0.6\textwidth]{abb/rules/rule intersection forbid.png}
@@ -98,7 +98,7 @@ Abbildung \ref{fig:rule distance} stellt die Umsetzung der Abstandsvalidierung n
 \label{fig:rule intersection forbid}
 \end{figure}
 
-Abbildung \ref{fig:rule intersection forbid} stellt zwei Sitzbänke dar, welcher ineinander platziert sind. Aufgrund des \textmono{IntersectionValidator} wird die jeweilige Bounding Box der Objekte verglichen, um Überschneidungen zu erkennen und diese als Fehler darzustellen.
+Abbildung \ref{fig:rule intersection forbid} stellt zwei Sitzbänke dar, welche ineinander platziert sind. Aufgrund des \textmono{IntersectionValidator} wird die jeweilige Bounding-Box der Objekte verglichen, um Überschneidungen zu erkennen und diese als Fehler darzustellen.
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{abb/rules/rule intersection.jpg}
@@ -107,7 +107,7 @@ Abbildung \ref{fig:rule intersection forbid} stellt zwei Sitzbänke dar, welcher
 \label{fig:rule intersection}
 \end{figure}
 
-Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Validierungsmoduls mittels der \quoted{allow-only} Methode dar. Hierdurch wird die Position nur akzeptiert, falls sich das Objekt vollständig einerhalb eines anderen Objekts befindet, um REQ-C-005 umzusetzen. In der linken Hälfte ist erkennbar, dass sich die Pflanze außerhalb des Pflanzkübels befindet und daher als nicht valide dargestellt wird. Hingegen in der rechten Hälfte wurde die Pflanze vollständig innerhalb des Kübels platziert und erhält daher keinen Fehler.
+Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Validierungsmoduls mittels der \quoted{allow-only} Methode dar. Hierdurch wird die Position nur akzeptiert, falls sich das Objekt vollständig innerhalb eines anderen Objekts befindet, um REQ-C-005 umzusetzen. In der linken Hälfte ist erkennbar, dass sich die Pflanze außerhalb des Pflanzkübels befindet und daher als nicht valide dargestellt wird. Hingegen wurde in der rechten Hälfte die Pflanze vollständig innerhalb des Kübels platziert und erhält daher keinen Fehler.
 
 
 \begin{figure}[h]
@@ -117,7 +117,7 @@ Dahingegen stellt Abbildung \ref{fig:rule intersection} die Nutzung desselben Va
 \label{fig:rule area}
 \end{figure}
 
-Zuletzt stellt Abbildung \ref{fig:rule area} die Nutzung der Prüfung nach einem bestimmten GeoJSON-Bereich dar. Hierfür wurde eine Kreisfläche als Feherwehr-Wendekreis definiert. In der Abbildung befindet sich die Sitzbank innerhalb dieses rot dargestellten Kreises und erhält daher einen Fehler.
+Zuletzt stellt Abbildung \ref{fig:rule area} die Nutzung der Prüfung nach einem bestimmten GeoJSON-Bereich dar. Hierfür wurde eine Kreisfläche als Feuerwehr-Wendekreis definiert. In der Abbildung befindet sich die Sitzbank innerhalb dieses rot dargestellten Kreises und erhält daher einen Fehler.
 
 \medskip
 
@@ -134,17 +134,17 @@ Die Infrastrukturschicht stellt diverse geteilte Services zur Verfügung, welche
 \label{fig:uml infrastructure}
 \end{figure}
 
-Abbildung \ref{fig:uml infrastructure} zeigt ein UML Klassendiagramm des Aufbaus der Schicht, wobei die einzelnen Services innerhalb der Validierungsmodule mittels des IoC ServiceContainers aufgelöst werden.
+Abbildung \ref{fig:uml infrastructure} zeigt ein UML-Klassendiagramm des Aufbaus der Schicht, wobei die einzelnen Services innerhalb der Validierungsmodule mittels des IoC-Containers aufgelöst werden.
 
-Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bestimmung, welche Oberflächenarten sich unter einem Objekt befindet. Intern prüft diese Funktion, welche Oberfläche sich an den vier äußersten Ecken des Objekts befindet. Zur Berechnung der Ecken nutzt der Service daher den \textmono{SizeService}.
+Der \textmono{GroundService} stellt die Methode \textmono{getGroundType} zur Bestimmung, welche Oberflächenarten sich unter einem Objekt befinden. Intern prüft diese Funktion, welche Oberfläche sich an den vier äußersten Ecken des Objekts befindet. Zur Berechnung der Ecken nutzt der Service daher den \textmono{SizeService}.
 
-Der \textmono{SizeService} stellt die Methode \textmono{getObjectSize} zur Berechnung der Eckpunkte eines Objekts anhand der Objektmodels, der eingestellten Größe, Position und Rotation. Aufgrund der Abhängigkeit des konkreten Objektmodels lädt und cached diese Klasse intern die Objektmodelle im Gltf-Format.
+Der \textmono{SizeService} stellt die Methode \textmono{getObjectSize} zur Berechnung der Eckpunkte eines Objekts anhand des Objektmodells, der eingestellten Größe, Position und Rotation. Aufgrund der Abhängigkeit des konkreten Objektmodells lädt und cached diese Klasse intern die Objektmodelle im Gltf-Format.
 
-Der \textmono{SegmentationProvider} stellt schließlich eine Möglichkeit, auf die Segmentierungsinformationen an bestimmten Punkten des 3D-Raums zuzugreifen. Da die Segmentierung, wie in der Konzeptionierung ausgearbeitet, auf diverse Arten umgesetzt werden kann, geschieht dies über das generische Interface \textmono{SegmentationProvider} und die konkrete Implementierung \textmono{GeoJsonSegmentationProvider}. Durch diese Separierung ist es in zukünftigen Iterationen leichter möglich, die Segmentierung durch andere Methoden wie AI-basierte Bilderkennung zu ersetzen.
+Der \textmono{SegmentationProvider} stellt schließlich eine Möglichkeit bereit, auf die Segmentierungsinformationen an bestimmten Punkten des 3D-Raums zuzugreifen. Da die Segmentierung, wie in der Konzeptionierung ausgearbeitet, auf diverse Arten umgesetzt werden kann, geschieht dies über das generische Interface \textmono{SegmentationProvider} und die konkrete Implementierung \textmono{GeoJsonSegmentationProvider}. Durch diese Separierung ist es in zukünftigen Iterationen leichter möglich, die Segmentierung durch andere Methoden wie AI-basierte Bilderkennung zu ersetzen.
 
 \medskip
 
-Insgesamt erlaubt diese Aufteilung in eine Infrastrukturschicht, ein robustes Sharing von Logik, aber auch Caching-Informationen zwischen Objekt-Validierungen und Klassen.
+Insgesamt erlaubt diese Aufteilung in eine Infrastrukturschicht ein robustes Sharing von Logik, aber auch Caching-Informationen zwischen Objekt-Validierungen und Klassen.
 
 \subsubsection{AR-Basissystem: Präsentationsschicht}
 
@@ -157,9 +157,9 @@ Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zustän
 \label{fig:uml presentation}
 \end{figure}
 
-Abbildung \ref{fig:uml presentation} visualisiert den Aufbau der Komponenten des Systems. Jede Klasse verfolgt dabei das Single-Responsibility-Principle und übergibt Delegationen an ihre direkten Kind-Elemente. Im Folgenden werden die einzelnen Bausteine im Detail erläutert.
+Abbildung \ref{fig:uml presentation} visualisiert den Aufbau der Komponenten des Systems. Jede Klasse verfolgt dabei das Single-Responsibility-Prinzip und übergibt Delegationen an ihre direkten Kind-Elemente. Im Folgenden werden die einzelnen Bausteine im Detail erläutert.
 
-Startpunkt für React während des Render-Vorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von react-three-fiber. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Szenenmanagement an \textmono{AppCanvasContent}.
+Startpunkt für React während des Rendervorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von RTF. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Szenenmanagement an \textmono{AppCanvasContent}.
 
 \medskip
 
@@ -198,13 +198,13 @@ Jedes Objekt besteht hierfür intern wiederum aus drei Teilkomponenten:
 Eine der zentralen Komponenten der Präsentationsschicht ist \textmono{EffectableGltf}.  
 Ziel dieser Klasse ist es, beliebige glTF-Modelle um visuelle Effekte – etwa eine rote Hinterlegung bei Validierungsfehlern oder eine weiße Kontur zur Hervorhebung des aktuell ausgewählten Objekts – zu erweitern.
 
-Im Ökosystem von \textmono{react-three-fiber} existieren zwar mehrere Lösungen für Post-Processing  
+Im Ökosystem von RTF existieren zwar mehrere Lösungen für Post-Processing  
 (z.B. \textmono{@react-three/postprocessing}, \textmono{react-three-fiber effects}), diese Bibliotheken beschränken sich jedoch häufig auf primitive Objekte (Würfel, Kugeln) oder erfordern tiefes Eingreifen in den Three-JS-Rendergraph.
 
 Bei komplexen glTF-Strukturen können diese daher meist nicht ohne Umwandlungen genutzt werden, da Effekte rekursiv auf sämtliche \textmono{Mesh}-Knoten angewendet werden müssen. Mehrere Effekte können zusätzlich oft nicht problemlos kombiniert werden, ohne Artefakte oder Overdraw zu erzeugen, oder das dynamische Zu- und Abschalten der Effekte kann Memory Leaks im GPU-Kontext hinterlassen.
 
 Erste Versuche, die Effekte direkt innerhalb der Projektbasis zu implementieren, zeigten einen kontinuierlichen Anstieg der Komplexität, insbesondere beim gleichzeitigen Einsatz mehrerer Overlays und Outlines.  
-Um die Wartbarkeit zu erhöhen und einen Wiederverwendungsnutzen für nachgelagerte Projekte zu schaffen, wurde die Logik daher in eine eigenständige Open-Source-Bibliothek \textmono{@vantezzen/effectable-gltf}\footnote{\url{https://www.npmjs.com/package/@vantezzen/effectable-gltf}} überführt. Die Bibliothek wurde seit ihrer Veröffentlichung zusätzlich bereits in die offizielle Liste von Community-Paketen der React-Three-Fiber Dokumentation aufgenommen \parencite{poimandresCommunityR3FComponents2025}.
+Um die Wartbarkeit zu erhöhen und einen Wiederverwendungsnutzen für nachgelagerte Projekte zu schaffen, wurde die Logik daher in eine eigenständige Open-Source-Bibliothek \textmono{@vantezzen/effectable-gltf}\footnote{\url{https://www.npmjs.com/package/@vantezzen/effectable-gltf}} überführt. Die Bibliothek wurde seit ihrer Veröffentlichung zusätzlich bereits in die offizielle Liste von Community-Paketen der RTF Dokumentation aufgenommen \parencite{poimandresCommunityR3FComponents2025}.
 
 Die Bibliothek versteht sich als Drop-in-Replacement für das in \textmono{@react-three/drei} enthaltene \textmono{Gltf}-Element zur Darstellung von glTF-Modellen.
 Effekte werden deklarativ als Kindelemente hinzugefügt; die Bibliothek sorgt intern für Shader-Injection, Depth-Handling und das Aufräumen temporärer Materialien.  
@@ -362,9 +362,9 @@ Bei der ermittelten Annäherung an 17$\mu s$, welche pro Test benötigt werden, 
 
 Das JavaScript dieser beiden Funktionen wird standardmäßig Single-Threaded und blockierend ausgeführt: solange die Validierungseinheit ausgeführt werden, können keine neuen Bilder generiert werden, wodurch es zu Ausfällen in der Generierung (Frame Drops) kommen kann. 
 
-Zur Auflösung dieser Blockierung sind vor allem zwei Methoden denkbar: Einführung von Processing Gaps oder die Nutzung von WebWorkern für Multithreading.
+Zur Auflösung dieser Blockierung sind primär zwei Methoden denkbar: Einführung von Processing Gaps oder die Nutzung von WebWorkern für Multithreading.
 
-Moderne Browser führen JavaScript in einer Eventschleife aus, bei welcher eingehende Ereignisse, wie etwa ein Klick-Event oder die Generierung eines neuen Frames, zunächst in eine Warteschlange gefügt werden \parencite{mdncontributorsJavaScriptExecutionModel2025}. Aktuell findet die Ausführung der Validierungseinheit als ein einzelner Task der Eventschleife statt, wodurch alle anderen Tasks auf die vollständige Ausführung warten.
+Moderne Browser führen JavaScript in einer Eventschleife aus, bei welcher eingehende Ereignisse, wie ein Klick-Event oder die Generierung eines neuen Frames, zunächst in eine Warteschlange gefügt werden \parencite{mdncontributorsJavaScriptExecutionModel2025}. Aktuell findet die Ausführung der Validierungseinheit als ein einzelner Task der Eventschleife statt, wodurch alle anderen Tasks auf die vollständige Ausführung warten.
 
 Um diese Blockierung aufzubrechen, können JavaScript-Funktionen wie \textmono{setImmediate} oder \textmono{setTimeout} genutzt werden \parencite{mdncontributorsWindowSetImmediateMethod2024}. Die Nutzung dieser Funktionen ähnelt dem Konzept des kooperativen Multitasking und dem Browser wird die Erlaubnis gegeben, andere Elemente der Warteschleife abzuarbeiten, bevor mit dieser Funktion fortgefahren wird \parencite{sanchhayaeducationprivateltd.DifferencePreemptiveCooperative2024}.
 
@@ -374,7 +374,7 @@ Alternativ ist die Nutzung von tatsächlichem Multithreading über WebWorker mö
 
 Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Anwendungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über die Oberfläche selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
 
-Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich beispielsweise eine Bank weit entfernt von dem Polygon einer Regel, wird trotzdem ein detaillierter Raytracing-Test durchgeführt. Hier könnte stattdessen eine simplere Bounding-Box zunächst klären, ob sich das Objekt überhaupt im näheren Umfeld der Areale befindet und genauer berechnet werden muss.
+Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich etwa eine Bank weit entfernt von dem Polygon einer Regel, wird trotzdem ein detaillierter Raytracing-Test durchgeführt. Hier könnte stattdessen eine simplere Bounding-Box zunächst klären, ob sich das Objekt überhaupt im näheren Umfeld der Areale befindet und genauer berechnet werden muss.
 
 \medskip
 
@@ -382,9 +382,9 @@ Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems d
 
 \subsection{Testing}
 
-Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest}\footnote{\url{https://vitest.dev/}} verwendet. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selber, dass Regeln korrekt ausgewertet werden, Edge-Cases korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
+Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest}\footnote{\url{https://vitest.dev/}} verwendet. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
 
-Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systeme eingegriffen werden.
+Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systemen eingegriffen werden.
 
 Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
 

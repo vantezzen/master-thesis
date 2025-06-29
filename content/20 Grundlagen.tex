@@ -1,6 +1,6 @@
 \section{Technische Grundlagen}\label{section:Technische Grundlagen}
 
-Dieses Kapitel stellt die technologischen Grundlagen zur Entwicklung webbasierter Augmented Reality Anwendungen vor. Ziel ist es, einen einheitlichen Wissensstand zur verwendeten Architektur und zu relevanten Komponenten wie WebXR, react-three-fiber sowie Tracking- und Platzierungsverfahren zu schaffen. Die Inhalte orientieren sich dabei an Ergebnissen aus dem vorangegangenen Forschungsprojekt, in dem eine prototypische Umsetzung bereits erfolgt ist.
+Dieses Kapitel stellt die technologischen Grundlagen zur Entwicklung webbasierter Augmented Reality Anwendungen vor. Ziel ist es, einen einheitlichen Wissensstand zur verwendeten Architektur und zu relevanten Komponenten wie WebXR, react-three-fiber (RTF) sowie Tracking- und Platzierungsverfahren zu schaffen. Die Inhalte orientieren sich dabei an Ergebnissen aus dem vorangegangenen Forschungsprojekt, in dem eine prototypische Umsetzung bereits erfolgt ist.
 
 \subsection{Augmented Reality im Web-Kontext}
 
@@ -8,17 +8,17 @@ Augmented Reality (AR) bezeichnet die Erweiterung der realen Welt durch computer
 
 \subsubsection{WebXR}
 
-Die webbasierte API \textit{WebXR} bietet einen Standard zur Implementierung von AR- und VR-basierten Webseiten, welche unabhängig vom genutzten Gerät und Browser funktionieren sollen \parencite{w3cimmersivewebgroupWebxrExplainermdMaster2024}. Hierfür stellt die API Primitiven zur Darstellung, Tracking von Bewegungen und anderen elementaren Interaktionen zur Verfügung.
+Die webbasierte API \textit{WebXR} bietet einen Standard zur Implementierung von AR- und VR-basierten Webseiten, welche unabhängig vom genutzten Gerät und Browser funktionieren sollen \parencite{w3cimmersivewebgroupWebxrExplainermdMaster2024}. Hierfür stellt die API-Primitiven zur Darstellung, Tracking von Bewegungen und anderen elementaren Interaktionen zur Verfügung.
 
-Die API ist agnostisch zur genutzten Methode, um die 3D-Szene zu rendern. Für die Darstellung der 3D-Inhalte können daher etablierte Engines wie Unity, jedoch auch Code-basierte Umgebungen wie three.js und Mozilla A-Frame genutzt werden \parencite{weizmanDePantherUnitywebxrexport2024}.
+Die API ist agnostisch zur genutzten Methode, um die 3D-Szene zu rendern. Für die Darstellung der 3D-Inhalte können daher etablierte Engines wie Unity, jedoch auch codebasierte Umgebungen wie three.js und Mozilla A-Frame genutzt werden \parencite{weizmanDePantherUnitywebxrexport2024}.
 
 \subsubsection{Limitierungen}
 
-Trotz der initialen Spezifikation der WebXR API in 2018 befindet sich die Definition des Standards zum Zeitpunkt der Arbeit weiterhin im Status „Candidate Recommendation“ \parencite{w3cimmersivewebgroupWebXRDeviceAPI2024}.
+Trotz der initialen Spezifikation der WebXR API im Jahr 2018 befindet sich die Definition des Standards zum Zeitpunkt der Arbeit weiterhin im Status „Candidate Recommendation“ \parencite{w3cimmersivewebgroupWebXRDeviceAPI2024}.
 
 Während dieses Status wird die Spezifikation als weitgehend abgeschlossen angesehen. Jedoch sollen die einzelnen Browser-Hersteller zunächst prüfen, ob eine vollständige Implementierung möglich ist, bevor dieser schließlich als „Recommendation“ gekennzeichnet wird \parencite{w3cTypesDocumentsW3C2024a}.
 
-Aufgrund dieses Status wird die API von Browsern bisher nur unvollständig oder gar nicht implementiert oder ist hinter einer Feature Flag standardmäßig deaktiviert.
+Aufgrund dieses Status wird die API von Browsern bisher nur unvollständig oder gar nicht implementiert oder ist hinter einer Feature-Flag standardmäßig deaktiviert.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/webxr-browser.png}
@@ -27,7 +27,7 @@ Aufgrund dieses Status wird die API von Browsern bisher nur unvollständig oder 
 \label{fig:webxr-browser}
 \end{figure}
 
-Abbildung \ref{fig:webxr-browser} zeigt die aktuelle Unterstützung der WebXR-API in der Standard-Konfiguration der Browser, ohne aktivierte Feature-Flags. Es ist erkennbar, dass Desktop-Browser wie Chrome und Edge WebXR bereits unterstützen.
+Abbildung \ref{fig:webxr-browser} zeigt die aktuelle Unterstützung der WebXR-API in der Standard-Konfiguration der Browser, ohne aktivierte Feature-Flag. Es ist erkennbar, dass Desktop-Browser wie Chrome und Edge WebXR bereits unterstützen.
 
 Bei den mobilen Browsern in der rechten Hälfte ist erkennbar, dass Browser wie Chrome für Android und Opera für Android Unterstützung bieten, wodurch User auf Android-Geräten WebXR-Anwendungen meist ohne weitere Konfiguration nutzen können.
 
@@ -37,7 +37,7 @@ Auffällig ist jedoch, dass Safari für iOS die API nicht unterstützt: Durch Re
 
 \medskip
 
-Alternativ bietet Mozilla bereits die eigene App „WebXR Viewer“ für iOS-Geräte an \parencite{mozillainc.WebXRViewer2020}. Die App ist eine verschlankte Version des Firefox Browsers, welche die WebXR-API mittels JavaScript-Implementierung nachträglich hinzufügt. Hierdurch ist eine allgemeine Nutzung möglich, jedoch bietet dies eine schlechtere Performance als es durch eine native Integration in die Browser-Engine möglich wäre. Weiterhin wurde die App zuletzt 2020 aktualisiert und unterstützt daher neuere APIs nicht.
+Alternativ bietet Mozilla bereits die eigene App „WebXR Viewer“ für iOS-Geräte an \parencite{mozillainc.WebXRViewer2020}. Die App ist eine verschlankte Version des Firefox Browsers, welche die WebXR-API mittels JavaScript-Implementierung nachträglich hinzufügt. Hierdurch ist eine allgemeine Nutzung möglich, jedoch bietet dies eine schlechtere Performance, als es durch eine native Integration in die Browser-Engine möglich wäre. Weiterhin wurde die App zuletzt 2020 aktualisiert und unterstützt daher neuere APIs nicht.
 
 \subsection{Tracking und Positionierung}
 
@@ -47,19 +47,19 @@ Die präzise Platzierung virtueller Objekte im physischen Raum erfordert eine zu
 
 In der vorangegangenen Forschungsarbeit wurde aufgrund der Zielsetzung des Systems für die Umsetzung des ARPAS-Systems ein geeigneter Technologie-Stack gewählt. Zu den Anforderungen zählen insbesondere die Notwendigkeit einer plattformunabhängigen Web-Integration, einer performanten 3D-Darstellung auf mobilen Geräten sowie einer möglichst nahtlosen Integration mit bestehenden Frontend-Komponenten der Adhocracy-Plattform\footnote{\url{https://github.com/liqd/adhocracy-plus}}.
 
-Der gewählte Stack setzt sich zusammen aus \textit{Three.js} für die Darstellung von 3D Objekten, \textit{React} und die Integration \textit{react-three-fiber} für die Definitionen der UI, sowie \textit{@react-three/xr} für die Integration mit WebXR.
+Der gewählte Stack setzt sich zusammen aus \textit{Three.js} für die Darstellung von 3D-Objekten, \textit{React} und RTF für die Definitionen der UI, sowie \textit{@react-three/xr} für die Integration mit WebXR.
 
 \subsubsection{Three.js}
 
 \textit{Three.js} ist eine JavaScript-Bibliothek zur Darstellung von 3D-Inhalten im Webbrowser. Sie abstrahiert die komplexe WebGL-Schnittstelle und ermöglicht so eine effiziente und vergleichsweise einfache Umsetzung von 3D-Szenen \parencite{three.jsauthorsFundamentals2025}. Neben klassischen Rendering-Funktionalitäten bietet die Bibliothek eingebaute Kameras, Materialien, Lichter und zahlreiche Hilfsfunktionen, welche für AR-Anwendungen essenziell sind.
 
-\subsubsection{React und react-three-fiber}
+\subsubsection{React und RTF}
 
 Zur Strukturierung der Benutzeroberfläche und Komponenten wurde \textit{React} als Basis-Framework verwendet. React erlaubt eine modulare, zustandsbasierte Entwicklung und erleichtert so die Integration von UI-Elementen und Geschäftslogik in eine einheitliche Codebasis \parencite{metaplatformsinc.React2025}. Einige der bisherigen interaktiven Elemente von Adhocracy nutzen bereits React, wodurch eine einfache Integration möglich wird \parencite{liquiddemocracye.v.Adhocracy4Adhocracy4Maps_react2025}.
 
 \medskip
 
-Die Bibliothek \textit{react-three-fiber} stellt ein React-basiertes Bindeglied zu Three.js dar und erlaubt die deklarative Definition von 3D-Szenen im Stil von JSX-Komponenten \parencite{poimandresReactThreeFiber2024}. Hierdurch können 3D-Elemente direkt im React-Komponentenbaum modelliert und mit React-typischen Mechanismen wie Props, States und Lifecycle-Methoden gesteuert werden.
+Die Bibliothek \textit{react-three-fiber} (RTF) stellt ein React-basiertes Bindeglied zu Three.js dar und erlaubt die deklarative Definition von 3D-Szenen im Stil von JSX-Komponenten \parencite{poimandresReactThreeFiber2024}. Hierdurch können 3D-Elemente direkt im React-Komponentenbaum modelliert und mit React-typischen Mechanismen wie Props, States und Lifecycle-Methoden gesteuert werden.
 
 Dieser Ansatz reduziert die Komplexität der Zustandsverwaltung zwischen UI- und 3D-Logik und erlaubt eine konsistente Datenbindung innerhalb des gesamten Systems.
 
@@ -77,7 +77,7 @@ function ThreeScene() {
 }
 \end{lstlisting}
 
-Listing \ref{lst:threejs} zeigt den \textit{react-three-fiber}-Code für die Erstellung einer einfachen 3D-Szene. In dem Code wird die Komponente \textit{ThreeScene} deklariert. Diese Komponente definiert den Aufbau und Inhalt unserer 3D-Szene:
+Listing \ref{lst:threejs} zeigt den RTF-Code für die Erstellung einer einfachen 3D-Szene. In dem Code wird die Komponente \textit{ThreeScene} deklariert. Diese Komponente definiert den Aufbau und Inhalt unserer 3D-Szene:
 
 \begin{enumerate}
 \item \texttt{<Canvas>}: Dies ist das Hauptelement von React Three Fiber. Es erstellt einen Three.js-Renderer - die Leinwand - und eine Szene, in der alle 3D-Objekte platziert werden.
@@ -91,13 +91,13 @@ Die Komponente kann wie jede andere React-Komponente in eine Anwendung eingebund
 
 \medskip
 
-\textit{react-three-fiber} besitzt zusätzlich bereits ein breites Ökosystem an kompatiblen Modulen, welche die Integration komplexerer Funktionen wie Physiksimulationen, Postprocessing Shaders und WebXR erleichtern \parencite{poimandresReactThreeEcosystem2025}.
+RTF besitzt zusätzlich bereits ein breites Ökosystem an kompatiblen Modulen, welche die Integration komplexerer Funktionen wie Physiksimulationen, Postprocessing Shaders und WebXR erleichtern \parencite{poimandresReactThreeEcosystem2025}.
 
 \subsubsection{@react-three/xr}
 
-Eine der Pakete im Ökosystem von \textit{react-three-fiber} ist die Bibliothek \textit{@react-three/xr} zur Integration von WebXR in das React-basierte 3D-System erfolgt.
+Eine der Pakete im Ökosystem von RTF ist die Bibliothek \textit{@react-three/xr} zur Integration von WebXR in das React-basierte 3D-System erfolgt.
 
-Diese Bibliothek erweitert \textit{react-three-fiber} um spezifische Funktionalitäten zur Nutzung von XR-Features wie AR-Sitzungen, Hittesting oder Controller-Tracking \parencite{poimandresPmndrsReactxr2024}. Für das ARPAS-System wurde insbesondere die \texttt{<XR>} Komponente genutzt, um den XR-Rendering-Context zu initiieren und zu verwalten. Weitere zentrale Bausteine wie \texttt{<ARCanvas>} und \texttt{<HitTest>} ermöglichen die Implementierung von Interaktionen zur Objektplatzierung auf erkannter Oberfläche.
+Diese Bibliothek erweitert RTF um spezifische Funktionalitäten zur Nutzung von XR-Features wie AR-Sitzungen, Hittesting oder Controller-Tracking \parencite{poimandresPmndrsReactxr2024}. Für das ARPAS-System wurde insbesondere die \texttt{<XR>} Komponente genutzt, um den XR-Rendering-Context zu initiieren und zu verwalten. Weitere zentrale Bausteine wie \texttt{<ARCanvas>} und \texttt{<HitTest>} ermöglichen die Implementierung von Interaktionen zur Objektplatzierung auf erkannter Oberfläche.
 
 \medskip
 

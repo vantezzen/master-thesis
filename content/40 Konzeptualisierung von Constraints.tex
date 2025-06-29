@@ -1,14 +1,14 @@
 \section{Requirements-Engineering}\label{section:Requirements-Engineering}
 
-Um ein vollständiges Konzept über das zu entwickelnde regelbasiertes Validationssystem (\textit{ARVal}), soll zunächst ein strukturiertes Requirements-Engineering nach \textcite{ieeeISOIECIEEE2018} und \textcite{ruppRequirementsEngineeringUndManagement2021} durchgeführt werden.
+Um ein vollständiges Konzept über das zu entwickelnde, regelbasiertes Validierungssystem (\textit{ARVal}), soll zunächst ein strukturiertes Requirements-Engineering nach \textcite{ieeeISOIECIEEE2018} und \textcite{ruppRequirementsEngineeringUndManagement2021} durchgeführt werden.
 
-Durch die ausführliche Anforderungserhebung des Systems sollen alle Aspekte vollständig berücksichtigt, argumentiert und kontextualisiert werden, bevor die Implementierung durchgeführt wird. Hierdurch soll sichergestellt werden, dass das entwickelte System schlüssig und logisch begründet, sowie nachvollziehbar ist.
+Durch die ausführliche Anforderungserhebung des Systems sollen alle Aspekte vollständig berücksichtigt, argumentiert und kontextualisiert werden, bevor die Implementierung durchgeführt wird. Hierdurch soll sichergestellt werden, dass das entwickelte System schlüssig und logisch begründet sowie nachvollziehbar ist.
 
 \subsection{Projektkontext und Scope}\label{subsection:Projektkontext und Scope}
 
-Das Ziel des Projekts ist die Implementierung eines browser-basierten Moduls zur Echtzeit-Validierung von platzierten AR-Objekten, basierend auf einem definierten Constraint-Set.
+Das Ziel des Projekts ist die Implementierung eines browserbasierten Moduls zur Echtzeit-Validierung von platzierten AR-Objekten, basierend auf einem definierten Regelsatz.
 
-Abgegrenzt hierzu ist die Implementierung des Basisprojekts zur Darstellung der AR-Elemente, Integration von Gerätedaten und Untersuchung von Basistechnologien. Diese Aspekte wurden bereits in den vorangegangenen Forschungsprojekten untersucht. Die Ergebnisse dieser Projekte werden während der Implementierung für diese Arbeit aufgearbeitet, für das Requirements Engineering werden diese daher jedoch nicht behandelt.
+Abgegrenzt hierzu ist die Implementierung des Basisprojekts zur Darstellung der AR-Elemente, Integration von Gerätedaten und Untersuchung von Basistechnologien. Diese Aspekte wurden bereits in den vorangegangenen Forschungsprojekten untersucht. Die Ergebnisse dieser Projekte werden während der Implementierung  dieser Arbeit aufgearbeitet, für das Requirements Engineering werden diese daher jedoch nicht behandelt.
 
 \subsubsection{Projektbegriffe}
 
@@ -48,7 +48,7 @@ Der daraus resultierende Nutzen für Bürger:innen besteht im sofortigen Feedbac
     \hline
     Segmentierung der Umgebung zwischen Straßen, Gehwegen und Grünflächen aufgrund statischer Konfigurationen & Segmentierung der Umgebung in weitere Kategorien (z.B. Gebäude, Fahrradständer, existierende Objekte etc.) und mittels dynamischer Techniken (z.B. Machine Learning) \\
     \hline
-     & Backend zum Upload und Verwaltung, Benutzerverwaltung und Authentifizierung und Persistente Speicherung von Nutzervorschlägen im Validierungssystem \\
+     & Backend zum Upload und Verwaltung, Benutzerverwaltung und Authentifizierung und persistente Speicherung von Nutzervorschlägen im Validierungssystem \\
      \hline
      & Komplexe Manipulation von Objekten (z.B. eine Bank mit dynamisch anpassbarer Länge) \\
      \hline
@@ -61,25 +61,25 @@ Der daraus resultierende Nutzen für Bürger:innen besteht im sofortigen Feedbac
 \end{center}
 \end{table}
 
-Zur Abgrenzung des Projektumfangs enthält Tabelle \ref{tab:Projektabgrenzung} eine Einordnung zwischen In-Scope und Out of Scope Bestandteilen. In-Scope sind insbesondere alle essenziellen Bestandteile zur Validierung, darunter der Constraint-Syntax, Regelvalidierung und Integration in das Basissystem. Explizit Out of Scope sind hierbei alle optionalen Bestandteile, welche nicht direkt für die Validierung von Objekten notwendig sind - darunter etwa die Bewertung des Budgets für Vorschläge sowie ein Backend zum Upload dieser.
+Zur Abgrenzung des Projektumfangs enthält Tabelle \ref{tab:Projektabgrenzung} eine Einordnung zwischen In-Scope und Out of Scope Bestandteilen. In-Scope sind insbesondere alle essenziellen Bestandteile zur Validierung, darunter die Regelsyntax, Regelvalidierung und Integration in das Basissystem. Explizit Out of Scope sind alle optionalen Bestandteile, welche nicht direkt für die Validierung von Objekten notwendig sind - darunter etwa die Bewertung des Budgets für Vorschläge sowie ein Backend zum Upload dieser.
 
-\subsection{Elicitation}\label{subsection:Elicitation}
+\subsection{Anforderungsermittlung}\label{subsection:Elicitation}
 
 Für eine vollständige, umfassende Aufarbeitung der benötigten Komponenten wurde zunächst eine mehrteilige Erhebung aller relevanten Ressourcen durchgeführt. Hierbei wurden verschiedene Techniken kombiniert, darunter ein Dokumentenstudium, aufgearbeitet in Kapitel \ref{section:Verwandte Arbeiten}, ein Experteninterview, aufgearbeitet in Kapitel \ref{subsubsection:Experteninterview}, sowie Beobachtungstechniken zu bisherigen Technologien, aufgearbeitet in Kapitel \ref{subsubsection:Analyse existierender Constraint-Systeme}.
 
 \subsubsection{Experteninterview}\label{subsubsection:Experteninterview}
 
-Für die Erhebung von Anforderungen aus Sicht der Stadtplanung wurde ein qualitatives, halbstrukturiertes Experteninterview mit einem Stadtplaner durchgeführt. Ziel des Gesprächs war es, die realen Herausforderungen und aktuellen Stand von Bürgerbeteiligung zu erarbeiten, und einen Überblick über die Denkweise in Verwaltungen und Stadtplanungen zu erhalten. Das vollständige Interview ist in \ref{anh:Experteninterview Stadtplaner} [S. \pageref{anh:Experteninterview Stadtplaner}] verschriftlicht.
+Für die Erhebung von Anforderungen aus Sicht der Stadtplanung wurde ein qualitatives, halbstrukturiertes Experteninterview mit einem Stadtplaner durchgeführt. Ziel des Gesprächs war es, die realen Herausforderungen und aktuellen Stand von Bürgerbeteiligung zu erarbeiten und einen Überblick über die Denkweise in Verwaltungen und Stadtplanungen zu erhalten. Das vollständige Interview ist in \ref{anh:Experteninterview Stadtplaner} [S. \pageref{anh:Experteninterview Stadtplaner}] verschriftlicht.
 
-Das Interview bestätigte zunächst, dass Bürgerbeteiligungen aktuell vor allem formal strukturiert stattfinden. Als Beispiel wurde hierfür die Plattform \textit{Mein Berlin}\footnote{\url{http://mein.berlin.de/}} genannt, bei welchem Planungsunterlagen von Behörden bereitgestellt und von Bürgern kommentiert werden können. Konzepte für andere Formate existieren zwar, sind aber meist nur experimentell, selten institutionalisiert und auf Forschungsprojekte beschränkt.
+Das Interview bestätigte zunächst, dass Bürgerbeteiligungen aktuell primär formal strukturiert stattfinden. Als Beispiel wurde hierfür die Plattform \textit{Mein Berlin}\footnote{\url{http://mein.berlin.de/}} genannt, bei welcher Planungsunterlagen von Behörden bereitgestellt und von Bürgern kommentiert werden können. Konzepte für andere Formate existieren zwar, sind aber meist nur experimentell, selten institutionalisiert und auf Forschungsprojekte beschränkt.
 
-In vielen Fällen sei hierbei die Einbindung der Ideen schwierig, da Bürgerinteressen immer nur einen Aspekt von vielen darstellt. Für die Umsetzung von Veränderungen müssen etwa zusätzliche Meetings mit vielen Partien durchgeführt werden, darunter Verwaltungen, Stadtplaner, Feuerwehr, Wasser- und Stromversorger und Eigentümer.
+In vielen Fällen sei die Einbindung der Ideen schwierig, da Bürgerinteressen immer nur einen Aspekt von vielen darstellen. Für die Umsetzung von Veränderungen müssen etwa zusätzliche Meetings mit vielen Parteien durchgeführt werden, darunter Verwaltungen, Stadtplaner, Feuerwehr, Wasser- und Stromversorger und Eigentümer.
 
 \medskip
 
-Im Kern des Gesprächs standen vor allem die Grenzen und Chancen automatisierten Validierungsmechanismen, wie solche, die in ARVal umgesetzt werden sollen. Es zeigte sich deutlich, dass viele scheiternde Vorschläge aus drei Hauptkategorien resultieren: (1) Eigentums- und Haftungsfragen, (2) Maßstäblichkeit und technische Umsetzbarkeit, sowie (3) langfristige Pflege und Unterhalt.
+Im Kern des Gesprächs standen vorwiegend die Grenzen und Chancen automatisierter Validierungsmechanismen, wie solche, die in ARVal umgesetzt werden sollen. Es zeigte sich deutlich, dass viele scheiternde Vorschläge aus drei Hauptkategorien resultieren: (1) Eigentums- und Haftungsfragen, (2) Maßstäblichkeit und technische Umsetzbarkeit, sowie (3) langfristige Pflege und Unterhalt.
 
-Die Frage nach dem Eigentum ist oft komplex in der Beantwortung. Zwar besitzt die öffentliche Hand ein Grundbuch, dieses ist jedoch nicht öffentlich einsehbar. Flächen auf Privatgrundstück können jedoch auch nicht prinzipiell für Vorschläge ausgeschlossen werden, da es in Abstimmung mit den Eigentümern auch trotzdem zur Akzeptanz von Ideen kommen kann. Bei Veränderung von beispielsweise Schulhöfen muss zusätzlich geklärt werden, welche der Parteien die Haftungen bei Unfällen übernimmt.
+Die Frage nach dem Eigentum ist oft komplex in der Beantwortung. Zwar besitzt die öffentliche Hand ein Grundbuch, dieses ist jedoch nicht öffentlich einsehbar. Flächen auf Privatgrundstück können jedoch auch nicht prinzipiell für Vorschläge ausgeschlossen werden, da es in Abstimmung mit den Eigentümern auch trotzdem zur Akzeptanz von Ideen kommen kann. Bei Veränderung, etwa von Schulhöfen, muss zusätzlich geklärt werden, welche der Parteien die Haftungen bei Unfällen übernehmen.
 
 Im zweiten Punkt steht die Maßstäblichkeit und technische Umsetzbarkeit von Ideen. Dies beinhaltet etwa die Beschränkung von Platz bei großen Bauvorhaben, aber auch Budget-Einschränkungen und Interessen anderer Nutzer, darunter auch z.B. Feuerwehr-Wendekreisen, Wartungsflächen für unterirdische Versorgung oder Bodenbelastungen durch historische Nutzung.
 
@@ -99,25 +99,25 @@ Zuletzt wurde im Interview erarbeitet, dass eine Balance zwischen utopischen Vor
 
 \medskip
 
-Insgesamt bestätigt das Interview sowohl die Relevanz als auch die Grenzen des geplanten Systems und fügt den Aspekt der Nachvollziehbarkeit als zentrales Element hinzu. Es kann vor allem erhofft werden, dass die Implementierung von Begründungen für Einschränkung die Frustration bei Nutzern durch Ablehnung verringern kann.
+Insgesamt bestätigt das Interview sowohl die Relevanz als auch die Grenzen des geplanten Systems und fügt den Aspekt der Nachvollziehbarkeit als zentrales Element hinzu. Es kann vordergründig erhofft werden, dass die Implementierung von Begründungen für Einschränkung die Frustration bei Nutzern durch Ablehnung verringern kann.
 
-Es kann keine vollständige Abbildung der Relationen und Interessen aller Parteien abgebildet werden, da die Erstellung eines all-umfänglichen System für die Verwaltung aller Interessen weit über ARVal hinaus geht. Trotzdem können einige der grundlegenden Prüfungen automatisiert und formell abgebildet werden.
+Es kann keine vollständige Abbildung der Relationen und Interessen aller Parteien abgebildet werden, da die Erstellung eines all-umfänglichen Systems für die Verwaltung aller Interessen weit über ARVal hinaus geht. Trotzdem können einige der grundlegenden Prüfungen automatisiert und formell abgebildet werden.
 
 \subsubsection{Analyse existierender Regelsysteme}\label{subsubsection:Analyse existierender Constraint-Systeme}
 
-Zusätzlich zum Experteninterview wurden für die Elicitation existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht. Hierfür wurden vor allem eigene Erfahrungen mit den Systemen gesammelt sowie Videos über die Nutzung in komplexeren Projekten genutzt.
+Zusätzlich zum Experteninterview wurden für die Anforderungsermittlung existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht. Hierfür wurden vor allem eigene Erfahrungen mit den Systemen gesammelt sowie Videos über die Nutzung in komplexeren Projekten genutzt.
 
 \paragraph{CAD Software}
 
 Es wurden Anleitungen für die Programme \textit{AutoCAD} und \textit{Autodesk Fusion 360} genutzt, um die eingebauten Regelsysteme zu untersuchen.
 
-\textit{AutoCAD} enthält für die Erstellung und Verwaltung von Regeln einen eigenen „Parametric“ Tab. Der Tab erlaubt vor allem das Hinzufügen von Relationen zwischen zwei Linien im Design. Hierdurch kann etwa vorgegeben werden, dass zwei Linien immer parallel sein müssen, die gleiche Länge besitzen müssen oder einen Eckpunkt besitzen müssen. Die hinzugefügten Regeln werden daraufhin neben den Linien als Icon dargestellt und während Veränderungen am Design durchgängig umgesetzt. Die meisten Regeln besitzen keine oder nur simple Parameter, etwa bei Regeln auf einen bestimmten Winkel. \parencite{micrographicsConstraintsParametersAutoCAD2021}
+\textit{AutoCAD} enthält für die Erstellung und Verwaltung von Regeln einen eigenen „Parametric“ Tab. Der Tab erlaubt vorwiegend das Hinzufügen von Relationen zwischen zwei Linien im Design. Hierdurch kann etwa vorgegeben werden, dass zwei Linien immer parallel sein müssen, die gleiche Länge oder einen Eckpunkt besitzen müssen. Die hinzugefügten Regeln werden daraufhin neben den Linien als Icon dargestellt und während Veränderungen am Design durchgängig umgesetzt. Die meisten Regeln besitzen keine oder nur simple Parameter, etwa bei Regeln auf einen bestimmten Winkel. \parencite{micrographicsConstraintsParametersAutoCAD2021}
 
 Eine ähnliche Umsetzung existiert in Autodesk Fusion 360. Auch hier existiert eine eigene Regel-Einheit im Sketchmodus des Programms, über welche Relationen zwischen Objekten erstellt werden können. Die Regeln werden daraufhin ebenfalls mit einem Icon dargestellt und bei Veränderungen durchgesetzt. Als Besonderheit werden Objekte, welche „under-constrained“, also nicht vollständig gesichert sind, farblich hervorgehoben und sollten ausgebessert werden. \parencite{autodeskfusionSketchConstraintsMade2023}
 
 \paragraph{3D-Modellierungs- und Animationssoftware}
 
-Zunächst wurde die Implementierung von Regeln in der 3D Open-source Software \textit{Blender} untersucht. Die Software besitzt, wie die untersuchten CAD-Software, einen separaten Regel-Reiter, mit welcher Regeln zur Transformierung, Tracking, Relation zu anderen Objekten und Motion Tracking hinzugefügt werden können. \parencite{index3dAllConstraintsExplained2020}
+Zunächst wurde die Implementierung von Regeln in der 3D-Open-Source-Software \textit{Blender} untersucht. Die Software besitzt, wie die untersuchte CAD-Software, einen separaten Regel-Reiter, mit welcher Regeln zur Transformierung, Tracking, Relation zu anderen Objekten und Motion Tracking hinzugefügt werden können. \parencite{index3dAllConstraintsExplained2020}
 
 \begin{figure}[h]
 \includegraphics[width=0.8\textwidth]{abb/blender-constraint list.png}
@@ -126,7 +126,7 @@ Zunächst wurde die Implementierung von Regeln in der 3D Open-source Software \t
 \label{fig:blender constraint liste}
 \end{figure}
 
-Abbildung \ref{fig:blender constraint liste} zeigt die vollständige Liste der unterstützen Regeln. Hierzu zählen einfache Regeln wie „Copy Location“ für das Kopieren der Position des anderen Objekts, bis hin zu komplexeren Regeln wie „Follow Path“, womit das Objekt an einem anderen Objekt entlang fährt.
+Abbildung \ref{fig:blender constraint liste} zeigt die vollständige Liste der unterstützten Regeln. Hierzu zählen einfache Regeln wie „Copy Location“ für das Kopieren der Position des anderen Objekts, hin zu komplexeren Regeln wie „Follow Path“, womit das Objekt an einem anderen Objekt entlangfährt.
 
 \begin{figure}[h]
 \includegraphics[width=0.4\textwidth]{abb/blender-constraint parameter.png}
@@ -141,33 +141,33 @@ Zusätzlich besitzt die Regel einen Influence-Parameter. Mit diesem kann die Ver
 
 Insgesamt bietet Blender ein komplexes, stark anpassbares Regelsystem an, mit welchem Objekte untereinander verbunden werden können. 
 
-Zusätzlich zu Blender wurde die 3D-Software \textit{Autodesk Maya} untersucht. Auch diese Software besitzt ein ähnliches System zu den untersuchten CAD-Anwendungen und bietet die Möglichkeit, verschiedenste Relationen zwischen Objekten zu modellieren. \parencite{uhrMayaBasicConstraints2018}
+Zusätzlich zu Blender wurde die 3D-Software \textit{Autodesk Maya} untersucht. Auch diese Software besitzt ein ähnliches System zu den untersuchten CAD-Anwendungen und ermöglicht, verschiedenste Relationen zwischen Objekten zu modellieren. \parencite{uhrMayaBasicConstraints2018}
 
 \paragraph{Game Engine}
 
-Bei der Untersuchung von Regeln in Game-Engines scheinen zwischen Editor-Regeln und Spielregeln unterschieden werden zu müssen. Editor-Regeln, analog zu Regeln in den anderen untersuchten Software, werden vom Entwickler im Interface zwischen zwei Objekten hinzugefügt und schränken beispielsweise die Bewegung ein. Auf der anderen Seite werden Spielregeln während dem Spielen auf den Spieler oder die Welt angewandt, um z.B. die Platzierung oder Interaktion einzuschränken.
+Bei der Untersuchung von Regeln in Game-Engines scheinen zwischen Editor-Regeln und Spielregeln unterschieden werden zu müssen. Editor-Regeln, analog zu Regeln in den anderen untersuchten Software, werden vom Entwickler im Interface zwischen zwei Objekten hinzugefügt und schränken beispielsweise die Bewegung ein. Auf der anderen Seite werden Spielregeln während des Spielens auf den Spieler oder die Welt angewandt, um z.B. die Platzierung oder Interaktion einzuschränken.
 
-\textit{Unity} besitzt eine Untersützung unterschiedlicher Editor-Regeln, ähnlich zu den Regeln in Blender \parencite{techhamlinLookConstraintsUnity2024}. Spielregeln müssen jedoch stattdessen vom Entwickler selber hinzugefügt werden, beispielsweise durch Skripte oder unsichtbare Objekte \parencite{yeopBuiltRuleBasedAutoPlacement2025}. 
+\textit{Unity} besitzt eine Unterstützung unterschiedlicher Editor-Regeln, ähnlich zu den Regeln in Blender \parencite{techhamlinLookConstraintsUnity2024}. Spielregeln müssen jedoch stattdessen vom Entwickler selbst hinzugefügt werden, beispielsweise durch Skripte oder unsichtbare Objekte \parencite{yeopBuiltRuleBasedAutoPlacement2025}. 
 
 \paragraph{Videospiele}
 
 Das Videospiel \textit{Super Mario Maker 2} erlaubt es Spielern, eigene Level im Stil von Super Mario zu erstellen. Zwar gibt es keine Möglichkeit für Spieler:innen, eigene Regeln im Level zu definieren, jedoch erzwingt das Spiel bei der Erstellung von Leveln intern einige Regeln. \parencite{dr.badbeardSuperMarioMaker2019}
 
-So prüft das Spiel etwa, dass Objekte nur in bestimmten Bereichen vorhanden sind oder nur bestimmt häufig vorkommen können - beispielsweise darf nur eine Ziellinie existieren. Sollte dies nicht erfüllt sein, wird das Objekt rot hinterlegt angezeigt oder die Auswahl im Menü wird vollständig deaktiviert.
+So prüft das Spiel etwa, dass Objekte nur in bestimmten Bereichen vorhanden sind oder bestimmt häufig vorkommen können - beispielsweise darf ausschließlich eine Ziellinie existieren. Sollte dies nicht erfüllt sein, wird das Objekt rot hinterlegt angezeigt oder die Auswahl im Menü wird vollständig deaktiviert.
 
 Zusätzlich wird in den Levels ein Limit für die Anzahl der Objekte durchgesetzt \parencite{gamexplainPushingObjectLimit2015}. Nach Erreichen des Limits werden alle Objekte ausgegraut und können nicht weiter platziert werden.
 
-Zuletzt muss die Spielbarkeit vor der Veröffentlichung nachgewiesen werden: Der Author muss das Level einmal erfolgreich durchspielen können, und kann es sonst anderen Spielern nicht zur Verfügung stellen. 
+Zuletzt muss die Spielbarkeit vor der Veröffentlichung nachgewiesen werden: Der Autor muss das Level einmal erfolgreich durchspielen können und kann es sonst anderen Spielern nicht zur Verfügung stellen. 
 
 \medskip
 
-Das Videospiel \textit{Roblox} bietet mit der Software \textit{Roblox Studio} eine eigene Game Engine-ähnliche Entwicklungsumgebung zur Erstellung von Welten innerhalb des Spiels. Ähnlich zu Unity bietet auch diese Software eine Reihe von Editor-Regeln an, Spielregeln müssen jedoch vom Entwickler selbst umgesetzt werden. \parencite{arktalROBLOXBuildingHow2021}
+Das Videospiel \textit{Roblox} bietet mit der Software \textit{Roblox Studio} eine eigene Game-Engine-ähnliche Entwicklungsumgebung zur Erstellung von Welten innerhalb des Spiels. Ähnlich zu Unity bietet auch diese Software eine Reihe von Editor-Regeln an, Spielregeln müssen jedoch vom Entwickler selbst umgesetzt werden. \parencite{arktalROBLOXBuildingHow2021}
 
 \medskip
 
-Zusammengefasst fokussieren sich Regelsysteme in existierender Software vor allem auf die feste Verkettung zwischen zwei oder mehr Objekten und weniger auf die Einschränkung und Validierung der Platzierung.
+Zusammengefasst fokussieren sich Regelsysteme in existierender Software vordergründig auf die feste Verkettung zwischen zwei oder mehr Objekten und weniger auf die Einschränkung und Validierung der Platzierung.
 
-Software wie Blender zeigen auf, dass auch komplexe Regeln über ein visuelles Interface verwaltet werden können. Auf der anderen Seite fokussieren sich Videospiele wie Super Mario Maker vor allem auf die Simplizität und Intuitivität des Systems und setzen Regeln leichter verständlich um.
+Software wie Blender zeigen auf, dass auch komplexe Regeln über ein visuelles Interface verwaltet werden können. Auf der anderen Seite fokussieren sich Videospiele wie Super Mario Maker vorrangig auf die Simplizität und Intuitivität des Systems und setzen Regeln leichter verständlich um.
 
 \subsection{Stakeholder und Nutzungsszenarien}\label{subsection:Stakeholder und Nutzungsszenarien}
 
@@ -184,47 +184,47 @@ Nachfolgend sollen die Stakeholder und häufige Nutzungsszenarien von \textit{AR
 
 Abbildung \ref{fig:Stakeholder Onion Model} stellt das entwickelte Onion-Model zur Stakeholderanalyse dar. Im Kern ist hierbei das AR Validierungssystem, von welchem die vier Gruppen der direkten Nutzer, Definition und operativer Betrieb, Unterstützung bzw. Infrastruktur und externe Beeinflusser identifiziert wurden.
 
-Als primäre Nutzergruppe wurden Bürger:innen identifiziert, die das System aktiv zur Validierung ihrer AR-Platzierungen nutzen. Diese Gruppe steht in direktem Kontakt mit den Ausgaben des Systems und nutzen dieses, um die eigenen Vorschläge zu verbessern.
+Als primäre Nutzergruppe wurden Bürger:innen identifiziert, die das System aktiv zur Validierung ihrer AR-Platzierungen nutzen. Diese Gruppe steht in direktem Kontakt mit den Ausgaben des Systems und nutzt diese, um die eigenen Vorschläge zu verbessern.
 
-Als sekundäre Nutzergruppe wurden Stadtplaner:innen eruiert, welche die Definition der Regeln über den auszuarbeitenden Regel-Syntax definieren.
+Als sekundäre Nutzergruppe wurden Stadtplaner:innen eruiert, welche die Definition der Regeln über die auszuarbeitende Regelsyntax definieren.
 
 Ebenfalls sekundäre Nutzer, welche der Infrastruktur zugeordnet wurden, sind Verwaltungen, welche von den verbesserten Vorschlägen durch die Validierung profitieren.
 
-Neben diesen Hauptakteuren wurden ebenfalls Rahmenankteure wie Datenschutzbeaufragte für die Verwendung von Standortdaten sowie politische Entscheidungsträger:innen mit Interesse an erfolgreicher Bürgerbeteiligung festgestellt.
+Neben diesen Hauptakteuren wurden ebenfalls Rahmenakteure wie Datenschutzbeauftragte für die Verwendung von Standortdaten sowie politische Entscheidungsträger:innen mit Interesse an erfolgreicher Bürgerbeteiligung festgestellt.
 
-In der Gruppe der Enabler wurden schließlich die Entwickler, welche die Erstellung Wartung des Systems durchführen, sowie Open-Data Anbieter wie OpenStreetMap, welche Schnittstellen für genutzte Daten des Validierungssystems liefern, ermittelt.
+In der Gruppe der Enabler wurden schließlich die Entwickler, welche die Erstellung und Wartung des Systems durchführen, sowie Open-Data-Anbieter wie OpenStreetMap, welche Schnittstellen für genutzte Daten des Validierungssystems liefern, ermittelt.
 
 \medskip
 
 Auf Basis der ermittelten Stakeholder wurde eine Stakeholder-Tabelle mit Hauptinteressen, Erwartungen, Einfluss und potenziellen Konflikten aufgestellt, welche in Tabelle \ref{tab:Stakeholder-Tabelle} [S. \pageref{tab:Stakeholder-Tabelle}, \ref{anh:Stakeholder}] abgebildet ist.
 
-Wichtige potenzielle Konflikte zwischen in den Nutzergruppen sind hierbei der Wunsch nach maximaler Freiheit gegen restriktive Regeln bei Bürger:innen und die unterstützte Komplexität der Regeln für Stadtplaner:innen gegen die Performance und Verständlichkeit für Bürger:innen.
+Wichtige potenzielle Konflikte zwischen den Nutzergruppen sind hierbei der Wunsch nach maximaler Freiheit gegen restriktive Regeln bei Bürger:innen und die unterstützte Komplexität der Regeln für Stadtplaner:innen gegen die Performance und Verständlichkeit für Bürger:innen.
 
 \subsubsection{Nutzungsszenarien}
 
-Aufbauend auf den erarbeiteten Informationen zu Stakeholdern wurden User Stories definiert. Die vollständige Tabelle aller User Stories ist in Tabelle \ref{tab:User Stories} [S. \pageref{tab:User Stories}, \ref{anh:Nutzungsszenarien}] abgebildet. Die Stories wurden hierfür für jede Stakeholdergruppe einzeln definiert und folgen dem Schema „US-\textit{Stakeholdergruppe}-\textit{Nummer}“, z.B. \textit{US-SP-005}, für die spätere Referenzierung.
+Aufbauend auf den erarbeiteten Informationen zu Stakeholdern, wurden User-Stories definiert. Die vollständige Tabelle aller User-Stories ist in Tabelle \ref{tab:User Stories} [S. \pageref{tab:User Stories}, \ref{anh:Nutzungsszenarien}] abgebildet. Die Stories wurden hierfür für jede Stakeholdergruppe einzeln definiert und folgen dem Schema „US-\textit{Stakeholdergruppe}-\textit{Nummer}“, z.B. \textit{US-SP-005}, für die spätere Referenzierung.
 
-Zu den User Stories für Bürger:innen zählen hierbei insbesondere solche, die sicherstellen, dass die Validierung schnell und verständlich stattfindet. Hierzu zählen Stories zur Darstellung eines Live-Status bei der Verschiebung und eine Auskunft durch die Hinterlegung des Objekts in roter Farbe.
+Zu den User-Stories für Bürger:innen zählen hierbei insbesondere solche, die sicherstellen, dass die Validierung schnell und verständlich stattfindet. Hierzu zählen Stories zur Darstellung eines Live-Status bei der Verschiebung und eine Auskunft durch die Hinterlegung des Objekts in roter Farbe.
 
 Für Stadtplaner:innen fokussieren sich die Stories auf die Definition der formalen Regeln sowie bestimmte Arten von Regeln - etwa Einschränkung der Rotation oder Untergründe.
 
-Für Entwickler:innen des Systems liegt der Fokus insbesondere auf die Erstellung eines stabilen, performanten Interfaces.
+Für Entwickler:innen des Systems liegt der Fokus insbesondere auf der Erstellung eines stabilen, performanten Interfaces.
 
 \medskip
 
-Zur besseren Gruppierung und Überblick zu wichtigen Funktionen wurde anschließend eine Use Case Tabelle ausgearbeitet. Diese ist als Tabelle \ref{tab:Use Cases} [S. \pageref{tab:Use Cases}, \ref{anh:Nutzungsszenarien}] abgebildet. Die einzelnen Use Cases werden zudem in den Tabellen \ref{tab:UC-VAL-001} [S. \pageref{tab:UC-VAL-001}, \ref{anh:Nutzungsszenarien}] bis \ref{tab:UC-DEV-001} [S. \pageref{tab:UC-DEV-001}] genauer untersucht. Die Use Cases referenzieren hierbei jeweils diejenigen User Stories, welche sie zusammenfassen.
+Zur besseren Gruppierung und Überblick zu wichtigen Funktionen wurde anschließend eine Use-Case-Tabelle ausgearbeitet. Diese ist als Tabelle \ref{tab:Use Cases} [S. \pageref{tab:Use Cases}, \ref{anh:Nutzungsszenarien}] abgebildet. Die einzelnen Use-Cases werden zudem in den Tabellen \ref{tab:UC-VAL-001} [S. \pageref{tab:UC-VAL-001}, \ref{anh:Nutzungsszenarien}] bis \ref{tab:UC-DEV-001} [S. \pageref{tab:UC-DEV-001}] genauer untersucht. Die Use-Cases referenzieren hierbei jeweils diejenigen User-Stories, welche sie zusammenfassen.
 
 Die Use-Cases folgen dem Namensschema „UC-\textit{Bereich}-\textit{Nummer}“, z.B. \textit{UC-VAL-002}. Die Aufteilung geschieht in die Bereiche Validierung (\textit{VAL}), Administration (\textit{ADM}) und Entwicklung (\textit{DEV}).
 
-Für die Validierung aus Sicht von Bürger:innen wurde hierbei als primäre Use Cases definiert, dass die Objektplatzierung validiert werden kann und während der Verschiebung von Objekten eine direkte Rückmeldung erfolgt.
+Für die Validierung aus Sicht von Bürger:innen wurde hierbei als primäre Use-Cases definiert, dass die Objektplatzierung validiert werden kann und während der Verschiebung von Objekten eine direkte Rückmeldung erfolgt.
 
-Für die Administration war der primäre Use Case das einfache Definieren und verwalten von Regeln der einzelnen Objekte.
+Für die Administration war der primäre Use Case das einfache Definieren und Verwalten von Regeln der einzelnen Objekte.
 
 Zuletzt war es für die Entwicklung von hohem Wert, dass die Validierung über ein typisiertes Interface modular konsumiert werden kann.
 
 \subsubsection{Szenario-Modellierung}
 
-Viele der Einzelheiten des Systems wurden in den vorherigen Modellen bereits untersucht und definiert. Während der Iteration dieser Modelle wurde zusätzlich eine Modellierung essenzieller Szenarien als Sequenzdiagramm erstellt. Hierdurch konnte das Zusammenspiel der einzelnen Komponenten klarer betrachtet werden und über blinde Flecken zwischen den Schichten iteriert werden.
+Viele der Einzelheiten des Systems wurden in den vorherigen Modellen bereits untersucht und definiert. Während der Iteration dieser Modelle wurde zusätzlich eine Modellierung essenzieller Szenarien als Sequenzdiagramm erstellt. Hierdurch konnte das Zusammenspiel der einzelnen Komponenten klarer betrachtet und über blinde Flecken zwischen den Schichten iteriert werden.
 
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{abb/sequenz_constraint_val.png}
@@ -237,7 +237,7 @@ Abbildung \ref{fig:Sequenz Validierung} zeigt das erstellte Sequenzdiagramm zur 
 
 Wenn der Bürger ein Objekt platziert oder verschiebt, ruft das Basissystem das neue Validierungssystem über die Schnittstelle \textmono{validate()} auf. Das Validierungssystem kann sich aus dem Basissystem die Daten über die Objekte und Platzierungen holen, um diese zu validieren.
 
-Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lasen und die enthaltenden Regeln prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide  zurückgemeldet werden und per visuellem Feedback dem Bürger dargestellt werden.
+Das Validierungssystem sollte nun die benötigten Regeln aus der Regelpaket-Datenbank lesen und die enthaltenen Regeln prüfen. Das Ergebnis dieser Prüfung kann schließlich an das Basissystem als valide oder nicht valide zurückgemeldet und per visuellem Feedback dem Bürger dargestellt werden.
 
 \subsection{Systemanforderungen}\label{subsection:Systemanforderungen}
 
@@ -251,21 +251,21 @@ Die Nummerierung erfolgt hierbei im IEEE-Format als „REQ-\textit{Typ}-\textit{
 
 Die Tabelle aller Systemanforderungen ist als Tabelle \ref{tab:Systemanforderungen} [S. \pageref{tab:Systemanforderungen}, \ref{anh:Systemanforderungen}] zu finden.
 
-Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schema-Funktionen (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisregeln, welche aus der Elicitation-Phase erarbeitet wurden (z.B. REQ-C-001).
+Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schemafunktion (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisregeln, welche aus der Anforderungsermittlung erarbeitet wurden (z.B. REQ-C-001).
 
-Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen des Regelsyntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
+Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen der Regelsyntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
 
 \subsubsection{Abgedeckte Objektklassen}
 
 Zur effektiven Prüfung des Validierungssystems soll eine kleine Auswahl von Objekten ermittelt werden, auf welche eine große Breite unterschiedlicher Regeln angewendet werden kann.
 
-Die Fokus liegt hierbei auf einer geringen Auswahl von Objekten mit einer großen Bandbreite von Regeln, anstatt einer großen Bandbreite von Objekten auf die größtenteils die gleichen Regeln angewendet werden müssen.
+Der Fokus liegt hierbei auf einer geringen Auswahl von Objekten mit einer großen Bandbreite von Regeln, anstatt einer großen Bandbreite von Objekten, auf die größtenteils die gleichen Regeln angewendet werden müssen.
 
-Auf Basis der Ergebnisse der Elicitation-Phase (Kapitel \ref{subsection:Elicitation}) wurde eine Liste von geeigneten Objekten definiert.
+Auf Basis der Ergebnisse der Anforderungsermittlung (Kapitel \ref{subsection:Elicitation}) wurde eine Liste von geeigneten Objekten definiert.
 
 Zunächst wird eine Sitzbank als 3D-Basisobjekt gewählt. Diese bildet ein generisches Beispiel für viele ähnliche Objekte dar, etwa Fahrradständer, Laternen oder Sportfreizeitgeräte. Auf das Objekt können grundlegende Regeln wie eine Platzierung nur auf Grünflächen und eine Rotation nur um die y-Achse angewendet werden, ohne direkt eine zu hohe Spezialisierung zu benötigen. Das Objekt eignet sich daher gut, um als Erstes in das System implementiert zu werden und für die grundlegende Systemvalidierung zu dienen.
 
-Als zweites Element wurde ein Zebrastreifen gewählt. Diese Straßenmarkierung dient als Basisobjekt für ähnliche 2D-Objekte, ohne eine zu hohe Komplexität zu bieten. Das Objekt kann mit einer Standardbreite einer typischen 2-spurigen Straße angelegt werden und geht so nicht in den Out of Scope Bereich der komplexen Objektmanipulation ein. Auch bei diesem Objekt können einige Regeln wie die flache Platzierung und vollständiges Auflegen auf der Straße umgesetzt werden.
+Als zweites Element wurde ein Zebrastreifen gewählt. Diese Straßenmarkierung dient als Basisobjekt für ähnliche 2D-Objekte, ohne eine zu hohe Komplexität zu bieten. Das Objekt kann mit einer Standardbreite einer typischen zweispurigen Straße angelegt werden und geht so nicht in den Out of Scope Bereich der komplexen Objektmanipulation ein. Auch bei diesem Objekt können einige Regeln wie die flache Platzierung und vollständiges Auflegen auf der Straße umgesetzt werden.
 
 Zuletzt können optional als finale Objekte ein Pflanzbeet und eine Pflanze hinzugefügt werden. Diese Objektkombination bietet eine interessante Kombination an, bei welcher eine Pflanze zwingend in einem Pflanzbeet stehen muss, andere Objekte jedoch nicht. Hierdurch können Interaktionen zwischen virtuellen Objekten validiert und umgesetzt werden.
 
@@ -275,7 +275,7 @@ Die Objekte sollen in der Umsetzung in der hier genannten Reihenfolge implementi
 
 \subsubsection{Kreativitäts-Level}
 
-Insbesondere während dem Experteninterview wurde herausgestellt, dass Bürgerbeteiligung auf viele Weisen stattfinden kann. Damit das Zielsystem für möglichst viele dieser Methoden nutzbar bleibt, wurde das Konzept eines \textit{Kreativitäts-Levels} hinzugefügt. Diese folgen aus der User Story \textit{US-SP-006} sowie dem optionalen Requirement \textit{REQ-F-009}.
+Insbesondere während des Experteninterviews wurde herausgestellt, dass Bürgerbeteiligung auf viele Weisen stattfinden kann. Damit das Zielsystem für möglichst viele dieser Methoden nutzbar bleibt, wurde das Konzept eines \textit{Kreativitäts-Levels} hinzugefügt. Diese folgen aus der User Story \textit{US-SP-006} sowie dem optionalen Requirement \textit{REQ-F-009}.
 
 Beispielsweise bei explorativen Beteiligungen oder grundlegender Neugestaltung von Flächen kann es hinderlich sein, wenn Regeln zwingend und strikt durchgesetzt werden. 
 
@@ -297,6 +297,6 @@ Beispielsweise bei explorativen Beteiligungen oder grundlegender Neugestaltung v
 
 Tabelle \ref{tab:kreativitaets level} zeigt die ausgearbeiteten Kreativitäts-Level zur Unterstützung verschiedener partizipativer Methoden. Mit zunehmendem Level werden Regeln progressiv weniger strikt durchgesetzt, um die mögliche Kreativität zu erhöhen.
 
-Im 0-Level werden alle Regeln strikt durchgesetzt und bei Fehlplatzierung ein Fehler gezeigt. Dieser Modus ist Standartmäßig aktiviert, um die freien Vorschläge strikt auf ihre Machbarkeit zu prüfen. Im 1-Level werden weiterhin alle Regeln ausgewertet, jedoch nur noch als Warnung angezeigt.
+Im 0-Level werden alle Regeln strikt durchgesetzt und bei Fehlplatzierung wird ein Fehler gezeigt. Dieser Modus ist standardmäßig aktiviert, um die freien Vorschläge strikt auf ihre Machbarkeit zu prüfen. Im 1-Level werden weiterhin alle Regeln ausgewertet, jedoch nur noch als Warnung angezeigt.
 
-Das Kreativitäts-Level 2 ist vor allem für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Regeln eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.
+Das Kreativitäts-Level 2 ist vorwiegend für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Regeln eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.
