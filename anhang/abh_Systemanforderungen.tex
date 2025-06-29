@@ -1,32 +1,34 @@
 
-\begin{longtable}{| p{3cm} | p{11cm} |}
+\begin{longtable}{| p{3cm} | p{9cm} | p{2cm} |}
 \hline
-\textbf{ID} & \textbf{Anforderungssatz} \\ 
+\textbf{ID} & \textbf{Anforderungssatz} & \textbf{User-Story} \\ 
 \hline\hline
 \multicolumn{2}{|l|}{\textbf{Funktionale Anforderungen}} \\
 \hline
-REQ-F-001 & Das \textbf{Validierungssystem} \textbf{MUSS} nach jeder Platzierung eines Objekts dessen Konformität gegen alle aktiven Regeln prüfen und das Ergebnis an das \textbf{AR-Basissystem} zurückgeben. \\ \hline
-REQ-F-002 & Das \textbf{Validierungssystem} \textbf{MUSS} jedem Verstoß eine eindeutige \textbf{Regel-ID} und einen \textbf{Kurztext} (max. 120~Zeichen) zuordnen und im Ergebnis mitliefern. \\ \hline
-REQ-F-003 & Das \textbf{AR-Basissystem} \textbf{MUSS} bei \verb|valid=false| das betroffene Objekt vollständig rot hinterlegen. \\ \hline
-REQ-F-004 & Das \textbf{AR-Basissystem} \textbf{MUSS} während eines Drag- oder Move-Events mindestens zweimal pro Sekunde eine Validierungsanfrage stellen. \\ \hline
-REQ-F-005 & Das \textbf{Validierungssystem} \textbf{MUSS} für jedes Objekt den zugehörigen \textbf{Regelpaket-Namen} aus der Objektklasse ableiten und nur dieses Paket auswerten. \\ \hline
-REQ-F-006 & Das \textbf{Validierungssystem} \textbf{MUSS} Regelpakete als JSON laden und beim Start auf Schemakonformität prüfen. \\ \hline
-REQ-F-007 & Das \textbf{Validierungssystem} \textbf{MUSS} das Attribut \verb|active| in jeder Regel auswerten und deaktivierte Regeln ignorieren. \\ \hline
-REQ-F-008 & Das \textbf{Validierungssystem} \textbf{MUSS} eine TypeScript-Schnittstelle bereitstellen, die die Methode \verb|validate()| exportiert. \\ \hline
-REQ-F-009 & Das \textbf{Validierungssystem} \textbf{SOLL} ein einstellbares \verb|Kreativitäts-Level| unterstützen, mit welchem eingestellt wird, wie strikt Regeln umgesetzt werden. \\ 
+REQ-F-001 & Das \textbf{Validierungssystem} \textbf{MUSS} nach jeder Platzierung eines Objekts dessen Konformität gegen alle aktiven Regeln prüfen und das Ergebnis an das \textbf{AR-Basissystem} zurückgeben. & US-B-003 \\ \hline
+REQ-F-002 & Das \textbf{Validierungssystem} \textbf{MUSS} jedem Verstoß einen \textbf{Kurztext} (max. 120~Zeichen) zuordnen und im Ergebnis mitliefern. & US-B-002 \\ \hline
+REQ-F-003 & Das \textbf{AR-Basissystem} \textbf{MUSS} bei \verb|valid=false| das betroffene Objekt vollständig rot hinterlegen. & US-B-001 \\ \hline
+REQ-F-004 & Das \textbf{AR-Basissystem} \textbf{MUSS} während eines Drag- oder Move-Events mindestens zweimal pro Sekunde eine Validierungsanfrage stellen. & US-B-003 \\ \hline
+REQ-F-005 & Das \textbf{Validierungssystem} \textbf{MUSS} für jedes Objekt den zugehörigen \textbf{Regelpaket-Namen} aus der Objektklasse ableiten und nur dieses Paket auswerten. & US-B-004 \\ \hline
+REQ-F-006 & Das \textbf{Validierungssystem} \textbf{MUSS} Regelpakete als JSON laden und beim Start auf Schemakonformität prüfen. & US-B-004 \\ \hline
+REQ-F-007 & Das \textbf{Validierungssystem} \textbf{MUSS} das Attribut \verb|active| in jeder Regel auswerten und deaktivierte Regeln ignorieren. & US-SP-005 \\ \hline
+REQ-F-008 & Das \textbf{Validierungssystem} \textbf{MUSS} eine TypeScript-Schnittstelle bereitstellen, die die Methode \verb|validate()| exportiert. & US-EAB-001 \\ \hline
+REQ-F-009 & Das \textbf{Validierungssystem} \textbf{SOLL} ein einstellbares \verb|Kreativitäts-Level| unterstützen, mit welchem eingestellt wird, wie strikt Regeln umgesetzt werden. & US-SP-006 \\ 
 \hline\hline
 \multicolumn{2}{|l|}{\textbf{Nicht-funktionale Anforderungen}} \\ 
 \hline
-REQ-NF-001 & Das \textbf{Validierungssystem} \textbf{MUSS} eine P95-Latenz von \textbf{$\leq$\,500 ms} pro Anfrage auf Referenzhardware (Apple A14 Bionic, 4 GB RAM) einhalten. \\ \hline
-REQ-NF-002 & Das \textbf{AR-Basissystem} \textbf{MUSS} trotz Live-Validierung eine Bildrate von \textbf{$\geq$ 60 FPS} einhalten. \\ 
+REQ-NF-001 & Das \textbf{Validierungssystem} \textbf{MUSS} eine P95-Latenz von \textbf{$\leq$\,500 ms} pro Anfrage auf Referenzhardware (Apple A14 Bionic, 4 GB RAM) einhalten.& US-EAB-002 \\ \hline
+REQ-NF-002 & Das \textbf{AR-Basissystem} \textbf{MUSS} trotz Live-Validierung eine Bildrate von \textbf{$\geq$ 60 FPS} einhalten. & US-EAB-002 \\ 
 \hline\hline
 \multicolumn{2}{|l|}{\textbf{Regelanforderungen}} \\ 
 \hline
-REQ-C-001 & Das \textbf{Validierungssystem} \textbf{MUSS} verhindern, dass Objekte der Klasse \enquote{Sitzbank} auf Flächen mit Layer-Typ \verb|street| platziert werden. \\ \hline
-REQ-C-002 & Das \textbf{Validierungssystem} \textbf{MUSS} erlauben, dass Objekte der Klasse \enquote{Sitzbank} auf Layer-Typ \verb|sidewalk| oder \verb|green| platziert werden. \\ \hline
+REQ-C-001 & Das \textbf{Validierungssystem} \textbf{MUSS} verhindern, dass Objekte der Klasse \enquote{Sitzbank} auf Flächen mit Layer-Typ \verb|asphalteds| platziert werden. & US-B-005 \\ \hline
+REQ-C-002 & Das \textbf{Validierungssystem} \textbf{MUSS} erlauben, dass Objekte der Klasse \enquote{Sitzbank} auf Layer-Typ \verb|grass| platziert werden. & US-B-005 \\ \hline
 REQ-C-003 & Das \textbf{Validierungssystem} \textbf{MUSS} sicherstellen, dass eine \enquote{Sitzbank} mindestens \textbf{1 m} Abstand zur nächsten Straße hält. \\ \hline
-REQ-C-004 & Das \textbf{Validierungssystem} \textbf{MUSS} bei einer \enquote{Sitzbank} Rotationen außerhalb der y-Achse ablehnen. \\ \hline
-REQ-C-005 & Das \textbf{Validierungssystem} \textbf{MUSS} nur dann einen \enquote{Baum} akzeptieren, wenn seine Stammposition vollständig innerhalb eines \textbf{Pflanzkübels} liegt. \\ 
+REQ-C-004 & Das \textbf{Validierungssystem} \textbf{MUSS} bei einer \enquote{Sitzbank} Rotationen außerhalb der y-Achse ablehnen. & \\ \hline
+REQ-C-005 & Das \textbf{Validierungssystem} \textbf{SOLL} sicherstellen, dass eine \enquote{Sitzbank} mindestens \textbf{5 m} Abstand zur nächsten Kreuzung hält & \\ \hline
+REQ-C-006 & Das \textbf{Validierungssystem} \textbf{SOLL} bei einem \enquote{Zebrastreifen} ein Platzierung und auf dem Oberflächentyp \verb|asphalted| erlauben. & \\ \hline
+REQ-C-007 & Das \textbf{Validierungssystem} \textbf{SOLL} nur dann eine \enquote{Pflanze} akzeptieren, wenn seine Stammposition vollständig innerhalb eines \textbf{Pflanzkübels} liegt. & \\ 
 \hline
 
 \caption{Systemanforderungen}

@@ -103,6 +103,26 @@ Insgesamt bestätigt das Interview sowohl die Relevanz als auch die Grenzen des 
 
 Es kann keine vollständige Abbildung der Relationen und Interessen aller Parteien abgebildet werden, da die Erstellung eines all-umfänglichen Systems für die Verwaltung aller Interessen weit über ARVal hinaus geht. Trotzdem können einige der grundlegenden Prüfungen automatisiert und formell abgebildet werden.
 
+\medskip
+
+In der Aufarbeitung des Interviews wurden konkrete Systemanforderung, die sich aus den Aussagen ergegeben, katalogisiert in über die Identifikatoren \quoted{EL-IN-001} bis \quoted{EL-IN-005}. Die genaue Textpassage, aus welcher eine Anforderung abgeleitet wurde, wurde im Volltext des Anhangs markiert und in Tabelle \ref{tab:interview anforderungen} zusammengefasst.
+
+\begin{table}[!h]
+\begin{center}
+    \begin{tabular}{ | l | c | }
+      \hline
+      Anforderung & Bescshreibung \\ \hline \hline
+      EL-IN-001 & Eigentumserkennung (außerhalb des Scopes) \\ \hline
+      EL-IN-002 & Abstandsflächen \\ \hline
+      EL-IN-003 & Maßstäblichkeit \\ \hline
+      EL-IN-004 & Nachvollziehbarkeit von Entscheidungen \\ \hline
+      EL-IN-005 & Verfahren sind für Behörden leicht umzusetzen \\ \hline
+    \end{tabular}
+\caption{Systemanforderung des Interviews}
+\label{tab:interview anforderungen}
+\end{center}
+\end{table}
+
 \subsubsection{Analyse existierender Regelsysteme}\label{subsubsection:Analyse existierender Constraint-Systeme}
 
 Zusätzlich zum Experteninterview wurden für die Anforderungsermittlung existierende Software mit 3D- und 2D-Editoren aus den Bereichen Computer-Aided Design (CAD), 3D-Modellierungs- und Animationssoftware sowie Videospiele untersucht. Hierfür wurden vor allem eigene Erfahrungen mit den Systemen gesammelt sowie Videos über die Nutzung in komplexeren Projekten genutzt.
@@ -202,7 +222,7 @@ Wichtige potenzielle Konflikte zwischen den Nutzergruppen sind hierbei der Wunsc
 
 \subsubsection{Nutzungsszenarien}
 
-Aufbauend auf den erarbeiteten Informationen zu Stakeholdern, wurden User-Stories definiert. Die vollständige Tabelle aller User-Stories ist in Tabelle \ref{tab:User Stories} [S. \pageref{tab:User Stories}, \ref{anh:Nutzungsszenarien}] abgebildet. Die Stories wurden hierfür für jede Stakeholdergruppe einzeln definiert und folgen dem Schema „US-\textit{Stakeholdergruppe}-\textit{Nummer}“, z.B. \textit{US-SP-005}, für die spätere Referenzierung.
+Aufbauend auf den erarbeiteten Informationen zu Stakeholdern und Anforderungsermittlungen, wurden User-Stories definiert. Die vollständige Tabelle aller User-Stories ist in Tabelle \ref{tab:User Stories} [S. \pageref{tab:User Stories}, \ref{anh:Nutzungsszenarien}] abgebildet. Die Stories wurden hierfür für jede Stakeholdergruppe einzeln definiert und folgen dem Schema „US-\textit{Stakeholdergruppe}-\textit{Nummer}“, z.B. \textit{US-SP-005}, für die spätere Referenzierung. Falls sich eine Anforderung direkt aus Aussagen und Erkenntnissen der Anforderungsermittlungen ergibt, wird die Identifikationsnummer der Anforderung ebenfalls mit angegeben.
 
 Zu den User-Stories für Bürger:innen zählen hierbei insbesondere solche, die sicherstellen, dass die Validierung schnell und verständlich stattfindet. Hierzu zählen Stories zur Darstellung eines Live-Status bei der Verschiebung und eine Auskunft durch die Hinterlegung des Objekts in roter Farbe.
 
@@ -251,7 +271,7 @@ Die Nummerierung erfolgt hierbei im IEEE-Format als „REQ-\textit{Typ}-\textit{
 
 Die Tabelle aller Systemanforderungen ist als Tabelle \ref{tab:Systemanforderungen} [S. \pageref{tab:Systemanforderungen}, \ref{anh:Systemanforderungen}] zu finden.
 
-Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schemafunktion (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisregeln, welche aus der Anforderungsermittlung erarbeitet wurden (z.B. REQ-C-001).
+Die Anforderungen behandeln die Zusammenarbeit zwischen den verschiedenen Teilsystemen (z.B. REQ-F-001), Einzelheiten zur Schemafunktion (z.B. REQ-F-007), Performance-Ansprüche an die Validierung (z.B REQ-NF-001), sowie die konkreten Basisregeln, welche aus der Anforderungsermittlung erarbeitet wurden (z.B. REQ-C-001). Jede Anforderung besitzt hierbei zusätzlich Informationen über User-Stories, aus welchen diese abgeleitet ist. Für die Priorisierung einzelner Aspekte wurden die Stichworte \textit{MUSS} und \textit{SOLL} als respektive verpflichtende oder optionale Anforderungen genutzt.
 
 Die Anforderungen enthalten jedoch keine konkreten Implementierungsdetails zum Aussehen der Regelsyntax, den inneren Funktionalitäten des Validierungssystems sowie der Segmentierungsmethode. Diese Details sollen in den Kapiteln \ref{section:Konzeptualisierung eines Constraint-Systems} und \ref{section:Implementierung des Constraint-Systems} genauer betrachtet und final aufgearbeitet werden.
 
@@ -300,3 +320,9 @@ Tabelle \ref{tab:kreativitaets level} zeigt die ausgearbeiteten Kreativitäts-Le
 Im 0-Level werden alle Regeln strikt durchgesetzt und bei Fehlplatzierung wird ein Fehler gezeigt. Dieser Modus ist standardmäßig aktiviert, um die freien Vorschläge strikt auf ihre Machbarkeit zu prüfen. Im 1-Level werden weiterhin alle Regeln ausgewertet, jedoch nur noch als Warnung angezeigt.
 
 Das Kreativitäts-Level 2 ist vorwiegend für die explorative Stadtplanung gedacht: Positionierungsregeln werden nicht mehr ausgewertet, sondern lediglich die Veränderung der Position durch die geometrischen Regeln eingeschränkt. Hierdurch kann etwa eine Bank nun auch in der Mitte einer Straße platziert werden, muss jedoch weiterhin auf dem Boden stehen. Im höchsten Level 3 wird schließlich das gesamte Validierungssystem deaktiviert, sodass Objekte beliebig platziert, gedreht und verändert werden können.
+
+\subsection{Nachvollziehbarkeit der Anforderungen}
+
+Nach den Vorgaben von \textcite{ruppRequirementsEngineeringUndManagement2021} enthalten die Anforderungen eine vollständige Rückwärts-Nachvollziehbarkeit. Über die Identifikationsnummern aller Phasen ist es möglich herauszufinden, welche Stelle der Anforderungsermittlung für eine Anforderung verantwortlich ist (z.B. EL-IN-004), welche User-Story daraus erstellt werde (z.B. US-B-002) und welche Use-Cases sowie Systemanforderungen aus diesen hergeleitet werde (z.B. UC-VAL-001 und REQ-F-002). Bei Veränderungen an Anforderungen konnte hierdurch eine vollständige Aufwirkungsanalyse auf tieferliegende Anforderungen erstellt und angepasst werden.
+
+Für die Herstellung von Vorwärts-Nachvollziehbarkeit zu den Codeartefakten sollen in Kapitel \ref{section:Implementierung des Constraint-Systems} zur Implementierung des Systems jeweils auf die Identifikationsnummern verwiesen werden. Hierdurch soll erkennbar gemacht werden, wie die Anforderungen konkret verwirklicht wurden.

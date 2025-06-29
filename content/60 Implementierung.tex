@@ -4,7 +4,7 @@ Das Regelsystem baut, wie in der Konzeptionierung aufgezeigt, auf den Ergebnisse
 
 Als Basis der Codebasis wird das JavaScript Build-System \textit{Vite} genutzt \parencite{voidzeroinc.Vite2025}. Das System automatisiert den für moderne Webanwendungen nötigen Übersetzungs- und Optimierungsprozess, bei welchem der Quelltext in TypeScript in eine für Browser interpretierbare Ausgabe umgewandelt wird. Vite löst hierfür Modulabhängigkeiten auf und bündelt statische Ressourcen, wodurch ein lauffähiges Artefakt entsteht.
 
-Über die reine Transpilation hinaus führt Vite in der Produktionsumgebung zusätzliche Optimierungen – etwa Code-Splitting, Tree-Shaking und Minifizierung – durch, um Ladezeiten und Bandbreitenbedarf zu minimieren.
+Über die reine Transpilation hinaus führt Vite in der Produktionsumgebung zusätzliche Optimierungen – etwa Code-Splitting, Tree-Shaking und Minifizierung – durch, um Ladezeiten und Bandbreitenbedarf zu minimieren (REQ-NF-001).
 
 \medskip
 
@@ -27,7 +27,7 @@ In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikati
 \label{fig:uml core system}
 \end{figure}
 
-Abbildung \ref{fig:uml core system} zeigt ein UML-Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Delegierung der Aufgaben an die einzelnen Subklassen unternimmt und für die Präsentationsschicht eine einheitliche API bereitstellt. Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
+Abbildung \ref{fig:uml core system} zeigt ein UML-Klassendiagramm über den Aufbau des Kernsystems. Das oberste Objekt des Diagramms ist die Klasse \textmono{ValidationOrchestrator}, welche die Delegierung der Aufgaben an die einzelnen Subklassen unternimmt und für die Präsentationsschicht eine einheitliche API bereitstellt (REQ-F-008). Hierfür existiert die vorher konzeptionierte Funktion \textmono{validate(object: Object): Promise<ValidationResult>} zur Validierung.
 
 Wie zuvor aufgezeigt erfolgt die Auflösung der Verbindungen zu den Subklassen über den Dependency Injection IoC-Container, um die einzelnen Aufgaben weiterzugeben.
 
@@ -35,7 +35,7 @@ Zur zentralen Verwaltung aller Objekte wurde eine Klasse \textmono{Object} umges
 
 \medskip
 
-Zunächst ruft der Delegator daraufhin die Klasse \textmono{ValidationRuleResolver} mit der Funktion \textmono{resolveRulesetForObject} auf. Diese Klasse lädt alle Regelset-Dateien, um die objektspezifischen Regeln über die interne Methode \textmono{resolveDirectRulesetsForObject} sowie global anwendbaren Regeln über die interne Methode \textmono{resolveGlobalRulesForTags} aufzulösen. Alle anwendbaren Regeln werden schließlich zu einem \textmono{ResolvedRuleset} verbunden, welches von späteren Einheiten ausgeführt werden kann.
+Zunächst ruft der Delegator daraufhin die Klasse \textmono{ValidationRuleResolver} mit der Funktion \textmono{resolveRulesetForObject} auf. Diese Klasse lädt alle Regelset-Dateien, um die objektspezifischen Regeln über die interne Methode \textmono{resolveDirectRulesetsForObject} sowie global anwendbaren Regeln über die interne Methode \textmono{resolveGlobalRulesForTags} aufzulösen (REQ-F-005, REQ-F-006, REQ-F-007). Alle anwendbaren Regeln werden schließlich zu einem \textmono{ResolvedRuleset} verbunden, welches von späteren Einheiten ausgeführt werden kann.
 
 Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execute(object: Object, rules: ResolvedRuleset)} des \textmono{ValidationExecutor} auf. Innerhalb dieser Methode werden die benötigten Validierungsmodule erstellt und ausgeführt.
 
@@ -57,7 +57,7 @@ Diese Information wird schließlich von der Klasse \textmono{ValidationOrchestra
 
 Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaren Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
 
-Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an die Präsentationsschicht gemeldet, damit diese dort dargestellt werden können.
+Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an die Präsentationsschicht gemeldet, damit diese dort dargestellt werden können (REQ-F-002).
 
 \medskip
 
@@ -195,7 +195,8 @@ Jedes Objekt besteht hierfür intern wiederum aus drei Teilkomponenten:
 
 \medskip
 
-Eine der zentralen Komponenten der Präsentationsschicht ist \textmono{EffectableGltf}.  
+Eine der zentralen Komponenten der Präsentationsschicht ist \textmono{EffectableGltf} zur Umsetzung von REQ-F-003.
+
 Ziel dieser Klasse ist es, beliebige glTF-Modelle um visuelle Effekte – etwa eine rote Hinterlegung bei Validierungsfehlern oder eine weiße Kontur zur Hervorhebung des aktuell ausgewählten Objekts – zu erweitern.
 
 Im Ökosystem von RTF existieren zwar mehrere Lösungen für Post-Processing  
