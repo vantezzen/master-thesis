@@ -1,5 +1,74 @@
 \section{Nutzertest des Systems}\label{section:Usertesting des Systems}
 
+Zur Bewertung der Verständlichkeit und Nützlichkeit des Fehlerfeedbacks sowie der Intuitivität und Effizienz des Systems soll das System im nächsten Schritt mittels Nutzertests ausgewertet werden. Die Durchführung der Tests orientiert sich an den Leitlinien nach \textcite{albertMeasuringUserExperience2022} zur Durchführung und Analyse der Nutzererfahrung eines Systems.
+
 \subsection{Testaufbau}
 
+Die Nutzertests finden in Einzelsitzungen statt, wobei jeweils qualitative sowie quantitative Messungen durchgeführt werden können.
+
+Der Aufbau der Sitzung gliedert sich in fünf Phasen: Zunächst erhalten die Nutzer eine Einführung in den Anwendungsbereich und Zweck des ARPAS-Systems.
+
+Daraufhin erhalten die Nutzer fünf Minuten Zeit für eine freie Einarbeitung im \quoted{Kreativmodus} des Systems ohne aktivierte Validierung sowie für eventuelle Fragen. Während dieser Zeit können sich Nutzer bereits mit den Grundlagen des Systems und Steuerungsprimitiven vertraut machen, sodass die Lernkurve dieser nicht in spätere Tests streut.
+
+Nach der Einarbeitung finden zwei Messphasen, einmal im \quoted{Kreativmodus} und einmal im \quoted{Standardmodus}, in permutierter Reihenfolge, statt.
+Während jeder Phase soll vom Nutzer eine Bank, ein Zebrastreifen und eine Pflanze valide platzieren, so wie der Nutzer es für sinnvoll und erlaubt hält.
+
+Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitgestellt, welche in Tabelle \ref{tab:testrules} abgebildet sind. Nach Durchführung der Platzierung wird die automatisierte Validierung durchgeführt und auf eventuelle Fehlplatzierungen getestet. Während der Phase im Standardmodus wird dagegen keine Regelliste bereitgestellt, sondern eine automatische Live-Prüfung durch das System durchgeführt und dargestellt.
+
+\begin{table}[!h]
+\begin{center}
+    \begin{tabular}{ | l | p{14cm} | }
+      \hline
+      Regel & Beschreibung \\ \hline \hline
+      R1 & Keine Bank darf näher als 1 Meter an einer Straße oder 5 Meter an einer Kreuzung liegen und muss und vollständig auf Gras platziert sein \\ \hline
+      R2 & Vorne rechts ist Wendekreis einer Feuerwehr, vorne Links findet Samstags der Flohmarkt statt - auf beiden Flächen darf nichts platziert werden \\ \hline
+      R3 & Pflanzen dürfen nur in Kübeln platziert werden \\ \hline
+      R4 & Zebrastreifen müssen vollständig auf einer Straße liegen \\ \hline
+    \end{tabular}
+\caption{Regelliste für Nutzertests}
+\label{tab:testrules}
+\end{center}
+\end{table}
+
+Es werden jeweils eine Reihe von Auswertungsmethoden für ein möglichst vollständiges Bild durchgeführt. Zur Prüfung der Effizienz des Systems wird die Ausführungszeit von der ersten Interaktion bis zur vollständigen Platzierung erfasst. Die mentale Belastung des Systems wird durch die Nutzung des NASA-TLX Fragebogens sowie die Gebrauchstauglichkeit über die System Usability Scale (SUS) ausgewertet \parencite{hartDevelopmentNASATLXTask1988}.
+
+Neben diesen quantitativen Messmethoden wird zusätzlich die qualitative Methode des \textit{Restrospective Think-Aloud} (RTA) genutzt. Traditionelle Think-Aloud Methoden stehen in der Vermutung, die Messergebnisse zu verfälschen, da sie zusätzliche Denkzeiten und das Formen klarer Gedankenstränge forcieren. Hingegen findet dies bei RTA erst nach der eigentlichen Messung durch eine erneute Betrachtung der eigenen Leistung als Videoaufnahme auf. \parencite[S. 90]{albertMeasuringUserExperience2022}
+
+Hierdurch kann erhofft werden, Einblicke in die Gedankenstränge der Nutzer zu erhalten, ohne andere Messergebnisse zu verfälschen.
+
+\medskip
+
+Die Anzahl der benötigten Personen für eine repräsentative Nutzerstudie ist ein in aktueller Forschung umstrittenes Thema: Laut der oft genutzten \textit{Nielsens Faustregel} sollen bereits fünf Nutzer über 80\% der Probleme eines Systems erkennen und sind somit ausreichend. Gegensätzlich ist das Ergebnis anderer Arbeiten jedoch, dass dieser Problemwert erst ab einer Zahl von zehn Nutzern zuverlässig erreicht wird. Als Teil dieser Arbeit wird daher ein Bereich von 8-10 Teilnehmern angestrebt, um eine ausreichende Abdeckung über Nutzungsprobleme erreichen zu können. \parencite[S. 172-176]{albertMeasuringUserExperience2022}
+
+\medskip
+
+\begin{table}[!h]
+\begin{center}
+    \begin{tabular}{ | l | p{4cm} | p{6cm} | p{3cm} | }
+      \hline
+      ID & Systembezug & Hypothese & Messgröße \\ \hline \hline
+      H1 & REQ-NF-002 (Bildrate $\geq$ 25 FPS)\newline REQ-F-004 (Live-Validierung) & Live-Feedback reduziert die mittlere Task-Completion-Time (TCT) pro Objekt gegenüber der Basisbedingung ohne Feedback. & $\Delta$ TCT (Sek.) \\ \hline
+      H2 & REQ-C-[001-003] (regelkonforme Platzierung) & Visuelle Fehlerindikatoren senken die End-Fehlerrate auf 0. & Fehler am Ende der Platzierung \\ \hline
+      H3 & REQ-NF-001 (latente Verständlichkeit)\newline REQ-F-002 (Regel-Kurztexte) & Teilnehmende bewerten Fehlermeldungen als nicht frustrierend. & RTA + NASA-TLX \quoted{Frustration} Ergebnis \\ \hline
+      H4 & System-Akzeptanz Gesamt & SUS-Score $>$ 70 & SUS-Score \\ \hline
+    \end{tabular}
+\caption{Hypothesen für Nutzertests}
+\label{tab:hypothesis}
+\end{center}
+\end{table}
+
+Zuletzt wurden vier Hypothesen für die Ergebnisse der Nutzertests aufgestellt, welche in Tabelle \ref{tab:hypothesis} dargestellt sind.
+
+Mittels H1 soll validiert werden, ob das System die Effizienz erhöht und damit die benötigte Zeit pro Phase reduziert. Über H2 wird zudem geprüft, ob die Fehlermeldungen sowie andere Indikatoren wie Bereichspolygone und rote Hinterlegungen intuitiv verständlich sind und für die Platzierung genutzt werden. Ist dies der Fall, wird erhofft, dass Nutzer keine der Objekte an einem invaliden Ort platzieren.
+
+In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Score mindestens dem Akzeptanzwert von 70 entspricht \parencite[S. 128]{albertMeasuringUserExperience2022}.
+
+\medskip
+
+Es wird erhofft, dass durch diesen Testaufbau, Kombination verschiedener Auswertungsmethoden und klarer Hypothesen ein einheitliches Gesamtbild des Systems in Hinblick auf das Nutzerverständnis und Verständlichkeit geschaffen werden kann.
+
 \subsection{Testergebnisse}
+
+// Testpersonen
+
+// Ergebnisse
