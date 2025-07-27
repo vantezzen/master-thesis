@@ -285,6 +285,18 @@ Abbildung \ref{fig:testwelt} stellt eine Vogelperspektive der Testwelt dar. Dunk
 
 Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen sowie verschiedene Regelarten nutzen zu können.
 
+\medskip
+
+Zusätzlich wurde ein Multitouch-Entwicklungswerkzeug hinzugefügt, um Gesten zur Skalierung und Rotation während der Entwicklung über eine Computermaus durchführen zu können. Zur Durchführung dieser Aktionen sind im Normalfall mehrere Touchpunkte für eine \quoted{Pinch}-Geste notwendig, welches jedoch durch eine einzelne Computermaus nicht abbildbar ist.
+Das Aussehen des Werkzeugs ist in Abbildung \ref{fig:multitouch-devtool} dargestellt, die Funktionsweise ist hierbei inspiriert vom Werkzeug im Android-Entwicklungssimulator. Wird die \quoted{Option}-Taste auf der Tastatur gedrückt, erstellt das Werkzeug einen rot dargestellten Pivotpunkt an der aktuellen Position der Maus. Bei Bewegung der Maus wird daraufhin ein zweiter, virtueller Touchpunkt, gespiegelt am Pivotpunkt, erstellt und aktualisiert. Die beiden virtuellen Punkte sind in der Abbildung durch grüne Kreise dargestellt. Durch die Nutzung des Werkzeugs kann die Funktionsweise von Transformationsregeln daher auch in Entwicklungsumgebungen validiert werden.
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/multitouch-devtool.png}
+\centering
+\caption{Multitouch-Entwicklungswerkzeug (eigene Abbildung)}
+\label{fig:multitouch-devtool}
+\end{figure}
+
 \subsection{Performance-Messung}
 
 Zur Verbesserung und Bewertung der Performance des Validierungssystems wurde eine zweiteilige Performance-Analyse durchgeführt.

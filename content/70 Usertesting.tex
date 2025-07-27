@@ -6,35 +6,35 @@ Zur Bewertung der Verständlichkeit und Nützlichkeit des Fehlerfeedbacks sowie 
 
 Die Nutzertests finden in Einzelsitzungen statt, wobei jeweils qualitative sowie quantitative Messungen durchgeführt werden können.
 
-Der Aufbau der Sitzung gliedert sich in fünf Phasen: Zunächst erhalten die Nutzer eine Einführung in den Anwendungsbereich und Zweck des ARPAS-Systems.
+Die Durchführung wurde anhand einer kurzen, zuvor erstellten Richtlinie umgesetzt. Tests fanden an unterschiedlichen physischen Orten statt, daher wurde die zuvor erstellte virtuelle Testwelt in die AR-Ansicht überführt, sodass die Gegebenheiten der Umgebung zwischen allen Teilnehmern identisch bleiben.
 
-Daraufhin erhalten die Nutzer fünf Minuten Zeit für eine freie Einarbeitung im \quoted{Kreativmodus} des Systems ohne aktivierte Validierung sowie für eventuelle Fragen. Während dieser Zeit können sich Nutzer bereits mit den Grundlagen des Systems und Steuerungsprimitiven vertraut machen, sodass die Lernkurve dieser nicht in spätere Tests streut.
+Für jeden Teilnehmer fand zunächst eine kurze Einweisung in das Projekt, ARPAS sowie partizipative Stadtplanung im Allgemeinen statt. Daraufhin wurden dem Teilnehmer einige Minuten mit dem System im \quoted{Kreativmodus} ohne aktiviertes Regelsystem gegeben. Hierdurch wurde erhofft, dass weitere Aspekte des Systems wie die Erlernungszeit der Steuerung und Einarbeitungszeit die weiteren Tests nicht mit beeinflussen.
 
-Nach der Einarbeitung finden zwei Messphasen, einmal im \quoted{Kreativmodus} und einmal im \quoted{Standardmodus}, in permutierter Reihenfolge, statt.
-Während jeder Phase soll vom Nutzer eine Bank, ein Zebrastreifen und eine Pflanze valide platzieren, so wie der Nutzer es für sinnvoll und erlaubt hält.
+Nach der Einarbeitung wurde die Gewichtungsphase des NASA-TLX-Tests durchgeführt sowie weitere Fragen final geklärt. Nach der Einarbeitung finden zwei Messphasen, einmal im \quoted{Kreativmodus} und einmal im \quoted{Standardmodus}, in permutierter Reihenfolge, statt.
+Während jeder Phase soll der Nutzer eine Bank, einen Zebrastreifen und eine Pflanze valide platzieren, so, wie der Nutzer es für sinnvoll und erlaubt hält. Durch die permutierte Reihenfolge kann erhofft werden, dass weitere Einflüsse zur Erlernung spezifischer Regeln oder Platzierungsinformationen über die Tests hinweg herausgefiltert werden. Nutzer wurden im zweiten Testlauf zusätzlich motiviert, Objekte nicht an denselben Ort wie im ersten Durchlauf zu stellen, um Gewöhnungseffekte sowie daraus resultierende, erhöhte Geschwindigkeit zu minimieren.
 
-Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitgestellt, welche in Tabelle \ref{tab:testrules} abgebildet sind. Nach Durchführung der Platzierung wird die automatisierte Validierung durchgeführt und auf eventuelle Fehlplatzierungen getestet. Während der Phase im Standardmodus wird dagegen keine Regelliste bereitgestellt, sondern eine automatische Live-Prüfung durch das System durchgeführt und dargestellt.
+Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitgestellt, welche in Tabelle \ref{tab:testrules} abgebildet sind. Nach Durchführung der Platzierung wird die automatisierte Validierung durchgeführt und auf eventuelle Fehlplatzierungen getestet. Während der Phase im Standardmodus wird dagegen keine Regelliste bereitgestellt, sondern eine automatische Live-Prüfung durch das System durchgeführt und dargestellt. Nach jedem Durchlauf wird jeweils ein RTA-Interview der Durchführung durchgeführt.
 
 \begin{table}[!h]
 \begin{center}
     \begin{tabular}{ | l | p{14cm} | }
       \hline
       Regel & Beschreibung \\ \hline \hline
-      R1 & Keine Bank darf näher als 1 Meter an einer Straße oder 5 Meter an einer Kreuzung liegen und muss und vollständig auf Gras platziert sein \\ \hline
-      R2 & Vorne rechts ist Wendekreis einer Feuerwehr, vorne Links findet Samstags der Flohmarkt statt - auf beiden Flächen darf nichts platziert werden \\ \hline
-      R3 & Pflanzen dürfen nur in Kübeln platziert werden \\ \hline
-      R4 & Zebrastreifen müssen vollständig auf einer Straße liegen \\ \hline
+      R1 & Keine Bank darf näher als 1 Meter an einer Straße oder 5 Meter an einer Kreuzung liegen und muss vollständig auf Gras platziert sein. \\ \hline
+      R2 & Vorne rechts ist Wendekreis einer Feuerwehr, vorne links findet samstags der Flohmarkt statt - auf beiden Flächen darf nichts platziert werden. \\ \hline
+      R3 & Pflanzen dürfen nur in Kübeln platziert werden. \\ \hline
+      R4 & Zebrastreifen müssen vollständig auf einer Straße liegen. \\ \hline
     \end{tabular}
 \caption{Regelliste für Nutzertests}
 \label{tab:testrules}
 \end{center}
 \end{table}
 
-Es werden jeweils eine Reihe von Auswertungsmethoden für ein möglichst vollständiges Bild durchgeführt. Zur Prüfung der Effizienz des Systems wird die Ausführungszeit von der ersten Interaktion bis zur vollständigen Platzierung erfasst. Die mentale Belastung des Systems wird durch die Nutzung des NASA-TLX Fragebogens sowie die Gebrauchstauglichkeit über die System Usability Scale (SUS) ausgewertet \parencite{hartDevelopmentNASATLXTask1988}.
+Es werden jeweils eine Reihe von Auswertungsmethoden für ein möglichst vollständiges Bild durchgeführt. Zur Prüfung der Effizienz des Systems wird die Ausführungszeit von der ersten Interaktion bis zur vollständigen Platzierung erfasst. Die mentale Belastung des Systems wird durch die Nutzung des NASA-TLX-Fragebogens sowie die Gebrauchstauglichkeit über die System Usability Scale (SUS) ausgewertet \parencite{hartDevelopmentNASATLXTask1988}.
 
-Neben diesen quantitativen Messmethoden wird zusätzlich die qualitative Methode des \textit{Restrospective Think-Aloud} (RTA) genutzt. Traditionelle Think-Aloud Methoden stehen in der Vermutung, die Messergebnisse zu verfälschen, da sie zusätzliche Denkzeiten und das Formen klarer Gedankenstränge forcieren. Hingegen findet dies bei RTA erst nach der eigentlichen Messung durch eine erneute Betrachtung der eigenen Leistung als Videoaufnahme auf. \parencite[S. 90]{albertMeasuringUserExperience2022}
+Neben diesen quantitativen Messmethoden wird zusätzlich die qualitative Methode des \textit{Restrospective Think-Aloud} (RTA) genutzt. Traditionelle Think-Aloud Methoden stehen in der Vermutung, die Messergebnisse zu verfälschen, da sie zusätzliche Denkzeiten und das Formen klarer Gedankenstränge forcieren. Hingegen findet dies bei RTA erst nach der eigentlichen Messung durch eine erneute Betrachtung der eigenen Leistung als Videoaufnahme statt. \parencite[S. 90]{albertMeasuringUserExperience2022}
 
-Hierdurch kann erhofft werden, Einblicke in die Gedankenstränge der Nutzer zu erhalten, ohne andere Messergebnisse zu verfälschen.
+Hierdurch kann erhofft werden, Einblicke in die Gedankenstränge der Nutzer zu erhalten, ohne andere Messergebnisse zu verfälschen. 
 
 \medskip
 
@@ -61,14 +61,62 @@ Zuletzt wurden vier Hypothesen für die Ergebnisse der Nutzertests aufgestellt, 
 
 Mittels H1 soll validiert werden, ob das System die Effizienz erhöht und damit die benötigte Zeit pro Phase reduziert. Über H2 wird zudem geprüft, ob die Fehlermeldungen sowie andere Indikatoren wie Bereichspolygone und rote Hinterlegungen intuitiv verständlich sind und für die Platzierung genutzt werden. Ist dies der Fall, wird erhofft, dass Nutzer keine der Objekte an einem invaliden Ort platzieren.
 
-In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Score mindestens dem Akzeptanzwert von 70 entspricht \parencite[S. 128]{albertMeasuringUserExperience2022}.
+In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Scores mindestens dem Akzeptanzwert von 70 entspricht \parencite[S. 128]{albertMeasuringUserExperience2022}.
 
 \medskip
 
-Es wird erhofft, dass durch diesen Testaufbau, Kombination verschiedener Auswertungsmethoden und klarer Hypothesen ein einheitliches Gesamtbild des Systems in Hinblick auf das Nutzerverständnis und Verständlichkeit geschaffen werden kann.
+Es wird erhofft, dass durch diesen Testaufbau, die Kombination verschiedener Auswertungsmethoden und klarer Hypothesen ein einheitliches Gesamtbild des Systems in Hinblick auf das Nutzerverständnis und die Verständlichkeit geschaffen werden kann.
 
-\subsection{Testergebnisse}
+\subsection{Durchführung}
 
-// Testpersonen
+Die Durchführung der Tests fand über einen Zeitraum von zwei Wochen im Juli und August 2025 statt.
 
-// Ergebnisse
+// TODO: Update
+Die Stichprobe umfasste fünf Personen (3 weiblich, 2 männlich). Das Durchschnittsalter lag bei 40,4 Jahren (SD = 17,0), der Median bei 33 Jahren (Range: 22–59). Der Interquartilsabstand betrug 28 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung.
+
+\subsubsection{Quantitative Testergebnisse}
+
+Als quantitative Ergebnisse wurde der NASA-TLX-Wert, SUS-Wert sowie die Ausführungszeit in Sekunden ausgewertet. Die Auswertung erfolgt nach \textcite{pennstateuniversitySTAT415Introduction2025}, mit einer Überführung in Python durch \textcite{kumarPracticalStatisticsData2020a}.
+
+Da es sich bei den Tests um \quoted{Within-Subjects-} bzw. \quoted{Repeated-Measures-Designs} handelt, wurde ein gepaarter t-Test durchgeführt, um zu prüfen, ob die Veränderungen statistisch signifikant sind.
+
+Dieser Test setzt jedoch annähernd normalverteilte Differenzen voraus, welches bei den untersuchten Datengrößen nur schwer beurteilbar sind. Angesichts dessen wird zusätzlich ein \textit{Wilcoxon Signed-Rank Test} zur Validierung genutzt. 
+
+Zur Berechnung der Effektstärke zwischen den Ergebnissen wird zusätzlich Cohens $d^z$ berechnet, um zu validieren, dass die Veränderung nicht nur statistisch signifikant, sondern auch real bedeutend ist.
+
+Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
+
+\medskip
+
+
+
+
+\subsubsection{Qualitative Testergebnisse}
+
+Während der RTA-Phasen sowie aus Beobachtungen der Teilnehmer konnten zusätzlich einige qualitative Ergebnisse erfasst werden.
+
+Es wurde insbesondere eine hohe Fehlerquote bei der Durchführung mit manueller Regelliste im Zusammenhang mit Bereichsfeldern beobachtet. Regel R2 definiert Flächenbereiche für einen Markt sowie einen Feuerwehr-Wendekreis. In der Praxis wurden diese jedoch meist zu klein eingeschätzt, sodass Objekte hineinreichten, oder zu groß eingeschätzt, sodass eine unnötig große Fläche ausgeschlossen wurde.
+
+Da das Validierungssystem den exakten Bereich im Kontext anzeigt, kam es hierbei zu keinen Fehleinschätzungen der Bereiche.
+
+\medskip
+
+Ebenfalls wurde mehrfach festgestellt, dass die Pflanze hinter statt in den Topf gestellt wurde. Durch die fehlende Einschätzung von Abständen in der AR-Ansicht wirkten die Objekte zunächst wie ineinander, bei Änderung des Blickwinkels fiel dies jedoch auf. Auch hier konnte das Validierungssystem helfen, die Fehlplatzierung bereits vorher aufzudecken.
+
+\medskip
+
+Im Kontext der freien Platzierung, ohne Einschränkung jeglicher Rotationsachsen, kam es oft zu Fehlern und Ungenauigkeiten in der Bedienung, wodurch Objekte schlussendlich oft nur ungefähr passend platziert wurden. Insbesondere die Rotation um die x-Achse war oft nur schwer korrekt einzustellen und das Objekt daher schließlich leicht schief. Dieses Problem tauchte bei den eingeschränkten Bewegungen kaum auf.
+
+\medskip
+
+Als negativem Aspekt des Validierungssystems in aktueller Form wurde die Aufdringlichkeit genannt. Verglichen wurde dies mit einem E-Mail-Feld, welches schon nach der Eingabe des ersten Buchstabens darüber informiert, dass es keine korrekte E-Mail-Adresse ist.
+
+Dies könnte in Zukunft etwa dadurch gelöst werden, dass die Validierung erst dargestellt wird, sobald das Objekt für mehr als eine Sekunde stillsteht.
+
+\medskip
+
+Unabhängig des Validierungssystems wurden während des Tests zusätzlich zwei Arten von Nutzern erkannt: Etwa die Hälfte der Nutzer ist insbesondere bei weiten Entfernungen zum Objekt zunächst physisch zum Objekt gelaufen, während die andere Hälfte alle Aktionen vom Startpunkt aus ausgeführt und die Möglichkeit der physischen Komponente von AR nicht genutzt hat.
+
+Zwar war dies im Kontext des Systems kein Problem, da Fehlermeldungen immer in ausreichender Größe dargestellt werden, jedoch sollte dies für zukünftige Entwicklungen am System mitbeachtet werden.
+
+\subsubsection{Auswertung}
