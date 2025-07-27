@@ -1,1 +1,51 @@
 \section{Diskussion}\label{section:Diskussion}
+
+Nachfolgend sollen die Ergebnisse der Nutzertests sowie der Entwicklung des Systems im Kontext aktueller Forschung diskutiert und ausgewertet werden.
+
+\subsection{Interpretation der Ergebnisse}
+
+% Interpretation der wichtigsten Befunde (ohne Zahlenwiederholung).
+In den Nutzertests konnte gezeigt werden, dass sich die mentale Belastung, die wahrgenommene Gebrauchstauglichkeit und die Bearbeitungszeit durchschnittlich und mit einer hohen Effektgröße verbessert haben. Teilnehmer empfanden auch in den qualitativen Methoden der RTA-Interviews das System mit aktiver Validierung als deutlich einfacher und weniger belastend. Der SUS-Wert für die Nutzbarkeit ist im Zuge des Systems von \quoted{gut} auf \quoted{exzellent} gestiegen.
+
+Besonders die detaillierte Begründung der Regeln wurde mehrfach als positiv empfunden, erhöht jedoch auch die Zeit, welche für das Lesen der Meldungen gebraucht wird. Durch diese konnten Nutzer jedoch auch ein eigenes Gefühl für Regeln entwickeln und dadurch spätere Platzierungen schneller korrekt ausführen. Damit erfüllt das Feedback nicht nur eine korrigierende, sondern auch eine instruierende Funktion.
+
+Fehlende Erkennbarkeit von statistischer Signifikanz, besonders bei Wilcoxon-Tests, kann insbesondere auf die vergleichsweise geringe Menge quantitativer Werte zurückgeführt werden, in Einzelansichten, t-Tests sowie Effektgrößen werden Verbesserungen jedoch deutlicher sichtbar.
+
+\subsection{Bezug zu Anforderungen und Forschungsfrage}
+
+% Rückbindung an Forschungsfrage(n) und Requirements (z. B. REQ-NF-001 Performance, REQ-F-002 Fehlermeldungstexte).
+
+Mittels einer Nachvollziehbarkeit von der Forschungsfrage zu User-Storys, Use-Cases und schließlich Systemanforderungen konnte ein System zur Validierung von nutzerplatzierten Objekten geschaffen werden. Durch die Nutzertests und qualitative sowie quantitative Daten konnte daraufhin geprüft werden, dass das System der Intuitivitäts-Bedingung der Forschungsfrage gerecht wird.
+
+Die Systemanforderungen (REQ-F-001 bis REQ-F-009) wurden vollständig implementiert, inklusive der optionalen Anforderung des Kreativitäts-Levels. Auch zentrale nicht-funktionale Anforderungen (REQ-NF-001 und REQ-NF-002) wurden auf dem Referenzgerät validiert und erfüllt.
+
+\subsection{Vergleich mit verwandter Forschung}
+
+% Einordnung gegenüber verwandten Arbeiten (Literatur).
+Die Ergebnisse dieser Arbeit decken sich mit Ergebnissen vorhergehender Literatur. Es konnte gezeigt werden, dass wie in \textcite{stuerzlingerValueConstraints3D2011a} aufgestellt die mentale Belastung durch Einschränkung der Bewegungsmöglichkeiten verringert wird, solange sie erklärbar und domänenspezifisch sinnvoll gewählt werden.
+
+Der Aufbau des Regelsystems baut auf den Sprachen vorangegangener Werke auf und verbindet dabei insbesondere häufig vorkommende Elemente wie ein Tagging-System für eine erweiterbare aber verständliche Syntax \parencite{kalogianniINTERLISLanguageModelling2017}\parencite{sydoraRulebasedComplianceChecking2020}\parencite{schwabeBIMApplicationsRuleBased2016a}.
+
+Die beobachtete positive Wirkung verständlicher Fehlerrückmeldungen deckt sich mit Arbeiten aus der HCI, die die Bedeutung unmittelbarer, kontextsensitiver Visualisierungen betonen \parencite{wangUsingVisualFeedback2023}. Gleichzeitig zeigt sich, dass ein rein technisches Feedback von Ungültigkeit nicht ausreicht: Die erklärende Komponente des \quoted{Warum?}, insbesondere im untersuchten Bereich der Partizipation und Verwirklichung eigener Ideen, erhöht Akzeptanz und Lernwirkung – was in verwandten AR-Validierungsansätzen bislang selten empirisch betrachtet wurde.
+
+\subsection{Methodische Grenzen und Validitätsbedrohungen}
+
+% Überraschende oder widersprüchliche Ergebnisse (und mögliche Gründe).
+% Limitationen des Systems (technisch, inhaltlich).
+
+Die Nutzerstudie weist typische Grenzen explorativer Evaluationen auf. Aufgrund der stark eingeschränkten Stichprobengröße konnte eine erste Evidenz erfasst werden, die Generalisierbarkeit ist jedoch offen. Bei der Auswahl der Nutzer wurde versucht, eine diverse Bandbreite von Alter, Geschlecht und Erfahrung zu inkludieren, trotzdem existiert keine strenge Repräsentativität.
+
+Ebenfalls kann der Realismus der Aufgaben und des Kontexts infragegestellt werden. Die Aufgaben sind klar definiert und fokussieren sich auf wenige Objekttypen und Regeln, reale Partizipationen sind jedoch oft weitaus komplexer und können unbetrachtete Aspekte wie schwierige Wetterbedingungen enthalten.
+
+Es wurde versucht mit NASA-TLX, SUS und RTA ein möglichst vollumfängliches Bild der Nutzererfahrung abzubilden. Die genutzten Instrumente sind zwar im Bereich des HCI etabliert, stellen jedoch gezwungenermaßen immer nur Teile der Gesamterfahrung dar und können selbst eigene Lernkurven erzeugen, welche in den Daten abgebildet werden.
+
+Zuletzt wurde versucht, Reihenfolgeeffekte sowie Lern- oder Ermüdungseffekte durch Permutation zu minimieren, jedoch können diese nicht ausgeschlossen werden.
+
+\medskip
+
+Messergebnisse des Systems bilden jedoch insgesamt nachvollziehbare Resultate, ohne überraschende oder widersprüchliche Ergebnisse. Es wurde versucht, durch die Anwendung etablierter Statistikmethoden möglichst objektive, verallgemeinerbare Auswertungen durchzuführen.
+
+\subsection{Implikationen für Praxis und Forschung}
+
+% Implikationen für Praxis (z. B. Stadtverwaltungen) und Forschung (z. B. weiterführende Studien, alternative Feedback-Modalitäten).
+

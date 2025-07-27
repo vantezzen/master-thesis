@@ -88,8 +88,49 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
 
 \medskip
 
+\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 41 zu einem Wert von 14 mit einem nicht überlappenden Konfidenzintervall. 
 
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/usertests/tlx.png}
+\centering
+\caption{Messergebnisse NASA-TLX (eigene Abbildung)}
+\label{fig:usertesting-tlx}
+\end{figure}
 
+Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied. Wilcoxon Signed-Rank zeigt jedoch durch die geringe Datenanzahl einen knapp insignifikanten Wert ($p = 0.0625$), jedoch befindet sich auch die Effektstärke mit $d^z=2.10$ auf einem sehr hohen Wert ($\geq 0.8$).
+
+Die Evidenz ist trotz Wilcoxon-Test jedoch deutlich mit einer großen Effektstärke und genereller Verbesserung der Daten. Die fehlende formale Signifikanz bei Wilcoxon kann daher ein Artefakt der kleinen Stichprobe statt nicht fehlender Wirkung sein.
+
+\paragraph{Zeitwert} Abbildung \ref{fig:usertesting-time} zeigt die Mittelwerte und Konfidenzintervalle der Phasen bei der benötigten Zeit zur Erfüllung aller Platzierungen.
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/usertests/time.png}
+\centering
+\caption{Messergebnisse Zeitwert (eigene Abbildung)}
+\label{fig:usertesting-time}
+\end{figure}
+
+Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test die Ergebnisse als statistisch signifikant, Wilcoxon jedoch mit einem $p = 0.0625$ erneut knapp nicht. Jedoch ist auch bei den Zeitwerten die Effektgröße mit $d^z=1.24$ groß und zeigt die Veränderung als bedeutsam an.
+
+\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 84 (Schulnote 1), auf einer Skala von 0-100 \parencite{bellioSystemUsabilityScale2024}.
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/usertests/sus.png}
+\centering
+\caption{Messergebnisse SUS-Wert (eigene Abbildung)}
+\label{fig:usertesting-sus}
+\end{figure}
+
+Trotz dieser Verbesserungen des Mittelwerts bewerten sowohl der t-Test als auch Wilcoxon Signed-Rank Test das Ergebnis als knapp nicht signifikant, was primär durch unterschiedliche Verändungswerte innerhalb der Ergebnisse zu begründen ist.
+
+Hierfür sind in Abbildung \ref{fig:usertesting-sus-detail} die Messergebnisse einzeln abgebildet. Es ist erkennbar, dass in allen Ergebnissen mindestens eine kleine Verbesserung nachgewiesen werden kann, diese jedoch besonders bei den bereits hohen Werten nur gering ausfällt.
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/usertests/sus-detail.png}
+\centering
+\caption{Detailergebnisse SUS-Wert (eigene Abbildung)}
+\label{fig:usertesting-sus-detail}
+\end{figure}
 
 \subsubsection{Qualitative Testergebnisse}
 
@@ -109,6 +150,10 @@ Im Kontext der freien Platzierung, ohne Einschränkung jeglicher Rotationsachsen
 
 \medskip
 
+Ein weiterer Unterschied des Validierungssystems ist, dass Nutzer nicht alle Regeln explizit wahrnehmen müssen. Besonders bei Durchläufen, in welchen zuerst das Validierungssystem genutzt wurde, haben Nutzer angemerkt, dass die manuelle Regelliste \quoted{mehr Regeln} enthalten würde als das System. Beide Systeme hatten jedoch immer dieselben Regeln, Nutzer wurden nur durch das Validierungssystem nicht über Regeln informiert, welche sie nie gebrochen hatten.
+
+\medskip
+
 Als negativem Aspekt des Validierungssystems in aktueller Form wurde die Aufdringlichkeit genannt. Verglichen wurde dies mit einem E-Mail-Feld, welches schon nach der Eingabe des ersten Buchstabens darüber informiert, dass es keine korrekte E-Mail-Adresse ist.
 
 Dies könnte in Zukunft etwa dadurch gelöst werden, dass die Validierung erst dargestellt wird, sobald das Objekt für mehr als eine Sekunde stillsteht.
@@ -118,5 +163,3 @@ Dies könnte in Zukunft etwa dadurch gelöst werden, dass die Validierung erst d
 Unabhängig des Validierungssystems wurden während des Tests zusätzlich zwei Arten von Nutzern erkannt: Etwa die Hälfte der Nutzer ist insbesondere bei weiten Entfernungen zum Objekt zunächst physisch zum Objekt gelaufen, während die andere Hälfte alle Aktionen vom Startpunkt aus ausgeführt und die Möglichkeit der physischen Komponente von AR nicht genutzt hat.
 
 Zwar war dies im Kontext des Systems kein Problem, da Fehlermeldungen immer in ausreichender Größe dargestellt werden, jedoch sollte dies für zukünftige Entwicklungen am System mitbeachtet werden.
-
-\subsubsection{Auswertung}
