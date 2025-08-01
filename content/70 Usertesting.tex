@@ -49,7 +49,7 @@ Die Anzahl der benötigten Personen für eine repräsentative Nutzerstudie ist e
       ID & Systembezug & Hypothese & Messgröße \\ \hline \hline
       H1 & REQ-NF-002 (Bildrate $\geq$ 25 FPS)\newline REQ-F-004 (Live-Validierung) & Live-Feedback reduziert die mittlere Task-Completion-Time (TCT) pro Objekt gegenüber der Basisbedingung ohne Feedback. & $\Delta$ TCT (Sek.) \\ \hline
       H2 & REQ-C-[001-003] (regelkonforme Platzierung) & Visuelle Fehlerindikatoren senken die End-Fehlerrate auf 0. & Fehler am Ende der Platzierung \\ \hline
-      H3 & REQ-NF-001 (latente Verständlichkeit)\newline REQ-F-002 (Regel-Kurztexte) & Teilnehmende bewerten Fehlermeldungen als nicht frustrierend. & RTA + NASA-TLX \quoted{Frustration} Ergebnis \\ \hline
+      H3 & REQ-NF-001 (latente Verständlichkeit)\newline REQ-F-002 (Regel-Kurztexte) & Teilnehmende bewerten Fehlermeldungen als weniger frustrierend. & RTA + NASA-TLX \quoted{Frustration} Ergebnis \\ \hline
       H4 & System-Akzeptanz Gesamt & SUS-Score $>$ 70 & SUS-Score \\ \hline
     \end{tabular}
 \caption{Hypothesen für Nutzertests}
@@ -100,6 +100,17 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
 Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied. Wilcoxon Signed-Rank zeigt jedoch durch die geringe Datenanzahl einen knapp insignifikanten Wert ($p = 0.0625$), jedoch befindet sich auch die Effektstärke mit $d^z=2.10$ auf einem sehr hohen Wert ($\geq 0.8$).
 
 Die Evidenz ist trotz Wilcoxon-Test jedoch deutlich mit einer großen Effektstärke und genereller Verbesserung der Daten. Die fehlende formale Signifikanz bei Wilcoxon kann daher ein Artefakt der kleinen Stichprobe statt nicht fehlender Wirkung sein.
+
+\medskip
+
+Abbildung \ref{fig:usertesting-tlx-radar} stellt ein Netzdiagramm zu den einzelnen Aspekten des TLX-Tests dar. Ein geringerer Wert steht für eine geringere Belastung bzw. höhere Performance in diesem Bereich. Es ist erkennbar, dass sich insbesondere die Bereiche der Frustration, Anstrengung (Effort) und Performance mit dem Validierungssystem deutlich verbessert haben. Die mentale, physische und zeitliche (Temporal) Belastung haben sich hingegen kaum verändert. 
+
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{abb/usertests/tlx-radar.png}
+\centering
+\caption{Netzdiagramm TLX-Aspekte (eigene Abbildung)}
+\label{fig:usertesting-tlx-radar}
+\end{figure}
 
 \paragraph{Zeitwert} Abbildung \ref{fig:usertesting-time} zeigt die Mittelwerte und Konfidenzintervalle der Phasen bei der benötigten Zeit zur Erfüllung aller Platzierungen.
 

@@ -11,6 +11,24 @@ Besonders die detaillierte Begründung der Regeln wurde mehrfach als positiv emp
 
 Fehlende Erkennbarkeit von statistischer Signifikanz, besonders bei Wilcoxon-Tests, kann insbesondere auf die vergleichsweise geringe Menge quantitativer Werte zurückgeführt werden, in Einzelansichten, t-Tests sowie Effektgrößen werden Verbesserungen jedoch deutlicher sichtbar.
 
+\subsection{Validierung der Test-Hypothesen}
+
+% Hypothesen beantworten
+
+Nachfolgend sollen die Ergebnisse der Nutzertests genutzt werden, um die zuvor aufgestellten Hypothesen zu validieren.
+
+H1 zur Verringerung der Task-Completion-Time konnte erfolgreich nachgewiesen werden. Der Mittelwert hat sich um 75 Sekunden reduziert, wodurch im gepaarten t-Test eine statistische Signifikanz entstanden ist, jedoch nicht im Wilcoxon-Test.
+
+Hypothese H2 stellt auf, dass die Fehlerrate bei Beenden der Aufgabe auf null sinkt. Auch dies konnte erfolgreich validiert werden und keine der Nutzer hatte zum Schluss noch offene Fehlermeldungen.
+
+H3 zur Verringerung der Frustration konnte in den Gesprächen der RTA sowie im NASA-TLX Netzdiagramm nachvollzogen werden, wobei eine Verringerung um 38 Punkte im Durchschnitt gemessen wurde.
+
+Hypothese H4 zur Akzeptanz im Gesamtsystem liegt mit einem neuen Wert von 84 Punkten im SUS-Test ebenfalls über dem Grenzwert von 70 Punkten für eine gute Systemakzeptanz.
+
+\medskip
+
+Insgesamt konnten alle Hypothesen als korrekt validiert werden, jedoch besteht weiter ein Widerspruch zu der statistischen Signifikanz der Ergebnisse in H1.
+
 \subsection{Bezug zu Anforderungen und Forschungsfrage}
 
 % Rückbindung an Forschungsfrage(n) und Requirements (z. B. REQ-NF-001 Performance, REQ-F-002 Fehlermeldungstexte).
@@ -19,14 +37,19 @@ Mittels einer Nachvollziehbarkeit von der Forschungsfrage zu User-Storys, Use-Ca
 
 Die Systemanforderungen (REQ-F-001 bis REQ-F-009) wurden vollständig implementiert, inklusive der optionalen Anforderung des Kreativitäts-Levels. Auch zentrale nicht-funktionale Anforderungen (REQ-NF-001 und REQ-NF-002) wurden auf dem Referenzgerät validiert und erfüllt.
 
-\subsection{Vergleich mit verwandter Forschung}
+\subsection{Implikationen für Praxis und Forschung}
 
 % Einordnung gegenüber verwandten Arbeiten (Literatur).
 Die Ergebnisse dieser Arbeit decken sich mit Ergebnissen vorhergehender Literatur. Es konnte gezeigt werden, dass wie in \textcite{stuerzlingerValueConstraints3D2011a} aufgestellt die mentale Belastung durch Einschränkung der Bewegungsmöglichkeiten verringert wird, solange sie erklärbar und domänenspezifisch sinnvoll gewählt werden.
 
-Der Aufbau des Regelsystems baut auf den Sprachen vorangegangener Werke auf und verbindet dabei insbesondere häufig vorkommende Elemente wie ein Tagging-System für eine erweiterbare aber verständliche Syntax \parencite{kalogianniINTERLISLanguageModelling2017}\parencite{sydoraRulebasedComplianceChecking2020}\parencite{schwabeBIMApplicationsRuleBased2016a}.
+Der Aufbau des Regelsystems baut auf den Sprachen vorangegangener Werke auf und verbindet dabei insbesondere häufig vorkommende Elemente wie ein Tagging-System für eine erweiterbare aber verständliche Syntax \parencite{kalogianniINTERLISLanguageModelling2017}\parencite{sydoraRulebasedComplianceChecking2020}\parencite{schwabeBIMApplicationsRuleBased2016a}. 
+Durch die strukturierte Entwicklung der Syntax konnte eine Übersicht verschiedener Methoden anderer Arbeiten herausgearbeitet werden, um schließlich eine flexibel erweiterbare Lösung zu gestalten.
 
-Die beobachtete positive Wirkung verständlicher Fehlerrückmeldungen deckt sich mit Arbeiten aus der HCI, die die Bedeutung unmittelbarer, kontextsensitiver Visualisierungen betonen \parencite{wangUsingVisualFeedback2023}. Gleichzeitig zeigt sich, dass ein rein technisches Feedback von Ungültigkeit nicht ausreicht: Die erklärende Komponente des \quoted{Warum?}, insbesondere im untersuchten Bereich der Partizipation und Verwirklichung eigener Ideen, erhöht Akzeptanz und Lernwirkung – was in verwandten AR-Validierungsansätzen bislang selten empirisch betrachtet wurde.
+\medskip
+
+Die beobachtete positive Wirkung verständlicher Fehlerrückmeldungen deckt sich mit Arbeiten aus der HCI, die die Bedeutung unmittelbarer, kontextsensitiver Visualisierungen betonen \parencite{wangUsingVisualFeedback2023}.
+
+Gleichzeitig zeigt sich, dass ein rein technisches Feedback von Ungültigkeit nicht ausreicht: Die erklärende Komponente des \quoted{Warum?}, insbesondere im untersuchten Bereich der Partizipation und Verwirklichung eigener Ideen, erhöht Akzeptanz und Lernwirkung – was in verwandten AR-Validierungsansätzen bislang selten empirisch betrachtet wurde. Die Betrachtung dieses Aspekts als Teil der Primärfunktionen bei der Entwicklung von Validierungssystemen kann daher vorteilhaft sein.
 
 \subsection{Methodische Grenzen und Validitätsbedrohungen}
 
@@ -43,9 +66,4 @@ Zuletzt wurde versucht, Reihenfolgeeffekte sowie Lern- oder Ermüdungseffekte du
 
 \medskip
 
-Messergebnisse des Systems bilden jedoch insgesamt nachvollziehbare Resultate, ohne überraschende oder widersprüchliche Ergebnisse. Es wurde versucht, durch die Anwendung etablierter Statistikmethoden möglichst objektive, verallgemeinerbare Auswertungen durchzuführen.
-
-\subsection{Implikationen für Praxis und Forschung}
-
-% Implikationen für Praxis (z. B. Stadtverwaltungen) und Forschung (z. B. weiterführende Studien, alternative Feedback-Modalitäten).
-
+Die Messergebnisse des Systems bilden jedoch insgesamt nachvollziehbare Resultate, ohne überraschende oder widersprüchliche Ergebnisse ab. Es wurde versucht, durch die Anwendung etablierter Statistikmethoden möglichst objektive, verallgemeinerbare Auswertungen durchzuführen.
