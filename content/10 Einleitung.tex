@@ -3,25 +3,55 @@
 % Kontext & Motivation
 % Bürgerbeteiligung in der Stadtplanung, wachsende Bedeutung digitaler Werkzeuge.
 % ARPAS: Augmented Reality Partizipationsplatform für die Stadtplanung. Nutzer können Veränderungen (z.B. eine neue Bank) in AR platzieren und vorschlagen.
+In den letzten Jahren hat sich Augmented Reality (AR) von einer Zukunftsvision zu einer greifbaren Technologie entwickelt, die in vielen Bereichen Anwendung findet \cite{nitikaStudyAugmentedReality2021}. Besonders im urbanen Kontext bietet AR faszinierende Möglichkeiten, die Interaktion zwischen Bürgern und ihrer Umgebung neu zu gestalten \cite{rzeszewskiUsabilityWebXRVisualizations2021}. So eröffnet die Visualisierung von Bauprojekten direkt vor Ort, noch bevor der erste Spatenstich erfolgt, neue Dimensionen der Bürgerbeteiligung und Stadtplanung.
 
+Gleichzeitig stellt die Implementierung solcher AR-Anwendungen Entwickler und Stadtplaner vor neue Herausforderungen \cite{zubairHowLongYou2021}. In vielen Fällen können Nutzer eigenständig und ohne direkte Beobachtung von Stadtplanern oder Studienleitungen Vorschläge erstellen und Veröffentlichen. Die Herausforderung ist es insbesondere auch in solchen Situationen Nutzern direkte Rückmeldung über nicht-umsetzbare Vorschläge geben zu können, bevor diese an das System gesendet werden.
+
+Die Erkenntnisse dieser Arbeit sollen nicht nur einen Beitrag zur technischen Weiterentwicklung von web-basierten AR-Anwendungen leisten, sondern auch neue Perspektiven für die partizipative Stadtplanung und bürgernahe Verwaltung eröffnen.
+
+\medskip
+
+Diese Arbeit entsteht im Kontext des ARPAS Projekts an der HTW Berlin \parencite{israelARgestutztePartizipationStadtentwicklung2025}. Das Projekt untersucht die Erstellung eines webbasierten AR-Systems zur Bürgerbeteiligung in der Stadtplanung und interaktiven Erstellung von Vorschlägen zur Platzierung von Objekten. 
+
+\medskip
 %Verweis auf Forschungsprojekt
+Die Forschung dieser Masterarbeit baut auf Forschungsprojekten der vorangegangenen Semester im Projekt ARPAS auf. Diese Forschungsarbeiten beschäftigten sich bereits tiefgehend mit der Auswahl von geeigneten Bibliotheken zur Darstellung zur intuitiven Manipulation (Bewegung, Rotation, Skalierung) von Objekten im 3D-AR Raum.
+
+Die Evaluation verschiedener AR-Technologien ergab, dass WebXR als zukunftsträchtigste Lösung für web-basierte AR-Anwendungen hervorsticht, allerdings bleibt die fehlende Unterstützung durch Safari auf iOS-Geräten eine Herausforderung für die flächendeckende Implementierung.
+
+Für das 3D-Rendering erwies sich die Kombination aus Three.js und React Three Fiber als besonders geeignet. Diese Technologien ermöglichen eine effiziente Integration in bestehende React-basierte Webanwendungen und bieten gleichzeitig leistungsfähige 3D-Rendering-Möglichkeiten. Die Implementierung fortgeschrittener Techniken zur Sensor-Fusion und Koordinaten-Synchronisation ermöglicht eine präzise Positionierung virtueller Objekte in der realen Umgebung. 
+
+Bei der Untersuchung von Interaktionsmethoden stellten sich solche als intuitiv heraus, welche sich an Gesten von bisherigen Social-Media-Apps wie Instagram orientieren. Eine zentrale Schwierigkeit von Interaktion ist die Rotation in drei Dimensionen. Während Skalierung und Translation mit Touch-Eingaben meist problemlos funktionierten, fiel es den Nutzern schwer, Rotationen entlang der drei Achsen intuitiv zu verstehen und korrekt auszuführen.
+
+\medskip
+
+Aufgrund der ausführlichen Vorarbeit zu diesen Themen werden diese in dieser Masterarbeit nicht weiter behandelt, jedoch werden die Codeartefakte der Forschungsprojekte zur Erstellung von Prototypen als Basis genutzt und weiter ausgearbeitet.
 
 \subsection{Problemstellung}
 
-% Validierung im klassischen Web: E-Mail wird nach der Eingabe geprüft, z.B.enthält es ein at-Zeichen.
-% Validierung in ARPAS: Constraint-basierte Platzierung validieren - z.B. eine Bank darf nicht auf die Straße platziert werden.
-% Fehlende oder unzureichende Regelprüfung bei freien Platzierungsvorschlägen in AR.
-% Risiko: unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge.
-% Herausforderungen: räumlich-semantische Korrektheit, Performanz, Verständlichkeit für Laien.
+
+Die Validierung von Nutzereingaben im traditionellen Internet sind weit verbreitet: Bei E-Mail-Adressen kann vor der Eingabe auf das Format \textmono{name@domain.com} geprüft werden; bei hochgeladenen Bilddateien kann geprüft werden, ob es ein valides Bild ist.
+
+Eine Validierung von Platzierungen von Objekten in AR ist jedoch komplexer und kann nicht etwa durch die Auswertung eines regulären Ausdrucks durchgeführt werden - es erfordert die Kombination virtueller Daten sowie Kamera- und Kartendaten zur Validierung, um komplexe Abhängigkeiten aufzulösen und Regeln wie \textmono{Befindet sich die Bank auf einer Straße?} zu validieren.
+
+Aus diesem Grund soll eine regelbasierte Validierung untersucht und implementiert werden, welches diese Abhängigkeiten auflösen kann, und Nutzern eine intuitive Rückmeldung geben kann. Das Risiko in der Entwicklung eines solchen Systems ist primär eine unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge. Die Herausforderung stellt sich vor allem die räumlich-semantische Korrektheit, Performance und Verständlichkeit für neue Nutzer.
 
 \subsection{Zielsetzung}
 
-% Forschungsfrage: Wie muss ein constraint-basiertes Validierungssystem zur Unterstützung der manuellen Objektplatzierung in AR gestaltet sein, um Nutzer:innen eine intuitive Erstellung räumlich und semantisch valider Planungsvorschläge zu ermöglichen?
+Zur strukturierten Bearbeitung der Forschung soll folgende Forschungsfrage beantwortet werden:
 
-% Umfasst Forschung in viele Bereiche:
-%- Syntax-Definition für die Constraint Regeln
-%- Segmentierung der Umgebung des Nutzers in z.B. Straßen, Gehwege, Grünflächen, zur Validierung der Regeln; evtl. mit Einbindung von geographischen Daten
-%- Implementierung eines Validierungssystems
-%- Definition von Constraints über Wissen aus der Stadtplanung
+\begin{quote}
+Wie muss ein regelbasiertes Validierungssystem zur Unterstützung der manuellen Objektplatzierung in AR gestaltet sein, um Nutzer eine intuitive Erstellung räumlich und semantisch valider Planungsvorschläge zu ermöglichen?
+\end{quote}
+
+Die Beantwortung der Frage umfasst die Forschung in viele existierende Bereiche, darunter zur Syntax-Definition für die Regeln sowie die Segmentierung der Umgebung des Nutzers in etwa Straßen, Gehwege und Grünflächen mit Einbindung von geographischen Daten zur Validierung der Regeln. Weitere untersuchte Bereiche sind die wartbare Implementierung eines Validierungssystems sowie die Artikulation von Regeln über Wissen aus der Stadtplanung.
 
 \subsection{Aufbau der Arbeit}
+
+Zur strukturierten Bearbeitung des Themas gliedert sich diese Arbeit in sieben Hauptteile: Zunächst wird in Kapitel \ref{section:Technische Grundlagen} ein Verständnis über die technischen Grundlagen der genutzten Systeme geschaffen.
+
+Daraufhin werden in Kapitel \ref{section:Verwandte Arbeiten} existierende Arbeiten in den betroffenen Forschungsbereichen genauer untersucht und zusammengefasst. Mit diesem Wissen wird in Kapitel \ref{section:Requirements-Engineering} ein detailliertes Requirements Engineering zur Zielsetzung des Systems mit User Stories, Use Cases und System Requirements erstellt.
+
+Kapitel \ref{section:Konzeptualisierung eines Constraint-Systems} befasst sich mit der Konzeptionierung des Regelsystems sowie einer Syntax zur Definition dieser. Das konzeptionierte System wird daraufhin in Kapitel \ref{section:Implementierung des Constraint-Systems} implementiert und optimiert.
+
+Mittels des erstellten Systems wird schließlich in Kapitel \ref{section:Usertesting des Systems} ein Nutzertests zur mentalen Belastung und Nutzbarkeit durchgeführt, welches schließlich in Kapitel \ref{section:Diskussion} detaillierter besprochen wird.

@@ -2,15 +2,41 @@
 
 % Kurze Re-Kapitulation der Zielsetzung.
 
+Das Ziel dieser Masterarbeit war es, ein regelbasiertes Validierungssystem für die manuelle Objektplatzierung in webbasierten AR-Szenarien zu konzipieren, zu implementieren und empirisch zu untersuchen. Im Zentrum stand hierbei die Frage, wie Regeln so formalisiert, ausgewertet und rückgemeldet werden können, dass Bürger valide Vorschläge erstellen und das System zugleich akzeptieren.
+
 \subsection{Beantwortung der Forschungsfrage}
 
 % Prägnante Beantwortung der Forschungsfrage („Die Arbeit zeigt, dass…“).
+\begin{quote}
+Wie muss ein regelbasiertes Validierungssystem zur Unterstützung der manuellen Objektplatzierung in AR gestaltet sein, um Nutzer eine intuitive Erstellung räumlich und semantisch valider Planungsvorschläge zu ermöglichen?
+\end{quote}
+
+Durch eine Untersuchung existierender Arbeiten, schrittweise Konzeptionierung der Systeme sowie Nutzertests konnte gezeigt werden, dass ein Regelkonzept aus lokalen (ACS) und globalen (AGCS) Regeln in Kombination mit begründetem Feedback die Erstellung räumlich und semantisch valider Vorschläge wirksam unterstützt.
+
+Die durchgeführte Nutzerstudie belegt eine Reduktion der mentalen Belastung durch Messung des NASA-TLX, eine verbesserte wahrgenommene Gebrauchstauglichkeit durch SUS-Tests sowie kürzere Bearbeitungszeiten. Besonders die Darstellung einer genauen Beschreibung und Begründung erlaubt ein intuitives Verständnis über die erlaubte Platzierung von Objekten.
 
 \subsection{Beitrag der Arbeit}
 
 % Zusammenfassung der zentralen Beiträge (ACS/AGCS, Implementierung, Evaluation).
 % Kurzer Hinweis auf Limitationen (nur auflisten, nicht ausdiskutieren).
 
+Zentrale Beiträge dieser Arbeit zum aktuellen Stand der Forschung liegt in der Entwicklung des Regelsystems ACS sowie eines Validierungs-Kernsystems und einer empirischen Evaluation von der Nutzung von Begründungen in der Fehlerdarstellungen.
+
+\medskip
+
+Limitationen betreffen unter anderem die begrenzte Stichprobe der Nutzertests, den reduzierten Regelumfang (z.B. keine komplexen Eigentums-, Kosten- oder Haftungsmodelle) sowie die Abhängigkeit von verfügbaren Geodaten und der Zielplattform von WebXR-kompatiblen Geräten.
+
 \subsection{Ausblick}
 
 % Konkreter Ausblick (nächste Schritte, künftige Forschung/Weiterentwicklung).
+Die Ergebnisse dieser Arbeit bilden eine solide Grundlage für die Implementierung von Validierung im Elternsystem ARPAS. Die entwickelten Techniken zu ACS und die Integration in React-basierte Anwendungen können für die Erweiterung der Plattform genutzt werden und bieten über den modularen Aufbau Integrationsmöglichkeiten in das existierende System.
+
+Zukünftige Entwicklungs- und Forschungsschritte könnten folgende Aspekte umfassen:
+
+\begin{itemize}
+    \item Untersuchung der Integration komplexerer Abhängigkeiten, etwa Kostenrahmen, Eigentumsverhältnisse oder dynamische Kontexte (Events, Pflegekapazitäten) 
+    \item Entwicklung einer stärkere Automatisierung der Begründungsgenerierung oder komplexerer, regelbasierter Templates
+    \item Langzeitstudien in realen Beteiligungsverfahren (z.B. mittels \textit{mein.berlin}) zur Akzeptanz, Lernkurven und tatsächlicher Entscheidungsprozesse
+\end{itemize}
+
+Zukünftige Entwicklung beziehen sich dabei insbesondere in der Überführung in breitere Praxis- und Forschungskontexte, um Komplexität von Regelarten, Regeladministration und Akzeptanz weiter auszubauen.
