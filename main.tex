@@ -37,9 +37,6 @@
 % Paket für Boxen im Text
 \usepackage{fancybox}
 
-% bricht lange URLs "schön" um
-\usepackage{url}
-
 % Paket für Textfarben
 \usepackage{color}
 
@@ -88,9 +85,12 @@
 }
 
 % Break URLs nicely
-\setcounter{biburlnumpenalty}{9000}
-\setcounter{biburllcpenalty}{9000}
-\setcounter{biburlucpenalty}{9000}
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+
+% bricht lange URLs "schön" um
+\usepackage{xurl}
 
 % https://tex.stackexchange.com/a/389164/278358
 \DeclareSortingScheme{nyc}{
