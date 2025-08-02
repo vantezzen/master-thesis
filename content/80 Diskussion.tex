@@ -7,7 +7,9 @@ Nachfolgend sollen die Ergebnisse der Nutzertests sowie der Entwicklung des Syst
 % Interpretation der wichtigsten Befunde (ohne Zahlenwiederholung).
 In den Nutzertests konnte gezeigt werden, dass sich die mentale Belastung, die wahrgenommene Gebrauchstauglichkeit und die Bearbeitungszeit durchschnittlich und mit einer hohen Effektgröße verbessert haben. Teilnehmer empfanden auch in den qualitativen Methoden der RTA-Interviews das System mit aktiver Validierung als deutlich einfacher und weniger belastend. Der SUS-Wert für die Nutzbarkeit ist im Zuge des Systems von \quoted{gut} auf \quoted{exzellent} gestiegen.
 
-Besonders die detaillierte Begründung der Regeln wurde mehrfach als positiv empfunden, erhöht jedoch auch die Zeit, welche für das Lesen der Meldungen gebraucht wird. Durch diese konnten Nutzer jedoch auch ein eigenes Gefühl für Regeln entwickeln und dadurch spätere Platzierungen schneller korrekt ausführen. Damit erfüllt das Feedback nicht nur eine korrigierende, sondern auch eine instruierende Funktion.
+Vorteilhaft schien es insbesondere zu sein, dass Nutzer nicht durchgehend alle Regeln überdenken müssen, sondern nur solche, die gerade aktiv verletzt werden. Im Basistest kam es hingegen häufiger dazu, dass Nutzer einzelne Regeln vergessen und daher nicht beachtet haben.
+
+Besonders die detaillierte Begründung der Regeln wurde mehrfach als positiv empfunden, erhöht jedoch auch die Zeit, welche für das Lesen der Meldungen gebraucht wird. Durch diese konnten Nutzer jedoch auch ein eigenes Gefühl für Regeln entwickeln und dadurch spätere Platzierungen schneller korrekt ausführen. Damit erfüllt das Feedback nicht nur eine korrigierende, sondern auch eine instruierende Funktion. Trotzdem muss in der Formulierung der Begründungen auf eine möglichst kompakte Schreibweise geachtet werden, da Nutzer zu lange Texte sonst nicht vollständig gelesen haben.
 
 Fehlende Erkennbarkeit von statistischer Signifikanz, besonders bei Wilcoxon-Tests, kann insbesondere auf die vergleichsweise geringe Menge quantitativer Werte zurückgeführt werden, in Einzelansichten, t-Tests sowie Effektgrößen werden Verbesserungen jedoch deutlicher sichtbar.
 
@@ -42,8 +44,9 @@ Die Systemanforderungen (REQ-F-001 bis REQ-F-009) wurden vollständig implementi
 % Einordnung gegenüber verwandten Arbeiten (Literatur).
 Die Ergebnisse dieser Arbeit decken sich mit Ergebnissen vorhergehender Literatur. Es konnte gezeigt werden, dass wie in \textcite{stuerzlingerValueConstraints3D2011a} aufgestellt die mentale Belastung durch Einschränkung der Bewegungsmöglichkeiten verringert wird, solange sie erklärbar und domänenspezifisch sinnvoll gewählt werden.
 
-Der Aufbau des Regelsystems baut auf den Sprachen vorangegangener Werke auf und verbindet dabei insbesondere häufig vorkommende Elemente wie ein Tagging-System für eine erweiterbare aber verständliche Syntax \parencite{kalogianniINTERLISLanguageModelling2017}\parencite{sydoraRulebasedComplianceChecking2020}\parencite{schwabeBIMApplicationsRuleBased2016a}. 
-Durch die strukturierte Entwicklung der Syntax konnte eine Übersicht verschiedener Methoden anderer Arbeiten herausgearbeitet werden, um schließlich eine flexibel erweiterbare Lösung zu gestalten.
+Der Aufbau des Regelsystems baut auf den Sprachen vorangegangener Werke auf für eine erweiterbare aber verständliche Syntax. Es konnten viele der in anderen Regelsyntax etablierten Ideen übernommen oder in abstrakter Form als Inspiration genutzt werden, darunter etwa das Konzept von Tagging \parencite{xuMethodologyModelling3D2017}, typisierte Schemas für eine leichtere Validitätsprüfung \parencite{mernikWhenHowDevelop2005} und funktionsbasierte Prüfung \parencite{sydoraRulebasedComplianceChecking2020}.
+
+Durch die strukturierte Entwicklung der Syntax und Kombination einzelner Stärken anderer Systeme konnte schließlich eine flexibel erweiterbare Lösung gestaltet werden.
 
 \medskip
 
@@ -58,7 +61,7 @@ Gleichzeitig zeigt sich, dass ein rein technisches Feedback von Ungültigkeit ni
 
 Die Nutzerstudie weist typische Grenzen explorativer Evaluationen auf. Aufgrund der stark eingeschränkten Stichprobengröße konnte eine erste Evidenz erfasst werden, die Generalisierbarkeit ist jedoch offen. Bei der Auswahl der Nutzer wurde versucht, eine diverse Bandbreite von Alter, Geschlecht und Erfahrung zu inkludieren, trotzdem existiert keine strenge Repräsentativität.
 
-Ebenfalls kann der Realismus der Aufgaben und des Kontexts infragegestellt werden. Die Aufgaben sind klar definiert und fokussieren sich auf wenige Objekttypen und Regeln, reale Partizipationen sind jedoch oft weitaus komplexer und können unbetrachtete Aspekte wie schwierige Wetterbedingungen enthalten.
+Ebenfalls kann der Realismus der Aufgaben und des Kontexts infragegestellt werden. Die Aufgaben sind klar definiert und fokussieren sich auf wenige Objekttypen und Regeln, reale Partizipationen sind jedoch oft weitaus komplexer und können unbetrachtete Aspekte wie schwierige Wetterbedingungen enthalten. Es kann auch angenommen werden, dass sich das Nutzerverhalten in einem expliziten Nutzertests von der realen Handlungsweise leicht unterscheidet, etwa, indem Anweisungen und Texte gründlicher gelesen wurden.
 
 Es wurde versucht mit NASA-TLX, SUS und RTA ein möglichst vollumfängliches Bild der Nutzererfahrung abzubilden. Die genutzten Instrumente sind zwar im Bereich des HCI etabliert, stellen jedoch gezwungenermaßen immer nur Teile der Gesamterfahrung dar und können selbst eigene Lernkurven erzeugen, welche in den Daten abgebildet werden.
 
@@ -67,3 +70,5 @@ Zuletzt wurde versucht, Reihenfolgeeffekte sowie Lern- oder Ermüdungseffekte du
 \medskip
 
 Die Messergebnisse des Systems bilden jedoch insgesamt nachvollziehbare Resultate, ohne überraschende oder widersprüchliche Ergebnisse ab. Es wurde versucht, durch die Anwendung etablierter Statistikmethoden möglichst objektive, verallgemeinerbare Auswertungen durchzuführen.
+
+Rückblickend zeigt sich, dass der gewählte Fokus auf Live-Validierung gegenüber einer rein post-hoc basierten Validierung sowohl technisch als auch aus Perspektive der Nutzer überzeugend ist. Trotzdem bleibt offen, wie gut sich das System in realen, komplexeren Beteiligungsverfahren etablieren lässt - ein Aspekt, den künftige Feldstudien untersuchen könnten. Zusätzlich kann in zukünftiger Forschung durch Techniken wie Eye-Tracking oder eine heuristische Evaluation ein detaillierterer Einblick in Aspekte der Nutzererfahrung gemessen werden, etwa zur Messung, wie viel Text tatsächlich gelesen wird.
