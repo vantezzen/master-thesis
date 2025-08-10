@@ -71,7 +71,7 @@ Es wird erhofft, dass durch diesen Testaufbau, die Kombination verschiedener Aus
 
 Die Durchführung der Tests fand über einen Zeitraum von zwei Wochen im Juli und August 2025 statt.
 
-Die Stichprobe umfasste fünf Personen (3 weiblich, 2 männlich). Das Durchschnittsalter lag bei 40,4 Jahren (SD = 17,0), der Median bei 33 Jahren (Range: 22–59). Der Interquartilsabstand betrug 28 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung.
+Die Stichprobe umfasste acht Personen (5 weiblich, 3 männlich). Das Durchschnittsalter lag bei 35,1 Jahren (SD = 14,79), der Median bei 29 Jahren (Wertebereich: 22–59). Der Interquartilsabstand betrug 13,5 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung. Es wurden jeweils in vier Tests zuerst der Basistest ohne Validierungssystem getestet und in vier Tests zuerst der Systemtest, sodass Auswirkungen durch die Reihenfolge ausgeschlossen werden.
 
 \subsubsection{Quantitative Testergebnisse}
 
@@ -87,7 +87,7 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
 
 \medskip
 
-\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 41 zu einem Wert von 14 mit einem nicht überlappenden Konfidenzintervall. 
+\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 39 zu einem Wert von 18 mit einem leicht überlappenden Konfidenzintervall. 
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/tlx.png}
@@ -96,9 +96,9 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
 \label{fig:usertesting-tlx}
 \end{figure}
 
-Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied. Wilcoxon Signed-Rank zeigt jedoch durch die geringe Datenanzahl einen knapp insignifikanten Wert ($p = 0.0625$), jedoch befindet sich auch die Effektstärke mit $d^z=2.10$ auf einem sehr hohen Wert ($\geq 0.8$).
+Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied ($t(7) = 3.60$). Der Wilcoxon Signed-Rank Test bestätigt diese Signifikanz ebenfalls durch einen Wort von $p = 0.0234$, welcher unter dem Limit von $p < 0.05$ für das 95\% Konfidenzniveau liegt. Die Effektstärke liegt mit $d^z=1.27$ ebenfalls auf einem sehr hohen Wert ($\geq 0.8$).
 
-Die Evidenz ist trotz Wilcoxon-Test jedoch deutlich mit einer großen Effektstärke und genereller Verbesserung der Daten. Die fehlende formale Signifikanz bei Wilcoxon kann daher ein Artefakt der kleinen Stichprobe statt nicht fehlender Wirkung sein.
+Es kann daher eine nachweisbar signifikante Verbesserung in der mentalen Belastung nachgewiesen werden.
 
 \medskip
 
@@ -120,9 +120,9 @@ Abbildung \ref{fig:usertesting-tlx-radar} stellt ein Netzdiagramm zu den einzeln
 \label{fig:usertesting-time}
 \end{figure}
 
-Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test die Ergebnisse als statistisch signifikant, Wilcoxon jedoch mit einem $p = 0.0625$ erneut knapp nicht. Jedoch ist auch bei den Zeitwerten die Effektgröße mit $d^z=1.24$ groß und zeigt die Veränderung als bedeutsam an.
+Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test ($t(7) = 3.47,p = 0.01$) sowie Wilcoxon ($p = 0.0078$) die Ergebnisse als statistisch signifikant. Bei den Zeitwerten liegt die Effektgröße mit $d^z=1.23$ auf einem hohen Wert und zeigt die Veränderung als bedeutsam an, wodurch auch hierbei eine Verbesserung nachgewiesen wurde.
 
-\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 84 (Schulnote 1), auf einer Skala von 0-100 \parencite{bellioSystemUsabilityScale2024}.
+\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 80 (Schulnote 1), auf einer Skala von 0-100 \parencite{bellioSystemUsabilityScale2024}.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/sus.png}
@@ -131,16 +131,11 @@ Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden.
 \label{fig:usertesting-sus}
 \end{figure}
 
-Trotz dieser Verbesserungen des Mittelwerts bewerten sowohl der t-Test als auch Wilcoxon Signed-Rank Test das Ergebnis als knapp nicht signifikant, was primär durch unterschiedliche Verändungswerte innerhalb der Ergebnisse zu begründen ist.
+Diese Verbesserung wird sowohl vom gepaarten t-Test ($t(7) = -2.87, p = 0.0240$) als auch vom Wilcoxon-Test ($p = 0.0078$) bestätigt und spiegelt sich ebenfalls in der großen Effektgröße von $d^z = -1.02$ wieder.
 
-Hierfür sind in Abbildung \ref{fig:usertesting-sus-detail} die Messergebnisse einzeln abgebildet. Es ist erkennbar, dass in allen Ergebnissen mindestens eine kleine Verbesserung nachgewiesen werden kann, diese jedoch besonders bei den bereits hohen Werten nur gering ausfällt.
+\medskip
 
-\begin{figure}[h]
-\includegraphics[width=0.5\textwidth]{abb/usertests/sus-detail.png}
-\centering
-\caption{Detailergebnisse SUS-Wert (eigene Abbildung)}
-\label{fig:usertesting-sus-detail}
-\end{figure}
+Insgesamt konnte in allen gemessenen Tests eine statistisch signifikante Verbesserung nachgewiesen werden. Über das TLX-Netzdiagramm konnte ebenfalls erkannt werden, dass sich diese Verbesserungen primär im Bereich der Frustration, Anstrengung (Effort) und Performance befinden.
 
 \subsubsection{Qualitative Testergebnisse}
 
