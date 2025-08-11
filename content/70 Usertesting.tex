@@ -1,6 +1,6 @@
 \section{Nutzertest des Systems}\label{section:Usertesting des Systems}
 
-Zur Bewertung der Verständlichkeit und Nützlichkeit des Fehlerfeedbacks sowie der Intuitivität und Effizienz des Systems soll das System im nächsten Schritt mittels Nutzertests ausgewertet werden. Die Durchführung der Tests orientiert sich an den Leitlinien nach \textcite{albertMeasuringUserExperience2022} zur Durchführung und Analyse der Nutzererfahrung eines Systems.
+Zur Bewertung der Verständlichkeit und Nützlichkeit des Fehlerfeedbacks sowie der Intuitivität und Effizienz des Systems soll das System im nächsten Schritt mittels explorativen Nutzertests ausgewertet werden. Die Durchführung der Tests orientiert sich an den Leitlinien nach \textcite{albertMeasuringUserExperience2022} zur Durchführung und Analyse der Nutzererfahrung eines Systems.
 
 \subsection{Testaufbau}
 
@@ -32,13 +32,18 @@ Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitg
 
 Es werden jeweils eine Reihe von Auswertungsmethoden für ein möglichst vollständiges Bild durchgeführt. Zur Prüfung der Effizienz des Systems wird die Ausführungszeit von der ersten Interaktion bis zur vollständigen Platzierung erfasst. Die mentale Belastung des Systems wird durch die Nutzung des NASA-TLX-Fragebogens sowie die Gebrauchstauglichkeit über die System Usability Scale (SUS) ausgewertet \parencite{hartDevelopmentNASATLXTask1988}.
 
-Neben diesen quantitativen Messmethoden wird zusätzlich die qualitative Methode des \textit{Restrospective Think-Aloud} (RTA) genutzt. Traditionelle Think-Aloud Methoden stehen in der Vermutung, die Messergebnisse zu verfälschen, da sie zusätzliche Denkzeiten und das Formen klarer Gedankenstränge forcieren. Hingegen findet dies bei RTA erst nach der eigentlichen Messung durch eine erneute Betrachtung der eigenen Leistung als Videoaufnahme statt. \parencite[S. 90]{albertMeasuringUserExperience2022}
+Neben diesen quantitativen Messmethoden wird zusätzlich die qualitative Methode des \textit{Retrospective Think-Aloud} (RTA) genutzt. Traditionelle Think-Aloud Methoden stehen in der Vermutung, die Messergebnisse zu verfälschen, da sie zusätzliche Denkzeiten und das Formen klarer Gedankenstränge forcieren. Hingegen findet dies bei RTA erst nach der eigentlichen Messung durch eine erneute Betrachtung der eigenen Leistung als Videoaufnahme statt. \parencite[S. 90]{albertMeasuringUserExperience2022}
 
 Hierdurch kann erhofft werden, Einblicke in die Gedankenstränge der Nutzer zu erhalten, ohne andere Messergebnisse zu verfälschen. 
 
 \medskip
 
-Die Anzahl der benötigten Personen für eine repräsentative Nutzerstudie ist ein in aktueller Forschung umstrittenes Thema: Laut der oft genutzten \textit{Nielsens Faustregel} sollen bereits fünf Nutzer über 80\% der Probleme eines Systems erkennen und sind somit ausreichend. Gegensätzlich ist das Ergebnis anderer Arbeiten jedoch, dass dieser Problemwert erst ab einer Zahl von zehn Nutzern zuverlässig erreicht wird. Als Teil dieser Arbeit wird daher ein Bereich von 8-10 Teilnehmern angestrebt, um eine ausreichende Abdeckung über Nutzungsprobleme erreichen zu können. \parencite[S. 172-176]{albertMeasuringUserExperience2022}
+Die Anzahl der benötigten Personen für eine Nutzerstudie ist ein in aktueller Forschung umstrittenes Thema: Laut der oft genutzten \textit{Nielsens Faustregel} sollen bereits fünf Nutzer über 80\% der Probleme eines Systems erkennen und sind somit in qualitativen Untersuchungen ausreichend. Gegensätzlich ist das Ergebnis anderer Arbeiten jedoch, dass dieser Problemwert erst ab einer Zahl von zehn Nutzern zuverlässig erreicht wird.
+Für inferenzstatistische Vergleiche von Metriken wie die genutzten NASA-TLX- oder SUS-Werte gelten jedoch andere Anforderungen an die Stichprobe: eine a-priori-Planung quantitativer Untersuchungen für $d^z=0,60$, $\alpha=0,05$ bei $Teststärke=80\%$ für einen zweiseitigen Test ergibt $N \approx 24$ Teilnehmer, welche für die Erkennung eines ausreichend hohen Effekts nötig sind.
+
+Aufgrund des Aufwands der Durchführung und Umfang wird als Teil dieser Arbeit ein Bereich von 5-10 Teilnehmern angestrebt, um eine ausreichende Abdeckung über Nutzungsprobleme erreichen zu können.
+
+Um einen Ausgleich zur Differenz des benötigten $N$ der a-priori-Planung zu schaffen, wird zusätzlich eine post-hoc Teststärkenanalyse zur Berechnung ausreichender Effektstärken durchgeführt. Durch diesen Wert kann berechnet werden, ab welcher Effektgröße in der durchgeführten, explorativen Analyse auch eine ausreichende Stärke bei einem größeren Test zu erwarten ist - hierfür wird ein Nachweiswahrscheinlichkeit von mindestens $80\%$ vorausgesetzt. Bei $N = 8$ Teilnehmern ist hierdurch das Erreichen von mindestens $d^z = 1,16$ nötig.
 
 \medskip
 
@@ -59,7 +64,7 @@ Die Anzahl der benötigten Personen für eine repräsentative Nutzerstudie ist e
 
 Zuletzt wurden vier Hypothesen für die Ergebnisse der Nutzertests aufgestellt, welche in Tabelle \ref{tab:hypothesis} dargestellt sind.
 
-Mittels H1 soll validiert werden, ob das System die Effizienz erhöht und damit die benötigte Zeit pro Phase reduziert. Über H2 wird zudem geprüft, ob die Fehlermeldungen sowie andere Indikatoren wie Bereichspolygone und rote Hinterlegungen intuitiv verständlich sind und für die Platzierung genutzt werden. Ist dies der Fall, wird erhofft, dass Nutzer keine der Objekte an einem invaliden Ort platzieren.
+Mittels H1 soll validiert werden, ob das System die Effizienz erhöht und damit die benötigte Zeit pro Phase reduziert. Über H2 wird zudem geprüft, ob die Fehlermeldungen sowie andere Indikatoren wie Bereichspolygone und rote Hinterlegungen intuitiv verständlich sind und für die Platzierung genutzt werden. Der Fehlerwert wurde auf den strikten Wert von null gesetzt, da erhofft wird, dass Nutzer keine der Objekte an einem invaliden Ort platzieren und eventuelle Fehler vor Absenden des Ergebnisses korrigieren.
 
 In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Scores mindestens dem Akzeptanzwert von 70 entspricht \parencite[S. 128]{albertMeasuringUserExperience2022}.
 
@@ -71,7 +76,15 @@ Es wird erhofft, dass durch diesen Testaufbau, die Kombination verschiedener Aus
 
 Die Durchführung der Tests fand über einen Zeitraum von zwei Wochen im Juli und August 2025 statt.
 
-Die Stichprobe umfasste acht Personen (5 weiblich, 3 männlich). Das Durchschnittsalter lag bei 35,1 Jahren (SD = 14,79), der Median bei 29 Jahren (Wertebereich: 22–59). Der Interquartilsabstand betrug 13,5 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung. Es wurden jeweils in vier Tests zuerst der Basistest ohne Validierungssystem getestet und in vier Tests zuerst der Systemtest, sodass Auswirkungen durch die Reihenfolge ausgeschlossen werden.
+Die Stichprobe umfasste acht Personen (5 weiblich, 3 männlich). Das Durchschnittsalter lag bei 35,1 Jahren (SD = 14,79), der Median bei 29 Jahren (Wertebereich: 22–59). Der Interquartilsabstand betrug 13,5 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung. Es wurden jeweils in vier Tests zuerst der Basistest ohne Validierungssystem getestet und in vier Tests zuerst der Systemtest, sodass Auswirkungen durch die Reihenfolge ausgeschlossen werden. Alle Tests fanden jeweils auf einem Xiaomi 9T Pro statt.
+
+Die anonymisierten Ergebnisse der Tests sowie der Code für die Analyse der Daten in den folgenden Abschnitten ist verfügbar unter \url{https://github.com/vantezzen/arval/tree/main/results}.
+
+\subsubsection{Ethik und Datenschutz}
+
+Die Studie wurde nach den Grundsätzen guter wissenschaftlicher Praxis und unter Beachtung des Datenschutzes durchgeführt. Alle Teilnehmenden erhielten vorab ein schriftliches Informationsblatt, konnten Fragen stellen und gaben eine informierte, widerrufliche Einwilligung. Die Teilnahme war freiwillig und konnte jederzeit ohne Nachteile abgebrochen werden.
+
+Während der Aufgaben wurden ausschließlich Bildschirmaufnahmen des Geräts erstellt, um das RTA zu unterstützen, welche nach dem Interview entfernt wurden. Die Arbeitsdaten zu den Umfragen lagen ausschließlich auf dem zur Auswertung genutzten Tablet, es waren keine über das Alltagsmaß hinausgehenden Risiken zu erwarten. Die anonymisierte Ergebnisse und Auswertungscode sind öffentlich zugänglich und es waren keine über das Alltagsmaß hinausgehenden Risiken zu erwarten. Die Belastung beschränkte sich auf ca. 20 Minuten pro Sitzung und es gab keine Aufwandsentschädigung für Teilnehmer.
 
 \subsubsection{Quantitative Testergebnisse}
 
@@ -83,11 +96,11 @@ Dieser Test setzt jedoch annähernd normalverteilte Differenzen voraus, welches 
 
 Zur Berechnung der Effektstärke zwischen den Ergebnissen wird zusätzlich Cohens $d^z$ berechnet, um zu validieren, dass die Veränderung nicht nur statistisch signifikant, sondern auch real bedeutend ist.
 
-Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
+Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt. Eine vollständige Tabelle aller berechneten Ergebnisse ist in Anhang \ref{anh:Quantitative Testergebnisse} [S. \pageref{anh:Quantitative Testergebnisse}] zu finden.
 
 \medskip
 
-\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 39 zu einem Wert von 18 mit einem leicht überlappenden Konfidenzintervall. 
+\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 39 zu einem Wert von 18 mit einem leicht überlappenden Konfidenzintervall. Das Konfidenzintervall für die mittlere Reduktion liegt bei $CI_{95} = [7,19, 34,76]$ und liegt damit vollständig über null, wodurch mit 95-prozentiger Wahrscheinlichkeit die Verbesserung real stattfindet.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/tlx.png}
@@ -96,7 +109,7 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt.
 \label{fig:usertesting-tlx}
 \end{figure}
 
-Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied ($t(7) = 3.60$). Der Wilcoxon Signed-Rank Test bestätigt diese Signifikanz ebenfalls durch einen Wort von $p = 0.0234$, welcher unter dem Limit von $p < 0.05$ für das 95\% Konfidenzniveau liegt. Die Effektstärke liegt mit $d^z=1.27$ ebenfalls auf einem sehr hohen Wert ($\geq 0.8$).
+Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied ($t(7) = 3,60$). Der Wilcoxon Signed-Rank Test bestätigt diese Signifikanz ebenfalls durch einen Wert von $p = 0,0234$, welcher unter dem Limit von $p < 0,05$ für das 95\% Konfidenzniveau liegt. Die Effektstärke liegt mit $d^z=1,27$ ebenfalls auf einem sehr hohen Wert ($\geq 0,8$). Hieraus ergibt sich in der post-hoc Teststärkenanalyse eine Stärke von $P \approx 0,87$, welche ebenfalls über dem benötigten Wert von $\geq 0,8$ liegen.
 
 Es kann daher eine nachweisbar signifikante Verbesserung in der mentalen Belastung nachgewiesen werden.
 
@@ -120,9 +133,9 @@ Abbildung \ref{fig:usertesting-tlx-radar} stellt ein Netzdiagramm zu den einzeln
 \label{fig:usertesting-time}
 \end{figure}
 
-Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test ($t(7) = 3.47,p = 0.01$) sowie Wilcoxon ($p = 0.0078$) die Ergebnisse als statistisch signifikant. Bei den Zeitwerten liegt die Effektgröße mit $d^z=1.23$ auf einem hohen Wert und zeigt die Veränderung als bedeutsam an, wodurch auch hierbei eine Verbesserung nachgewiesen wurde.
+Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test ($t(7) = 3,47,p = 0,01$) sowie Wilcoxon ($p = 0,0078$) die Ergebnisse als statistisch signifikant. Bei den Zeitwerten liegt die Effektgröße mit $d^z=1.23$ auf einem hohen Wert und zeigt die Veränderung als bedeutsam an, wodurch auch hierbei eine Verbesserung nachgewiesen wurde. Auch hier liegt das Konfidenzintervall für die mittlere Veränderung mit $CI_{95} = [20,65, 108,85]$ vollständig über null. Die Teststärkenanalyse ergibt einen Wert von $P \approx 0.84$, wodurch auch dieses über dem benötigten Mindestwert liegt.
 
-\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 80 (Schulnote 1), auf einer Skala von 0-100 \parencite{bellioSystemUsabilityScale2024}.
+\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 80 (Schulnote 1), auf einer Skala von 0 bis 100 mit einem Veränderungs-Konfidenzintervall von $CI_{95}=[27,92, 2,70]$ \parencite{bellioSystemUsabilityScale2024}.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/sus.png}
@@ -131,11 +144,11 @@ Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden.
 \label{fig:usertesting-sus}
 \end{figure}
 
-Diese Verbesserung wird sowohl vom gepaarten t-Test ($t(7) = -2.87, p = 0.0240$) als auch vom Wilcoxon-Test ($p = 0.0078$) bestätigt und spiegelt sich ebenfalls in der großen Effektgröße von $d^z = -1.02$ wieder.
+Diese Verbesserung wird sowohl vom gepaarten t-Test ($t(7) = 2,87, p = 0,0240$) als auch vom Wilcoxon-Test ($p = 0,0078$) bestätigt und spiegelt sich ebenfalls in der großen Effektgröße von $d^z = 1,02$ wieder. Die post-hoc Teststärkenanalyse ergibt jedoch lediglich eine Stärke von $P = 0.69$, welches unter dem benötigten Wert von $0,8$ liegt. Es wurde daher zwar eine statistisch signifikante Veränderung festgestellt, für den endgültigen Beweis der Teststärke sind jedoch weitere Tests notwendig.
 
 \medskip
 
-Insgesamt konnte in allen gemessenen Tests eine statistisch signifikante Verbesserung nachgewiesen werden. Über das TLX-Netzdiagramm konnte ebenfalls erkannt werden, dass sich diese Verbesserungen primär im Bereich der Frustration, Anstrengung (Effort) und Performance befinden.
+Insgesamt konnte in allen gemessenen Tests eine statistisch signifikante Verbesserung nachgewiesen werden. Über das TLX-Netzdiagramm konnte ebenfalls erkannt werden, dass sich diese Verbesserungen primär im Bereich der Frustration, Anstrengung (Effort) und Performance befinden. Bis auf die Verbesserung des SUS-Werts wurden ebenfalls eine ausreichende Teststärke von über $80\%$ erreicht.
 
 \subsubsection{Qualitative Testergebnisse}
 

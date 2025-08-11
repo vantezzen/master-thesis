@@ -244,7 +244,7 @@ Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validie
 
 \subsubsection{State-System}
 
-Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textmono{zustand}\footnote{\url{http://npmjs.com/package/zustand}} genutzt. \textmono{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
+Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textmono{zustand} genutzt. \textmono{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert \parencite{poimandresZustand2025}. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
 
 In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche die vorgegebenen Daten speichern und Methoden zur Veränderung der Werte bereitstellen. ARVal definiert hierfür zwei Systeme:
 
@@ -321,7 +321,7 @@ Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrö�
 
 \medskip
 
-Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod}\footnote{\url{https://zod.dev/}} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validierungsmoduls fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
+Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden \parencite{zodcontributorsZodIntro2025}. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validierungsmoduls fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
 
 \medskip
 
@@ -395,7 +395,7 @@ Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems d
 
 \subsection{Testing}
 
-Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest}\footnote{\url{https://vitest.dev/}} verwendet. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
+Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest} verwendet \parencite{fuVitest2025}. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
 
 Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systemen eingegriffen werden.
 
