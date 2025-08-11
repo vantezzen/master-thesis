@@ -7,11 +7,11 @@ In den letzten Jahren hat sich Augmented Reality (AR) von einer Zukunftsvision z
 
 Gleichzeitig stellt die Implementierung solcher AR-Anwendungen Entwickler und Stadtplaner vor neue Herausforderungen \cite{zubairHowLongYou2021}. In vielen Fällen können Nutzer eigenständig und ohne direkte Beobachtung von Stadtplanern oder Studienleitungen Vorschläge erstellen und Veröffentlichen. Die Herausforderung ist es insbesondere auch in solchen Situationen Nutzern direkte Rückmeldung über nicht-umsetzbare Vorschläge geben zu können, bevor diese an das System gesendet werden.
 
-Die Erkenntnisse dieser Arbeit sollen nicht nur einen Beitrag zur technischen Weiterentwicklung von web-basierten AR-Anwendungen leisten, sondern auch neue Perspektiven für die partizipative Stadtplanung und bürgernahe Verwaltung eröffnen.
+Die Erkenntnisse dieser Arbeit sollen nicht nur einen Beitrag zur technischen Weiterentwicklung von webbasierten AR-Anwendungen leisten, sondern auch neue Perspektiven für die partizipative Stadtplanung und bürgernahe Verwaltung eröffnen.
 
 \medskip
 
-Diese Arbeit entsteht im Kontext des ARPAS Projekts an der HTW Berlin \parencite{israelARgestutztePartizipationStadtentwicklung2025}. Das Projekt untersucht die Erstellung eines webbasierten AR-Systems zur Bürgerbeteiligung in der Stadtplanung und interaktiven Erstellung von Vorschlägen zur Platzierung von Objekten. 
+Diese Arbeit entsteht im Kontext des ARPAS-Projekts an der HTW Berlin \parencite{israelARgestutztePartizipationStadtentwicklung2025}. Das Projekt untersucht die Erstellung eines webbasierten AR-Systems zur Bürgerbeteiligung in der Stadtplanung und zur interaktiven Erstellung von Vorschlägen zur Platzierung von Objekten. 
 
 \medskip
 %Verweis auf Forschungsprojekt
@@ -30,11 +30,11 @@ Aufgrund der ausführlichen Vorarbeit zu diesen Themen werden diese in dieser Ma
 \subsection{Problemstellung}
 
 
-Die Validierung von Nutzereingaben im traditionellen Internet sind weit verbreitet: Bei E-Mail-Adressen kann vor der Eingabe auf das Format \textmono{name@domain.com} geprüft werden; bei hochgeladenen Bilddateien kann geprüft werden, ob es ein valides Bild ist.
+Die Validierung von Nutzereingaben im traditionellen Internet ist weitverbreitet: Bei E-Mail-Adressen kann vor der Eingabe auf das Format \textmono{name@domain.com} geprüft werden; bei hochgeladenen Bilddateien kann geprüft werden, ob es ein valides Bild ist.
 
-Eine Validierung von Platzierungen von Objekten in AR ist jedoch komplexer und kann nicht etwa durch die Auswertung eines regulären Ausdrucks durchgeführt werden - es erfordert die Kombination virtueller Daten sowie Kamera- und Kartendaten zur Validierung, um komplexe Abhängigkeiten aufzulösen und Regeln wie \textmono{Befindet sich die Bank auf einer Straße?} zu validieren.
+Eine Validierung von Platzierungen von Objekten in AR ist jedoch komplexer und kann nicht etwa durch die Auswertung eines regulären Ausdrucks durchgeführt werden. Es erfordert die Kombination virtueller Daten sowie Kamera- und Kartendaten zur Validierung, um komplexe Abhängigkeiten aufzulösen und Regeln wie \textmono{Befindet sich die Bank auf einer Straße?} zu validieren.
 
-Aus diesem Grund soll eine regelbasierte Validierung untersucht und implementiert werden, welches diese Abhängigkeiten auflösen kann, und Nutzern eine intuitive Rückmeldung geben kann. Das Risiko in der Entwicklung eines solchen Systems ist primär eine unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge. Die Herausforderung stellt sich vor allem die räumlich-semantische Korrektheit, Performance und Verständlichkeit für neue Nutzer.
+Aus diesem Grund soll eine regelbasierte Validierung untersucht und implementiert werden, welche diese Abhängigkeiten auflösen kann, und Nutzern eine intuitive Rückmeldung geben kann. Das Risiko in der Entwicklung eines solchen Systems sind primär unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge. Die Herausforderung zeigt sich vorwiegend in der räumlich-semantischen Korrektheit, Performance und Verständlichkeit für neue Nutzer.
 
 \subsection{Zielsetzung}
 
@@ -44,7 +44,7 @@ Zur strukturierten Bearbeitung der Forschung soll folgende Forschungsfrage beant
 Wie muss ein regelbasiertes Validierungssystem zur Unterstützung der manuellen Objektplatzierung in AR gestaltet sein, um Nutzer eine intuitive Erstellung räumlich und semantisch valider Planungsvorschläge zu ermöglichen?
 \end{quote}
 
-Die Beantwortung der Frage umfasst die Forschung in viele existierende Bereiche, darunter zur Syntax-Definition für die Regeln sowie die Segmentierung der Umgebung des Nutzers in etwa Straßen, Gehwege und Grünflächen mit Einbindung von geographischen Daten zur Validierung der Regeln. Weitere untersuchte Bereiche sind die wartbare Implementierung eines Validierungssystems sowie die Artikulation von Regeln über Wissen aus der Stadtplanung.
+Die Beantwortung der Frage umfasst die Forschung in viele existierende Bereiche, darunter zur Syntax-Definition für die Regeln sowie die Segmentierung der Umgebung des Nutzers in etwa Straßen, Gehwege und Grünflächen mit Einbindung von geografischen Daten zur Validierung der Regeln. Weitere untersuchte Bereiche sind die wartbare Implementierung eines Validierungssystems sowie die Artikulation von Regeln über Wissen aus der Stadtplanung.
 
 \subsection{Aufbau der Arbeit}
 
