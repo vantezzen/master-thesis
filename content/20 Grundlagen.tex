@@ -10,13 +10,13 @@ Augmented Reality (AR) bezeichnet die Erweiterung der realen Welt durch computer
 
 Die webbasierte API \textit{WebXR} bietet einen Standard zur Implementierung von AR- und VR-basierten Webseiten, welche unabhängig vom genutzten Gerät und Browser funktionieren sollen \parencite{w3cimmersivewebgroupWebxrExplainermdMaster2024}. Hierfür stellt die API-Primitiven zur Darstellung, Tracking von Bewegungen und anderen elementaren Interaktionen zur Verfügung.
 
-Die API ist agnostisch zur genutzten Methode, um die 3D-Szene zu rendern. Für die Darstellung der 3D-Inhalte können daher etablierte Engines wie Unity, jedoch auch codebasierte Umgebungen wie three.js und Mozilla A-Frame genutzt werden \parencite{weizmanDePantherUnitywebxrexport2024}.
+Die API ist agnostisch zur genutzten Methode, um die 3D-Szene zu rendern. Für die Darstellung der 3D-Inhalte können daher etablierte Game-Engines wie Unity, jedoch auch codebasierte Umgebungen wie three.js und Mozilla A-Frame genutzt werden \parencite{weizmanDePantherUnitywebxrexport2024}.
 
 \subsubsection{Limitierungen}
 
 Trotz der initialen Spezifikation der WebXR API im Jahr 2018 befindet sich die Definition des Standards zum Zeitpunkt der Arbeit weiterhin im Status „Candidate Recommendation“ \parencite{w3cimmersivewebgroupWebXRDeviceAPI2024}.
 
-Während dieses Status wird die Spezifikation als weitgehend abgeschlossen angesehen. Jedoch sollen die einzelnen Browser-Hersteller zunächst prüfen, ob eine vollständige Implementierung möglich ist, bevor dieser schließlich als „Recommendation“ gekennzeichnet wird \parencite{w3cTypesDocumentsW3C2024a}.
+Während dieses Status wird die Spezifikation als weitgehend abgeschlossen angesehen, jedoch sollen die einzelnen Browser-Hersteller zunächst prüfen, ob eine vollständige Implementierung möglich ist, bevor dieser schließlich als „Recommendation“ gekennzeichnet wird \parencite{w3cTypesDocumentsW3C2024a}.
 
 Aufgrund dieses Status wird die API von Browsern bisher nur unvollständig oder gar nicht implementiert oder ist hinter einer Feature-Flag standardmäßig deaktiviert.
 
@@ -29,15 +29,15 @@ Aufgrund dieses Status wird die API von Browsern bisher nur unvollständig oder 
 
 Abbildung \ref{fig:webxr-browser} zeigt die aktuelle Unterstützung der WebXR-API in der Standard-Konfiguration der Browser, ohne aktivierte Feature-Flag. Es ist erkennbar, dass Desktop-Browser wie Chrome und Edge WebXR bereits unterstützen.
 
-Bei den mobilen Browsern in der rechten Hälfte ist erkennbar, dass Browser wie Chrome für Android und Opera für Android Unterstützung bieten, wodurch User auf Android-Geräten WebXR-Anwendungen meist ohne weitere Konfiguration nutzen können.
+Bei den mobilen Browsern in der rechten Hälfte ist erkennbar, dass Browser wie Chrome für Android und Opera für Android Unterstützung bieten, wodurch Nutzer auf Android-Geräten WebXR-Anwendungen meist ohne weitere Konfiguration nutzen können.
 
 \medskip
 
-Auffällig ist jedoch, dass Safari für iOS die API nicht unterstützt: Durch Regelungen von Apple waren andere Browser bisher gezwungen, intern ebenfalls Safari WebKit als Browser-Engine zu nutzen \parencite{dinhWennEsNach2023}. Ein aktuelles Urteil der EU im Rahmen des neuen Digital Markets Act zwingt Apple nun dazu, auch alternative Browser-Engines für Gerate in der EU zu erlauben - zum Zeitpunkt dieser Arbeit ist jedoch bisher kein Browser umgestiegen \parencite{wegmannAppleErlaubtAlternative2024}. Zukünftig kann hierdurch jedoch auf WebXR-Unterstützung mittels Chrome auf iOS gehofft werden.
+Auffällig ist, dass Safari für iOS die API nicht unterstützt: Durch Regelungen von Apple waren andere Browser bisher gezwungen, intern ebenfalls Safari WebKit als Browser-Engine zu nutzen \parencite{dinhWennEsNach2023}. Ein aktuelles Urteil der EU im Rahmen des neuen Digital Markets Act zwingt Apple nun dazu, auch alternative Browser-Engines für Gerate in der EU zu erlauben - zum Zeitpunkt dieser Arbeit ist allerdings bisher kein Browser umgestiegen \parencite{wegmannAppleErlaubtAlternative2024}. Zukünftig kann hierdurch jedoch auf WebXR-Unterstützung mittels Chrome auf iOS gehofft werden.
 
 \medskip
 
-Alternativ bietet Mozilla bereits die eigene App „WebXR Viewer“ für iOS-Geräte an \parencite{mozillainc.WebXRViewer2020}. Die App ist eine verschlankte Version des Firefox Browsers, welche die WebXR-API mittels JavaScript-Implementierung nachträglich hinzufügt. Hierdurch ist eine allgemeine Nutzung möglich, jedoch bietet dies eine schlechtere Performance, als es durch eine native Integration in die Browser-Engine möglich wäre. Weiterhin wurde die App zuletzt 2020 aktualisiert und unterstützt daher neuere APIs nicht.
+Alternativ bietet Mozilla bereits die eigene App „WebXR Viewer“ für iOS-Geräte an \parencite{mozillainc.WebXRViewer2020}. Die App ist eine verschlankte Version des Firefox Browsers, welche die WebXR-API mittels JavaScript-Implementierung nachträglich hinzufügt. Hierdurch ist eine allgemeine Nutzung möglich, allerdings bietet dies eine schlechtere Performance, als es durch eine native Integration in die Browser-Engine möglich wäre. Weiterhin wurde die App zuletzt 2020 aktualisiert und unterstützt daher neuere APIs nicht.
 
 \subsection{Tracking und Positionierung}
 
@@ -47,7 +47,7 @@ Die präzise Platzierung virtueller Objekte im physischen Raum erfordert eine zu
 
 In der vorangegangenen Forschungsarbeit wurde aufgrund der Zielsetzung des Systems für die Umsetzung des ARPAS-Systems ein geeigneter Technologie-Stack gewählt. Zu den Anforderungen zählen insbesondere die Notwendigkeit einer plattformunabhängigen Web-Integration, einer performanten 3D-Darstellung auf mobilen Geräten sowie einer möglichst nahtlosen Integration mit bestehenden Frontend-Komponenten der Adhocracy-Plattform \parencite{liquiddemocracye.v.LiqdAdhocracyplus2025}.
 
-Der gewählte Stack setzt sich zusammen aus \textit{Three.js} für die Darstellung von 3D-Objekten, \textit{React} und RTF für die Definitionen der UI, sowie \textit{@react-three/xr} für die Integration mit WebXR.
+Der gewählte Stack setzt sich zusammen aus \textit{Three.js} für die Darstellung von 3D-Objekten, \textit{React} und RTF für die Definitionen der UI, sowie \textit{@react-three/xr} für die Integration mit WebXR. Die einzelnen Technologien sollen in den nachfolgenden Abschnitten einzeln beleuchtet werden.
 
 \subsubsection{Three.js}
 
@@ -95,7 +95,7 @@ RTF besitzt zusätzlich bereits ein breites Ökosystem an kompatiblen Modulen, w
 
 \subsubsection{@react-three/xr}
 
-Eine der Pakete im Ökosystem von RTF ist die Bibliothek \textit{@react-three/xr} zur Integration von WebXR in das React-basierte 3D-System erfolgt.
+Eine der Pakete im Ökosystem von RTF ist die Bibliothek \textit{@react-three/xr} zur Integration von WebXR in das React-basierte 3D-System.
 
 Diese Bibliothek erweitert RTF um spezifische Funktionalitäten zur Nutzung von XR-Features wie AR-Sitzungen, Hittesting oder Controller-Tracking \parencite{poimandresPmndrsReactxr2024}. Für das ARPAS-System wurde insbesondere die \texttt{<XR>} Komponente genutzt, um den XR-Rendering-Context zu initiieren und zu verwalten. Weitere zentrale Bausteine wie \texttt{<ARCanvas>} und \texttt{<HitTest>} ermöglichen die Implementierung von Interaktionen zur Objektplatzierung auf erkannter Oberfläche.
 

@@ -4,16 +4,16 @@ Zur Bewertung der Verständlichkeit und Nützlichkeit des Fehlerfeedbacks sowie 
 
 \subsection{Testaufbau}
 
-Die Nutzertests finden in Einzelsitzungen statt, wobei jeweils qualitative sowie quantitative Messungen durchgeführt werden können.
+Die Nutzertests finden in Einzelsitzungen statt, wobei jeweils qualitative sowie quantitative Messungen durchgeführt werden.
 
 Die Durchführung wurde anhand einer kurzen, zuvor erstellten Richtlinie umgesetzt. Tests fanden an unterschiedlichen physischen Orten statt, daher wurde die zuvor erstellte virtuelle Testwelt in die AR-Ansicht überführt, sodass die Gegebenheiten der Umgebung zwischen allen Teilnehmern identisch bleiben.
 
 Für jeden Teilnehmer fand zunächst eine kurze Einweisung in das Projekt, ARPAS sowie partizipative Stadtplanung im Allgemeinen statt. Daraufhin wurden dem Teilnehmer einige Minuten mit dem System im \quoted{Kreativmodus} ohne aktiviertes Regelsystem gegeben. Hierdurch wurde erhofft, dass weitere Aspekte des Systems wie die Erlernungszeit der Steuerung und Einarbeitungszeit die weiteren Tests nicht mitbeeinflussen.
 
-Nach der Einarbeitung wurde die Gewichtungsphase des NASA-TLX-Tests durchgeführt sowie weitere Fragen final geklärt. Nach der Einarbeitung finden zwei Messphasen, einmal im \quoted{Kreativmodus} und einmal im \quoted{Standardmodus}, in permutierter Reihenfolge, statt.
+Nach der Einarbeitung wurde die Gewichtungsphase des NASA-TLX-Tests durchgeführt sowie weitere Fragen final geklärt. Im Anschluss finden zwei Messphasen, einmal im \quoted{Kreativmodus} und einmal im \quoted{Standardmodus}, in permutierter Reihenfolge, statt.
 Während jeder Phase soll der Nutzer eine Bank, einen Zebrastreifen und eine Pflanze valide platzieren, so, wie der Nutzer es für sinnvoll und erlaubt hält. Durch die permutierte Reihenfolge kann erhofft werden, dass weitere Einflüsse zur Erlernung spezifischer Regeln oder Platzierungsinformationen über die Tests hinweg herausgefiltert werden. Nutzer wurden im zweiten Testlauf zusätzlich motiviert, Objekte nicht an denselben Ort wie im ersten Durchlauf zu stellen, um Gewöhnungseffekte sowie daraus resultierende, erhöhte Geschwindigkeit zu minimieren.
 
-Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitgestellt, welche in Tabelle \ref{tab:testrules} abgebildet sind. Nach Durchführung der Platzierung wird die automatisierte Validierung durchgeführt und auf eventuelle Fehlplatzierungen getestet. Während der Phase im Standardmodus wird dagegen keine Regelliste bereitgestellt, sondern eine automatische Live-Prüfung durch das System durchgeführt und dargestellt. Nach jedem Durchlauf wird jeweils ein RTA-Interview der Durchführung durchgeführt.
+Während der Kreativphase wird dem Nutzer eine manuelle Liste von Regeln bereitgestellt, welche in Tabelle \ref{tab:testrules} abgebildet sind. Nach Durchführung der Platzierung wird die automatisierte Validierung durchgeführt und auf eventuelle Fehlplatzierungen getestet. Während der Phase im Standardmodus wird dagegen keine Regelliste bereitgestellt, sondern eine automatische Live-Prüfung durch das System durchgeführt und dargestellt.
 
 \begin{table}[!h]
 \begin{center}
@@ -52,7 +52,7 @@ Um einen Ausgleich zur Differenz des benötigten $N$ der a-priori-Planung zu sch
     \begin{tabular}{ | l | p{4cm} | p{6cm} | p{3cm} | }
       \hline
       ID & Systembezug & Hypothese & Messgröße \\ \hline \hline
-      H1 & REQ-NF-002 (Bildrate $\geq$ 25 FPS)\newline REQ-F-004 (Live-Validierung) & Live-Feedback reduziert die mittlere Task-Completion-Time (TCT) pro Objekt gegenüber der Basisbedingung ohne Feedback. & $\Delta$ TCT (Sek.) \\ \hline
+      H1 & REQ-F-004 (Live-Validierung) & Live-Feedback reduziert die mittlere Task-Completion-Time (TCT) pro Objekt gegenüber der Basisbedingung ohne Feedback. & $\Delta$ TCT (Sek.) \\ \hline
       H2 & REQ-C-[001-003] (regelkonforme Platzierung) & Visuelle Fehlerindikatoren senken die End-Fehlerrate auf 0. & Fehler am Ende der Platzierung \\ \hline
       H3 & REQ-NF-001 (latente Verständlichkeit)\newline REQ-F-002 (Regel-Kurztexte) & Teilnehmende bewerten Fehlermeldungen als weniger frustrierend. & RTA + NASA-TLX \quoted{Frustration} Ergebnis \\ \hline
       H4 & System-Akzeptanz Gesamt & SUS-Score $>$ 70 & SUS-Score \\ \hline
@@ -66,7 +66,7 @@ Zuletzt wurden vier Hypothesen für die Ergebnisse der Nutzertests aufgestellt, 
 
 Mittels H1 soll validiert werden, ob das System die Effizienz erhöht und damit die benötigte Zeit pro Phase reduziert. Über H2 wird zudem geprüft, ob die Fehlermeldungen sowie andere Indikatoren wie Bereichspolygone und rote Hinterlegungen intuitiv verständlich sind und für die Platzierung genutzt werden. Der Fehlerwert wurde auf den strikten Wert von null gesetzt, da erhofft wird, dass Nutzer keine der Objekte an einem invaliden Ort platzieren und eventuelle Fehler vor Absenden des Ergebnisses korrigieren.
 
-In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Scores mindestens dem Akzeptanzwert von 70 entspricht \parencite[S. 128]{albertMeasuringUserExperience2022}.
+In H3 wird validiert, dass die Begründungen in den Fehlermeldungen verständlich sind und für eine geringere Frustration im Gesamtsystem sorgen. In der Regelliste der Basisphase wurden hierfür absichtlich keine genauen Begründungen für Regeln gegeben. Zuletzt wird über H4 validiert, dass die Gesamtakzeptanz des SUS-Scores mindestens dem Wert von 70 entspricht. Dieser wird oft als Akzeptanzwert gesehen, ab welchem ein System als \quoted{gut nutzbar} bewertet wird \parencite[S. 128]{albertMeasuringUserExperience2022}.
 
 \medskip
 
@@ -76,7 +76,7 @@ Es wird erhofft, dass durch diesen Testaufbau, die Kombination verschiedener Aus
 
 Die Durchführung der Tests fand über einen Zeitraum von zwei Wochen im Juli und August 2025 statt.
 
-Die Stichprobe umfasste acht Personen (5 weiblich, 3 männlich). Das Durchschnittsalter lag bei 35,1 Jahren (SD = 14,79), der Median bei 29 Jahren (Wertebereich: 22–59). Der Interquartilsabstand betrug 13,5 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung. Es wurden jeweils in vier Tests zuerst der Basistest ohne Validierungssystem getestet und in vier Tests zuerst der Systemtest, sodass Auswirkungen durch die Reihenfolge ausgeschlossen werden. Alle Tests fanden jeweils auf einem Xiaomi 9T Pro statt.
+Die Stichprobe umfasste acht Personen (5 weiblich, 3 männlich). Das Durchschnittsalter lag bei 35,1 Jahren (SD = 14,79), der Median bei 29 Jahren (Wertebereich: 22–59). Der Interquartilsabstand betrug 13,5 Jahre. Die technische Erfahrung auf Mobilgeräten, besonders im Umgang mit Social-Media-Apps, reichte hierbei von nur seltener Nutzung bis zu täglicher, häufiger Nutzung. Für eine permutierte Reihenfolge wurden jeweils in vier Tests zuerst der Basistest ohne Validierungssystem getestet und in vier Tests zuerst der Systemtest, sodass Auswirkungen durch die Reihenfolge ausgeschlossen werden. Alle Tests fanden jeweils auf einem Xiaomi 9T Pro statt.
 
 Die anonymisierten Ergebnisse der Tests sowie der Code für die Analyse der Daten in den folgenden Abschnitten ist verfügbar unter \url{https://github.com/vantezzen/arval/tree/main/results}.
 
@@ -84,13 +84,13 @@ Die anonymisierten Ergebnisse der Tests sowie der Code für die Analyse der Date
 
 Die Studie wurde nach den Grundsätzen guter wissenschaftlicher Praxis und unter Beachtung des Datenschutzes durchgeführt. Alle Teilnehmenden erhielten vorab ein schriftliches Informationsblatt, konnten Fragen stellen und gaben eine informierte, widerrufliche Einwilligung. Die Teilnahme war freiwillig und konnte jederzeit ohne Nachteile abgebrochen werden.
 
-Während der Aufgaben wurden ausschließlich Bildschirmaufnahmen des Geräts erstellt, um das RTA zu unterstützen, welche nach dem Interview entfernt wurden. Die Arbeitsdaten zu den Umfragen lagen ausschließlich auf dem zur Auswertung genutzten Tablet, es waren keine über das Alltagsmaß hinausgehenden Risiken zu erwarten. Anonymisierte Ergebnisse und der Auswertungscode sind öffentlich zugänglich und es waren keine über das Alltagsmaß hinausgehenden Risiken zu erwarten. Die Belastung beschränkte sich auf ca. 20 Minuten pro Sitzung und es gab keine Aufwandsentschädigung für Teilnehmer.
+Während der Aufgaben wurden ausschließlich Bildschirmaufnahmen des Geräts erstellt, um das RTA zu unterstützen, welche nach dem Interview entfernt wurden. Die Arbeitsdaten zu den Umfragen lagen ausschließlich auf dem zur Auswertung genutzten Tablet, es waren keine über das Alltagsmaß hinausgehenden Risiken zu erwarten. Anonymisierte Ergebnisse und der Auswertungscode sind öffentlich zugänglich. Die Belastung beschränkte sich auf ca. 20 Minuten pro Sitzung und es gab keine Aufwandsentschädigung für Teilnehmer.
 
 \subsubsection{Quantitative Testergebnisse}
 
 Als quantitative Ergebnisse wurde der NASA-TLX-Wert, SUS-Wert sowie die Ausführungszeit in Sekunden ausgewertet. Die Auswertung erfolgt nach \textcite{pennstateuniversitySTAT415Introduction2025}, mit einer Überführung in Python durch \textcite{kumarPracticalStatisticsData2020a}.
 
-Da es sich bei den Tests um \quoted{Within-Subjects-} bzw. \quoted{Repeated-Measures-Designs} handelt, wurde ein gepaarter t-Test durchgeführt, um zu prüfen, ob die Veränderungen statistisch signifikant sind.
+Da es sich bei den Tests um ein \quoted{Within-Subjects-} bzw. \quoted{Repeated-Measures-Design} handelt, wurde ein gepaarter t-Test durchgeführt, um zu prüfen, ob die Veränderungen statistisch signifikant sind.
 
 Dieser Test setzt jedoch annähernd normalverteilte Differenzen voraus, welches bei den untersuchten Datengrößen nur schwer beurteilbar sind. Angesichts dessen wird zusätzlich ein \textit{Wilcoxon Signed-Rank Test} zur Validierung genutzt. 
 
@@ -100,7 +100,7 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt. Eine vollstä
 
 \medskip
 
-\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 39 zu einem Wert von 18 mit einem leicht überlappenden Konfidenzintervall. Das Konfidenzintervall für die mittlere Reduktion liegt bei $CI_{95} = [7,19, 34,76]$ und liegt damit vollständig über null, wodurch mit 95-prozentiger Wahrscheinlichkeit die Verbesserung real stattfindet.
+\paragraph{NASA-TLX} Abbildung \ref{fig:usertesting-tlx} zeigt die Mittelwerte sowie Konfidenzintervalle der Basisphase ohne Validierung und Systemphase mit Validierung. Es ist erkennbar, dass sich der Mittelwert deutlich verbessert hat, von einem Wert von 39 zu einem Wert von 18 mit einem leicht überlappenden Konfidenzintervall. Das Konfidenzintervall für die mittlere Reduktion liegt bei $CI_{95} = [7,19, 34,76]$ und damit vollständig über null, wodurch mit 95-prozentiger Wahrscheinlichkeit die Verbesserung real stattfindet.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/tlx.png}
@@ -109,7 +109,9 @@ Alle Berechnungen finden auf einem Konfidenzniveau von 95\% statt. Eine vollstä
 \label{fig:usertesting-tlx}
 \end{figure}
 
-Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied ($t(7) = 3,60$). Der Wilcoxon Signed-Rank Test bestätigt diese Signifikanz ebenfalls durch einen Wert von $p = 0,0234$, welcher unter dem Limit von $p < 0,05$ für das 95\% Konfidenzniveau liegt. Die Effektstärke liegt mit $d^z=1,27$ ebenfalls auf einem sehr hohen Wert ($\geq 0,8$). Hieraus ergibt sich in der post-hoc Teststärkenanalyse eine Stärke von $P \approx 0,87$, welche ebenfalls über dem benötigten Wert von $\geq 0,8$ liegen.
+Der parametrische t-Test zeigt hierdurch einen statistisch signifikanten Unterschied ($t(7) = 3,60$). Der Wilcoxon Signed-Rank Test bestätigt diese Signifikanz ebenfalls durch einen Wert von $p = 0,0234$, welcher unter dem Limit von $p < 0,05$ für das 95\% Konfidenzniveau liegt. Die Effektstärke liegt mit $d^z=1,27$ ebenfalls auf einem sehr hohen Wert ($\geq 0,8$).
+
+Hieraus ergibt sich in der post-hoc Teststärkenanalyse eine Stärke von $P \approx 87\%$, welche ebenfalls über dem benötigten Wert von $\geq 80\%$ liegen. Durch diese Analyse wird nachgewiesen, dass die gemessene Effektstärke auch bei einer größeren Skalierung der Teilnehmer bereits jetzt hoch genug für eine ausreichende Veränderung ist.
 
 Es kann daher eine nachweisbar signifikante Verbesserung in der mentalen Belastung nachgewiesen werden.
 
@@ -133,9 +135,9 @@ Abbildung \ref{fig:usertesting-tlx-radar} stellt ein Netzdiagramm zu den einzeln
 \label{fig:usertesting-time}
 \end{figure}
 
-Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test ($t(7) = 3,47,p = 0,01$) sowie Wilcoxon ($p = 0,0078$) die Ergebnisse als statistisch signifikant. Bei den Zeitwerten liegt die Effektgröße mit $d^z=1.23$ auf einem hohen Wert und zeigt die Veränderung als bedeutsam an, wodurch auch hierbei eine Verbesserung nachgewiesen wurde. Auch hier liegt das Konfidenzintervall für die mittlere Veränderung mit $CI_{95} = [20,65, 108,85]$ vollständig über null. Die Teststärkenanalyse ergibt einen Wert von $P \approx 0.84$, wodurch auch dieses über dem benötigten Mindestwert liegt.
+Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden. Auch hier bewertet der gepaarte t-Test ($t(7) = 3,47,p = 0,01$) sowie Wilcoxon ($p = 0,0078$) die Ergebnisse als statistisch signifikant. Bei den Zeitwerten liegt die Effektgröße mit $d^z=1.23$ auf einem hohen Wert und zeigt die Veränderung als bedeutsam an, wodurch auch hierbei eine Verbesserung nachgewiesen wurde. Auch hier liegt das Konfidenzintervall für die mittlere Veränderung mit $CI_{95} = [20,65, 108,85]$ vollständig über null. Die Teststärkenanalyse ergibt einen Wert von $P \approx 84\%$, wodurch auch dieses über dem benötigten Mindestwert von $80\%$ liegt.
 
-\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (Schulnote 2) zu 80 (Schulnote 1), auf einer Skala von 0 bis 100 mit einem Veränderungs-Konfidenzintervall von $CI_{95}=[27,92, 2,70]$ \parencite{bellioSystemUsabilityScale2024}.
+\paragraph{SUS-Wert} In Abbildung \ref{fig:usertesting-sus} sind die Ergebnisse des SUS-Werts während den Tests abgebildet. Es ist erkennbar, dass der Mittelwert leicht gestiegen ist, von 65 (\quoted{gut}) zu 80 (\quoted{exzellent}), auf einer Skala von 0 bis 100 mit einem Veränderungs-Konfidenzintervall von $CI_{95}=[27,92, 2,70]$ \parencite{bellioSystemUsabilityScale2024}.
 
 \begin{figure}[h]
 \includegraphics[width=0.5\textwidth]{abb/usertests/sus.png}
@@ -144,7 +146,7 @@ Es ist erkennbar, dass der Mittelwert und das Konfidenzintervall kleiner werden.
 \label{fig:usertesting-sus}
 \end{figure}
 
-Diese Verbesserung wird sowohl vom gepaarten t-Test ($t(7) = 2,87, p = 0,0240$) als auch vom Wilcoxon-Test ($p = 0,0078$) bestätigt und spiegelt sich ebenfalls in der großen Effektgröße von $d^z = 1,02$ wieder. Die post-hoc Teststärkenanalyse ergibt jedoch lediglich eine Stärke von $P = 0.69$, welches unter dem benötigten Wert von $0,8$ liegt. Es wurde daher zwar eine statistisch signifikante Veränderung festgestellt, für den endgültigen Beweis der Teststärke sind jedoch weitere Tests notwendig.
+Diese Verbesserung wird sowohl vom gepaarten t-Test ($t(7) = 2,87, p = 0,0240$) als auch vom Wilcoxon-Test ($p = 0,0078$) bestätigt und spiegelt sich ebenfalls in der großen Effektgröße von $d^z = 1,02$ wieder. Die post-hoc Teststärkenanalyse ergibt jedoch lediglich eine Stärke von $P = 69\%$, welches unter dem benötigten Wert von $80\%$ liegt. Es wurde daher zwar eine statistisch signifikante Veränderung festgestellt, für den endgültigen Beweis der Teststärke sind jedoch weitere Tests notwendig.
 
 \medskip
 
@@ -172,7 +174,7 @@ Ein weiterer Unterschied des Validierungssystems ist, dass Nutzer nicht alle Reg
 
 \medskip
 
-Als negativem Aspekt des Validierungssystems in aktueller Form wurde die Aufdringlichkeit genannt. Verglichen wurde dies mit einem E-Mail-Feld, welches schon nach der Eingabe des ersten Buchstabens darüber informiert, dass es keine korrekte E-Mail-Adresse ist.
+Als negativen Aspekt des Validierungssystems in aktueller Form wurde die Aufdringlichkeit genannt. Verglichen wurde dies mit einem E-Mail-Feld, welches schon nach der Eingabe des ersten Buchstabens darüber informiert, dass es keine korrekte E-Mail-Adresse ist.
 
 Dies könnte in Zukunft etwa dadurch gelöst werden, dass die Validierung erst dargestellt wird, sobald das Objekt für mehr als eine Sekunde stillsteht.
 

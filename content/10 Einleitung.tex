@@ -3,19 +3,17 @@
 % Kontext & Motivation
 % Bürgerbeteiligung in der Stadtplanung, wachsende Bedeutung digitaler Werkzeuge.
 % ARPAS: Augmented Reality Partizipationsplatform für die Stadtplanung. Nutzer können Veränderungen (z.B. eine neue Bank) in AR platzieren und vorschlagen.
-In den letzten Jahren hat sich Augmented Reality (AR) von einer Zukunftsvision zu einer greifbaren Technologie entwickelt, die in vielen Bereichen Anwendung findet \cite{nitikaStudyAugmentedReality2021}. Besonders im urbanen Kontext bietet AR faszinierende Möglichkeiten, die Interaktion zwischen Bürgern und ihrer Umgebung neu zu gestalten \cite{rzeszewskiUsabilityWebXRVisualizations2021}. So eröffnet die Visualisierung von Bauprojekten direkt vor Ort, noch bevor der erste Spatenstich erfolgt, neue Dimensionen der Bürgerbeteiligung und Stadtplanung.
+In den letzten Jahren hat sich Augmented Reality (AR) von einer Zukunftsvision zu einer greifbaren Technologie entwickelt, die in vielen Bereichen Anwendung findet \parencite{nitikaStudyAugmentedReality2021}. Besonders im urbanen Kontext bietet AR faszinierende Möglichkeiten, die Interaktion zwischen Bürgern und ihrer Umgebung neu zu gestalten \parencite{rzeszewskiUsabilityWebXRVisualizations2021}. So eröffnet die Visualisierung von Bauprojekten direkt vor Ort, noch bevor der erste Spatenstich erfolgt, neuartige Methoden der Bürgerbeteiligung und Stadtplanung.
 
-Gleichzeitig stellt die Implementierung solcher AR-Anwendungen Entwickler und Stadtplaner vor neue Herausforderungen \cite{zubairHowLongYou2021}. In vielen Fällen können Nutzer eigenständig und ohne direkte Beobachtung von Stadtplanern oder Studienleitungen Vorschläge erstellen und Veröffentlichen. Die Herausforderung ist es insbesondere auch in solchen Situationen Nutzern direkte Rückmeldung über nicht-umsetzbare Vorschläge geben zu können, bevor diese an das System gesendet werden.
-
-Die Erkenntnisse dieser Arbeit sollen nicht nur einen Beitrag zur technischen Weiterentwicklung von webbasierten AR-Anwendungen leisten, sondern auch neue Perspektiven für die partizipative Stadtplanung und bürgernahe Verwaltung eröffnen.
+Gleichzeitig stellt die Implementierung solcher AR-Anwendungen Entwickler und Stadtplaner vor neue Herausforderungen \parencite{zubairHowLongYou2021}. In vielen Fällen können Nutzer eigenständig und ohne direkte Beobachtung von Stadtplanern oder Studienleitungen Vorschläge erstellen und Veröffentlichen. Die Herausforderung ist es insbesondere auch in solchen Situationen Nutzern direkte Rückmeldung über nicht-umsetzbare Vorschläge geben zu können, bevor diese an das System gesendet werden.
 
 \medskip
 
-Diese Arbeit entsteht im Kontext des ARPAS-Projekts an der HTW Berlin \parencite{israelARgestutztePartizipationStadtentwicklung2025}. Das Projekt untersucht die Erstellung eines webbasierten AR-Systems zur Bürgerbeteiligung in der Stadtplanung und zur interaktiven Erstellung von Vorschlägen zur Platzierung von Objekten. 
+Diese Arbeit entsteht im Kontext des ARPAS-Projekts an der HTW Berlin \parencite{israelARgestutztePartizipationStadtentwicklung2025}. ARPAS untersucht die Erstellung eines webbasierten AR-Systems zur Bürgerbeteiligung in der Stadtplanung und zur interaktiven Erstellung von Vorschlägen zur Platzierung von Objekten im übergeordneten Partizipantionssystem \textit{Adhocracy Plus} \parencite{liquiddemocracye.v.LiqdAdhocracyplus2025}.
 
 \medskip
 %Verweis auf Forschungsprojekt
-Die Forschung dieser Masterarbeit baut auf Forschungsprojekten der vorangegangenen Semester im Projekt ARPAS auf. Diese Forschungsarbeiten beschäftigten sich bereits tiefgehend mit der Auswahl von geeigneten Bibliotheken zur Darstellung zur intuitiven Manipulation (Bewegung, Rotation, Skalierung) von Objekten im 3D-AR Raum.
+Die Forschung dieser Masterarbeit baut auf Forschungsprojekten der vorangegangenen Semester im Projekt ARPAS auf. Diese Forschungsarbeiten beschäftigten sich bereits tiefgehend mit der Auswahl von geeigneten Bibliotheken zur Darstellung und zur intuitiven Manipulation (Bewegung, Rotation, Skalierung) von Objekten im 3D-AR Raum.
 
 Die Evaluation verschiedener AR-Technologien ergab, dass WebXR als zukunftsträchtigste Lösung für web-basierte AR-Anwendungen hervorsticht, allerdings bleibt die fehlende Unterstützung durch Safari auf iOS-Geräten eine Herausforderung für die flächendeckende Implementierung.
 
@@ -30,11 +28,11 @@ Aufgrund der ausführlichen Vorarbeit zu diesen Themen werden diese in dieser Ma
 \subsection{Problemstellung}
 
 
-Die Validierung von Nutzereingaben im traditionellen Internet ist weitverbreitet: Bei E-Mail-Adressen kann vor der Eingabe auf das Format \textmono{name@domain.com} geprüft werden; bei hochgeladenen Bilddateien kann geprüft werden, ob es ein valides Bild ist.
+Die Validierung von Nutzereingaben im traditionellen Internet ist weitverbreitet: Bei E-Mail-Adressen kann vor der Eingabe auf das Format \textmono{name@domain.com} geprüft werden; bei hochgeladenen Bilddateien kann geprüft werden, ob es ein valides Bildformat enthält.
 
 Eine Validierung von Platzierungen von Objekten in AR ist jedoch komplexer und kann nicht etwa durch die Auswertung eines regulären Ausdrucks durchgeführt werden. Es erfordert die Kombination virtueller Daten sowie Kamera- und Kartendaten zur Validierung, um komplexe Abhängigkeiten aufzulösen und Regeln wie \textmono{Befindet sich die Bank auf einer Straße?} zu validieren.
 
-Aus diesem Grund soll eine regelbasierte Validierung untersucht und implementiert werden, welche diese Abhängigkeiten auflösen kann, und Nutzern eine intuitive Rückmeldung geben kann. Das Risiko in der Entwicklung eines solchen Systems sind primär unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge. Die Herausforderung zeigt sich vorwiegend in der räumlich-semantischen Korrektheit, Performance und Verständlichkeit für neue Nutzer.
+Aus diesem Grund soll eine regelbasierte Validierung untersucht und implementiert werden, welche diese Abhängigkeiten auflösen, und Nutzern eine intuitive Rückmeldung geben kann. Das Risiko in der Entwicklung eines solchen Systems sind primär unrealistische, rechtlich/technisch unzulässige oder schwer prüfbare Vorschläge. Die Herausforderung zeigt sich vorwiegend in der räumlich-semantischen Korrektheit, Performance und Verständlichkeit für neue Nutzer.
 
 \subsection{Zielsetzung}
 
@@ -54,4 +52,4 @@ Daraufhin werden in Kapitel \ref{section:Verwandte Arbeiten} existierende Arbeit
 
 Kapitel \ref{section:Konzeptualisierung eines Constraint-Systems} befasst sich mit der Konzeptionierung des Regelsystems sowie einer Syntax zur Definition dieser. Das konzeptionierte System wird daraufhin in Kapitel \ref{section:Implementierung des Constraint-Systems} implementiert und optimiert.
 
-Mittels des erstellten Systems wird schließlich in Kapitel \ref{section:Usertesting des Systems} ein Nutzertests zur mentalen Belastung und Nutzbarkeit durchgeführt, welches schließlich in Kapitel \ref{section:Diskussion} detaillierter besprochen wird.
+Mittels des erstellten Systems wird in Kapitel \ref{section:Usertesting des Systems} ein Nutzertests zur mentalen Belastung und Nutzbarkeit durchgeführt, welches schließlich in Kapitel \ref{section:Diskussion} detaillierter besprochen wird.

@@ -2,9 +2,9 @@
 
 Das Regelsystem baut, wie in der Konzeptionierung aufgezeigt, auf den Ergebnissen der vorherigen Forschungsarbeiten auf. Der vollständige Code des Systems ist verfügbar auf \url{https://github.com/vantezzen/arval}.
 
-Als Basis der Codebasis wird das JavaScript Build-System \textit{Vite} genutzt \parencite{voidzeroinc.Vite2025}. Das System automatisiert den für moderne Webanwendungen nötigen Übersetzungs- und Optimierungsprozess, bei welchem der Quelltext in TypeScript in eine für Browser interpretierbare Ausgabe umgewandelt wird. Vite löst hierfür Modulabhängigkeiten auf und bündelt statische Ressourcen, wodurch ein lauffähiges Artefakt entsteht.
+Als Basis des Codes wird das JavaScript Build-System \textit{Vite} genutzt \parencite{voidzeroinc.Vite2025}. Das System automatisiert den für moderne Webanwendungen nötigen Übersetzungs- und Optimierungsprozess, bei welchem der Quelltext in TypeScript in eine für Browser interpretierbare Ausgabe umgewandelt wird. Vite löst hierfür Modulabhängigkeiten auf und bündelt statische Ressourcen, wodurch ein lauffähiges Artefakt entsteht.
 
-Über die reine Transpilation hinaus führt Vite in der Produktionsumgebung zusätzliche Optimierungen – etwa Code-Splitting, Tree-Shaking und Minifizierung – durch, um Ladezeiten und Bandbreitenbedarf zu minimieren (REQ-NF-001).
+Über die reine Transpilation hinaus führt Vite in der Produktionsumgebung zusätzliche Optimierungen - etwa Code-Splitting, Tree-Shaking und Minifizierung - durch, um Ladezeiten und Bandbreitenbedarf zu minimieren (REQ-NF-001).
 
 \medskip
 
@@ -41,7 +41,7 @@ Der \textmono{ValidationOrchestrator} ruft daraufhin die Methode \textmono{execu
 
 \medskip
 
-Die tatsächliche Ausführung der Logik erfolgt über Validierungsmodule, welche auf der abstrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur noch die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen Positiv-Test auf den Regeln durchzuführen.
+Die tatsächliche Ausführung der Logik erfolgt über Validierungsmodule, welche auf der abstrakten Klasse \textmono{Validator<RuleType>} aufbauen. Die abstrakte Klasse implementiert bereits einige Hilfsmethoden, um die Zuständigkeit für einzelne Regeln zu prüfen, das Schema der Regeln zu validieren sowie die Art der Regeln (\textmono{forbid} oder \textmono{allow-only}) auszuwerten. Die konkreten Implementierungen werden später genauer besprochen, diese müssen jedoch nur die Methode \textmono{passes} sowie konkrete Regel-Validierungen implementieren, um einen Positiv-Test auf den Regeln durchzuführen.
 
 Jedes Validierungsmodul besitzt zusätzlich eine \textmono{validatesRule}-Funktion, mit welcher geprüft wird, ob es für eine spezielle Regel verantwortlich ist. Durch die Umsetzung als freie Funktion anstatt als statischer Konfiguration ist es zukünftig möglich, ähnliche Regeltypen durch ein gemeinsames Validierungsmodul zu validieren oder Regeltypen mit komplexen Untertypen auf mehrere Validierungsmodule aufzuteilen.
 
@@ -55,7 +55,7 @@ Diese Information wird schließlich von der Klasse \textmono{ValidationOrchestra
 
 \medskip
 
-Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaren Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Über den \textmono{ErrorMessageService} können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
+Wie in der Konzeption der Syntax definiert können über den \textmono{ErrorMessageService} diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}.
 
 Die vollständigen, kombinierten Fehlermeldungen werden schließlich zurück an die Präsentationsschicht gemeldet, damit diese dort dargestellt werden können (REQ-F-002).
 
@@ -163,7 +163,7 @@ Startpunkt für React während des Rendervorgangs ist die Komponente \textmono{A
 
 \medskip
 
-Innerhalb dieser 3D-Umgebung befindet sich vor allem die Subkomponente \textmono{AppCanvasContent} für das Szenenmanagement und kombiniert die einzelnen UI-Aspekte:
+Subkomponente \textmono{AppCanvasContent} kombiniert daraufhin die einzelnen UI-Aspekte:
 
 \begin{itemize}
   \item \textbf{Interaktionsfluss} über \textmono{InteractionConnector} (Eingabegeräte, Gesten)
@@ -205,7 +205,7 @@ Im Ökosystem von RTF existieren zwar mehrere Lösungen für Post-Processing
 Bei komplexen glTF-Strukturen können diese daher meist nicht ohne Umwandlungen genutzt werden, da Effekte rekursiv auf sämtliche \textmono{Mesh}-Knoten angewendet werden müssen. Mehrere Effekte können zusätzlich oft nicht problemlos kombiniert werden, ohne Artefakte oder Overdraw zu erzeugen, oder das dynamische Zu- und Abschalten der Effekte kann Memory Leaks im GPU-Kontext hinterlassen.
 
 Erste Versuche, die Effekte direkt innerhalb der Projektbasis zu implementieren, zeigten einen kontinuierlichen Anstieg der Komplexität, insbesondere beim gleichzeitigen Einsatz mehrerer Overlays und Outlines.  
-Um die Wartbarkeit zu erhöhen und einen Wiederverwendungsnutzen für nachgelagerte Projekte zu schaffen, wurde die Logik daher in eine eigenständige Open-Source-Bibliothek \textmono{@vantezzen/effectable-gltf}\footnote{\url{https://www.npmjs.com/package/@vantezzen/effectable-gltf}} überführt. Die Bibliothek wurde seit ihrer Veröffentlichung zusätzlich bereits in die offizielle Liste von Community-Paketen der RTF Dokumentation aufgenommen \parencite{poimandresCommunityR3FComponents2025}.
+Um die Wartbarkeit zu erhöhen und einen Wiederverwendungsnutzen für nachgelagerte Projekte zu schaffen, wurde die Logik daher in eine eigenständige Open-Source-Bibliothek \textmono{@vantezzen/effectable-gltf}\footnote{\url{https://www.npmjs.com/package/@vantezzen/effectable-gltf}} überführt. % Die Bibliothek wurde seit ihrer Veröffentlichung zusätzlich bereits in die offizielle Liste von Community-Paketen der RTF Dokumentation aufgenommen \parencite{poimandresCommunityR3FComponents2025}.
 
 Die Bibliothek versteht sich als Drop-in-Replacement für das in \textmono{@react-three/drei} enthaltene \textmono{Gltf}-Element zur Darstellung von glTF-Modellen.
 Effekte werden deklarativ als Kindelemente hinzugefügt; die Bibliothek sorgt intern für Shader-Injection, Depth-Handling und das Aufräumen temporärer Materialien.  
@@ -223,9 +223,9 @@ Listing \ref{lst:effectable} bietet ein einfaches Beispiel für die Nutzung der 
 
 \medskip
 
-Eine weitere Besonderheit stellt das Portalsystem für HTML-Elemente dar über die \textmono{PortalContent}-Komponente dar. Zur Darstellung von HTML-Elementen in einer AR-Ansicht bietet WebXR mit der Unterstützung von \quoted{DOM Overlay} Modulen eine Möglichkeit zur Mischung von 3D- und klassischem Webinhalten \parencite{w3cimmersivewebgroupWebXRDOMOverlays2025}.
+Eine weitere Besonderheit stellt das Portalsystem für HTML-Elemente über die \textmono{PortalContent}-Komponente dar. 
 
-Dieses Modul unterstützt jedoch nur die Definition eines einzelnen HTML-Elements, welches dargestellt wird. Da diese Elemente jedoch über die verschiedenen Komponenten wie \textmono{ValidationErrors} und andere Visualisierungen verteilt sind, werden im System mehrere HTML-Elemente genutzt. Zur Lösung wurde daher ein Portal-System entwickelt, welches an beliebigen Stellen des Systems Komponenten innerhalb von \quoted{Portalen} darstellen kann. Statt diese Elemente direkt darzustellen, sammelt das Portal-System diese zunächst in einem zentralen Speicher und stellt diese separat innerhalb eines einzelnen DOM-Overlay Moduls dar. Ohne dieses System müssten die Komponenten aufwändig umstrukturiert und Informationen zu Inhalten einzelner Komponenten jeweils separat verteilt und ausgelesen werden.
+Zur Darstellung von HTML-Elementen in einer AR-Ansicht bietet WebXR mit der Unterstützung von \quoted{DOM Overlay} Modulen eine Möglichkeit zur Mischung von 3D- und klassischem Webinhalten \parencite{w3cimmersivewebgroupWebXRDOMOverlays2025}. Dieses Modul unterstützt jedoch nur die Definition eines einzelnen HTML-Elements, welches dargestellt wird. Da diese Elemente jedoch über die verschiedenen Komponenten wie \textmono{ValidationErrors} und andere Visualisierungen verteilt sind, werden im System mehrere HTML-Elemente genutzt. Zur Lösung wurde daher ein Portal-System entwickelt, welches an beliebigen Stellen des Systems Komponenten innerhalb von \quoted{Portalen} darstellen kann. Statt diese Elemente direkt darzustellen, sammelt das Portal-System diese zunächst in einem zentralen Speicher und stellt diese separat innerhalb eines einzelnen DOM-Overlay Moduls dar. Ohne dieses System müssten die Komponenten aufwändig umstrukturiert und Informationen zu Inhalten einzelner Komponenten jeweils separat verteilt und ausgelesen werden.
 
 \medskip
 
@@ -244,18 +244,18 @@ Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validie
 
 \subsubsection{State-System}
 
-Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textmono{zustand} genutzt. \textmono{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert \parencite{poimandresZustand2025}. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
+Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textit{zustand} genutzt. \textit{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert \parencite{poimandresZustand2025}. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
 
 In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche die vorgegebenen Daten speichern und Methoden zur Veränderung der Werte bereitstellen. ARVal definiert hierfür zwei Systeme:
 
 \begin{enumerate}
     \item \textmono{ObjectStore}: Dieses System speichert die Liste aller \textmono{Object}-Instanzen (vgl. Kapitel \ref{subsection:Kernsystem} Kernsystem: Applikationsschicht [S. \pageref{subsection:Kernsystem}]) sowie das aktuell editierte Objekt. Zur Verwaltung der Objekte stellt das System die Methoden \textmono{addObject}, \textmono{removeObject} sowie \textmono{setEditingObject} bereit.
-    \item \textmono{ThreeStore}: Dieses System speichert die Referenz zur aktuellen 3D-Szene. Die ist nötig, damit HTML-Elemente wie das Pop-up zum Hinzufügen neuer Objekte, auf Informationen der Szene zugreifen können.
+    \item \textmono{ThreeStore}: Dieses System speichert die Referenz zur aktuellen 3D-Szene. Dies ist nötig, damit HTML-Elemente wie das Pop-up zum Hinzufügen neuer Objekte, auf Informationen der Szene zugreifen können.
 \end{enumerate}
 
 \subsection{Darstellung und virtuelle Straßenumgebung}\label{subsection:Virtuelle Straßenumgebung}
 
-Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtuelle 3D-Sicht darzustellen, was vor allem für die Entwicklung des Systems sinnvoll ist. Da das aktuelle Validierungssystem auf Grundlage einer statischen GeoJSON-Konfiguration validiert und somit nicht abhängig von einer realen Umgebung ist, kann sowohl die AR- als auch die virtuelle Ansicht dieselbe Datengrundlage nutzen.
+Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtuelle 3D-Sicht darzustellen, was vor allem für die Entwicklung sinnvoll ist. Da das aktuelle Validierungssystem auf Grundlage einer statischen GeoJSON-Konfiguration validiert und somit nicht abhängig von einer realen Umgebung ist, kann sowohl die AR- als auch die virtuelle Ansicht dieselbe Datengrundlage nutzen.
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{abb/arval-street.jpg}
@@ -338,9 +338,13 @@ Eine weitere Verbesserung wurde in der Bestimmung der Oberfläche durch die Umse
 \label{fig:flamegraph}
 \end{figure}
 
-Abbildung \ref{fig:flamegraph} liefert den generierten Flame Graph nach der Umsetzung aller Verbesserungen. In der obersten Zeile ist das Timing der Framedarstellung abgebildet. Es ist erkennbar, dass die Generierung eines Frames in unter 8.5ms geschehen kann, wodurch eine Bildrate von etwa 120fps erreicht werden kann.
+Abbildung \ref{fig:flamegraph} liefert den generierten Flame Graph nach der Umsetzung aller Verbesserungen. In der obersten Zeile ist das Timing der Framedarstellung abgebildet. Es ist erkennbar, dass die Generierung eines Frames in unter 8.5ms geschehen kann, wodurch eine Bildrate von etwa 120fps erreicht wird.
 
 Im Hauptbereich des Graphs ist die Ausführung der Validierung erkennbar, von der Bewegung des Objekts als \textmono{mousemove}-Event, über die Aktualisierung der \textmono{Object}-Klasse über \textmono{set position} und schließlich die Validierung über \textmono{debouncedValidate}.
+
+\medskip
+
+Durch die Optimierungsschritte konnte die Ausführungszeit des Systems bereits deutlich reduziert werden, ohne die grundsätzliche Funktionsweise zu verändern.
 
 \subsubsection{Skalierungsprofilierung}
 
@@ -385,7 +389,7 @@ Alternativ ist die Nutzung von tatsächlichem Multithreading über WebWorker mö
 
 \medskip
 
-Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Anwendungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über die Oberfläche selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
+Eine weitere Möglichkeit der Performance-Verbesserung ist die Umsetzung komplexerer Caching- und Prüfungsmethoden. Das Caching erfolgt aktuell vor allem auf Grundlage der Position und Rotation einzelner Objekte, sodass Daten selbst bei kleinen Veränderungen nicht mehr nutzbar sind. Es ist denkbar, dass Caching-Regeln erweitert und für die Eigenheiten des Systems angepasst werden, beispielsweise indem anpassbare Geltungsbereiche von Cache-Daten statt nur einzelner Punkte gesetzt werden. Befindet sich etwa eine Bank in der Mitte einer großen Wiese, so kann der Cache über die Oberfläche selbst bei großen Veränderungen der Position oder Rotation weiterhin genutzt werden.
 
 Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich etwa eine Bank weit entfernt von dem Polygon einer Regel, wird trotzdem ein detaillierter Raytracing-Test durchgeführt. Hier könnte stattdessen eine simplere Bounding-Box zunächst klären, ob sich das Objekt überhaupt im näheren Umfeld der Areale befindet und genauer berechnet werden muss.
 
@@ -395,10 +399,10 @@ Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems d
 
 \subsection{Testing}
 
-Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest} verwendet \parencite{fuVitest2025}. Die Unit-Tests fokussierten sich hierbei auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
+Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest} verwendet \parencite{fuVitest2025}. Die Unit-Tests fokussierten sich auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
 
 Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systemen eingegriffen werden.
 
 Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
 
-Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validationssystem erreicht werden, um die korrekte Funktion zu gewährleisten.
+Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validierungssystem erreicht werden, um die korrekte Funktion zu gewährleisten.

@@ -22,7 +22,7 @@ Die Spezifität dieser Art von Daten \quoted{relies on initialized data structur
 
 Für die Konzeptionierung einer DSL wird empfohlen, zunächst eine Analyse der Problemdomäne durchzuführen. Teile dieser Ausarbeitung wurden in dieser Arbeit bereits in Kapitel \ref{section:Requirements-Engineering} als Teil des Requirements Engineering durchgeführt.
 
-Abweichend zu \textcite{mernikWhenHowDevelop2005} werden zur besseren Einordnung der benötigten Komponenten der finalen Sprache werden zunächst formale Anforderungen an die Syntax definiert, analog zum bestehenden Requirements Engineering Ansatz.
+Abweichend zu \textcite{mernikWhenHowDevelop2005} werden zur besseren Einordnung der benötigten Komponenten der finalen Sprache zunächst formale Anforderungen an die Syntax definiert, analog zum bestehenden Requirements Engineering Ansatz.
 
 \begin{table}[h]
 \centering
@@ -43,9 +43,7 @@ R-8 & Unterstützung objektspezifischer und globaler Regelsätze \\ \hline
 \label{tab:syntax-requirements}
 \end{table}
 
-Tabelle \ref{tab:syntax-requirements} stellt die aufgestellten Anforderungen an die Syntax dar.
-
-R-1 stellt voraus, dass die Syntax leicht parse- und bearbeitbar ist. Die Definition einer neuen Syntax benötigt die Implementierung eines eigenen Text-Parsers, Validierers und, falls benötigt, Implementierung einer Sprachunterstützung für Code-Editoren.
+Tabelle \ref{tab:syntax-requirements} stellt die aufgestellten Anforderungen an die Syntax dar. R-1 stellt voraus, dass die Syntax leicht parse- und bearbeitbar ist. Die Definition einer neuen Syntax benötigt die Implementierung eines eigenen Text-Parsers, Validierers und, falls benötigt, Implementierung einer Sprachunterstützung für Code-Editoren.
 
 Bei Nutzung einer bestehenden Syntax (z.B. JSON, XML etc.) kann das Text-Parsing durch bestehende Libraries geschehen und eine eigene Implementierung muss nur auf Ebene des Parsing und Validierung der Regel-Logik geschehen: „For an XML-based DSL, grammar is described using a [...] XML scheme [...] [P]arsing comes for free“ \parencite[S. 330]{mernikWhenHowDevelop2005}.
 
@@ -174,7 +172,9 @@ Mithilfe dieser Vorüberlegungen kann schließlich ein finales Schema für \text
     {
 	    "action": "forbid", 
 	    "subject": "surface", 
-	    "tags": ["asphalted", "water"]
+	    "tags": ["asphalted", "water"],
+            "reason": "auf einem pflanzenfreundlichen Untergrund liegen, damit die Pflanze wachsen kann",
+            "reasonType": "atomic"
 	  },
 
     { "anyOf": [
@@ -198,8 +198,8 @@ Mithilfe dieser Vorüberlegungen kann schließlich ein finales Schema für \text
 Listing \ref{lst:acs-example} zeigt ein Beispiel für ein Regelpaket eines Baums in \textit{ACS}. Das JSON-Objekt enthält folgende Elements:
 
 \begin{enumerate}
-    \item \textmono{\$schema}: Über den Schema-Syntax kann Code-Editoren mitgeteilt werden, nach welchem JSON-Schema das Dokument geprüft werden soll. Über den Schlüssel \textmono{\$id} wird hierbei eine URL definiert, welche eine Konfiguration aller erlaubten Daten enthält.
-    \item \textmono{version}: Die genutzte Schema-Version. Dies erlaubt es, in der Zukunft Aktualisierungen am Schema vorzunehmen und Kompatibilität zur vorherigen Version aufrecht zu erhalten
+    \item \textmono{\$schema}: Über den Schema-Syntax kann Code-Editoren mitgeteilt werden, nach welchem JSON-Schema das Dokument geprüft werden soll. Über den Schlüssel wird hierbei eine URL definiert, welche eine Konfiguration aller erlaubten Daten enthält.
+    \item \textmono{version}: Die genutzte Schema-Version. Dies erlaubt es, in Zukunft Aktualisierungen am Schema vorzunehmen und Kompatibilität zur vorherigen Version aufrecht zu erhalten
     \item \textmono{name}: Der Name stellt einen lesbaren Namen für das Objekt dar und wird im späteren System insbesondere zur Erstellung lesbarer Fehlermeldungen wie „Der \textit{Baum} darf nicht auf dem \textit{Weg} gestellt werden“ genutzt.
     \item \textmono{tags}: Dieses Array definiert alle Tags, die diesem Objekt zugeordnet werden. Diese Liste sollte aus spezifischen (\textmono{tree}) bis generischen (\textmono{nature}) Tags zusammengesetzt werden.
     \item \textmono{transform}: Diese Liste definiert alle Regeln, welche bereits während der Bewegung des Objekts genutzt werden sollen. Diese Regeln sind für das AR-Basissystem von Bedeutung, da hierdurch die Transformation verändert wird.
@@ -208,6 +208,8 @@ Listing \ref{lst:acs-example} zeigt ein Beispiel für ein Regelpaket eines Baums
         Über die Property \textmono{subject} wird jeweils definiert, welche Transformations-Art eingeschränkt werden soll (Rotation, Skalierung oder Position). 
         Wie in User Story \textit{US-SP-005} definiert, existiert zusätzlich ein optionales Feld \textmono{active}, welches eine Regel temporär deaktivieren kann.
         Zusätzlich zu den Basisoptionen existieren pro \textmono{subject} eigene, weitere Optionen für Argumente, beispielsweise \textmono{axes} für die Einschränkung von Rotationen. 
+        
+        Schließlich kann über die Attribute \textmono{reason} und \textmono{reasonType} eine Begründung hinzugefügt werden. Ein zentraler Aspekt der Regelsyntax sind \quoted{atomare Fehlermeldungen}, welche modular zu einem zusammenhängenden Satz kombiniert werden können. Die atomaren Fehler müssen hierbei im Format \quoted{Das Objekt muss [Fehlermeldung], damit [Grund]} formatiert werden, z.B. \quoted{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \quoted{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}. Bei mehreren auftretenden Fehlern können diese einzelnen atomaren Fehler schließlich zu einer vollständigen Information zusammengefügt werden, z.B. \quoted{Die Sitzbank muss \textit{1 Meter von einer Straße entfernt liegen, damit die Gefahr bei Unfällen minimiert wird} und \textit{vollständig auf Gras platziert werden, damit es keine Fußgänger behindert}}. Alternativ können über den \textmono{reasonType} auch \quoted{vollständige Fehlermeldungen} definiert werden, falls keine Kombination gewünscht ist.
         \item \textbf{Regel 3}: Die dritte Regel definiert zusätzlich eine Einschränkung der Skalierung zwischen 0,5x und 1,5x
     \end{enumerate}
     \item \textmono{placement}: Über das Array an placement-Regeln kann definiert werden, welche Platzierungen als valide angesehen werden sollen.
@@ -313,7 +315,7 @@ Im Beispiel-Regelset wird eine Koordinaten-gebundene Regel definiert, welche die
 
 Während der Untersuchung verwandter Arbeiten in Kapitel \ref{subsection:Umgebungssegmentierung} [S. \pageref{subsection:Umgebungssegmentierung}] wurden vor allem zwei Methoden der Segmentierung herausgearbeitet.
 
-Hierbei existiert die Segmentierung anhand geografischer Kartendaten. Dies erlaubt eine genaue 3D-Segmentierung von Straßen, Gebäuden und anderen kartografierten Elementen. Zentrale Nachteile aus den untersuchten Arbeiten und für den Zweck dieser Arbeit sind jedoch vor allem die Ungenauigkeit der eigenen Standortdaten, sowie dass nicht kartografierte Daten wie Bäume und Sitzbänke nicht segmentiert werden können.
+Hierbei existiert die Segmentierung anhand geografischer Kartendaten. Dies erlaubt eine genaue 3D-Segmentierung von Straßen, Gebäuden und anderen kartografierten Elementen. Zentrale Nachteile aus den untersuchten Arbeiten und für den Zweck dieser Arbeit sind jedoch vor allem die Ungenauigkeit der eigenen Standortdaten, sowie dass nicht-kartografierte Daten wie Bäume und Sitzbänke nicht segmentiert werden können.
 
 Daneben existiert eine Segmentierung anhand der Bilddaten über Machine-Learning-Modelle. Der Vorteil ist vorrangig eine hohe Genauigkeit der Daten, da diese direkt vom Gerät selbst erfasst werden. Nachteile dieser Methode sind jedoch der hohe Rechenaufwand, Verzögerungen durch die Verarbeitung des Bildes, sowie, dass Ergebnisse nur auf der 2D-Plane des Kamerabilds und nicht als 3D-Raum erkannt werden.
 
