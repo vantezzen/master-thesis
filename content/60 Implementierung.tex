@@ -8,7 +8,7 @@ Als Basis des Codes wird das JavaScript Build-System \textit{Vite} genutzt \pare
 
 \medskip
 
-Wie in im Kapitel \ref{section:Technische Grundlagen} [S. \pageref{section:Technische Grundlagen}] zu technischen Grundlagen bereits aufgearbeitet, wird als Basis für die Darstellung React, RTF sowie die Erweiterung @react-three/xr genutzt.
+Wie in Kapitel \ref{section:Technische Grundlagen} [S. \pageref{section:Technische Grundlagen}] zu technischen Grundlagen bereits aufgearbeitet, werden als Basis für die Darstellung React, RTF sowie die Erweiterung @react-three/xr genutzt.
 
 Der Code für React-Anwendungen geschieht durch einen funktionalen Codestil, der Rest des Validierungssystems soll jedoch über eine objektorientierte Architektur umgesetzt werden.
 
@@ -16,7 +16,7 @@ Der Code für React-Anwendungen geschieht durch einen funktionalen Codestil, der
 
 Die Codebasis wurde in drei Haupteinheiten geteilt: Die Applikationsschicht stellt den Kern des Validierungssystems dar und ist für das Parsing und Auswerten von Validierungen zuständig. Die Infrastrukturschicht stellt Hilfssysteme für die Auswertung bereit, darunter etwa zur Segmentierung der Umgebung. Zuletzt ist die Präsentationsschicht für die Darstellung der 3D-Objekte und Validierungsergebnisse über RTF zuständig.
 
-In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikation und Infrastruktur zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen, wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript-Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst. Zusätzlich können durch den Container Referenzen auf Interfaces oder abstrakte Klassen durch die konkret benötigten Implementierungen umgewandelt werden.
+In der ersten Iteration wurde die Kommunikation zwischen Einheiten der Applikation und Infrastruktur zunächst über ein \quoted{God Object} umgesetzt. Um dieses Anti-Pattern aufzulösen, wurde diese Abhängigkeit durch die Nutzung von Dependency Injection mittels der TypeScript-Bibliothek \textmono{tsyringe} umgesetzt - hierdurch werden alle Abhängigkeiten über einen einheitlichen IoC-Container aufgelöst. Der Container hat außerdem die Möglichkeit, Referenzen auf Interfaces oder abstrakte Klassen durch die konkret genutzte Implementierung aufzulösen, um so eine dynamischere Modularchitektur zu erlauben.
 
 \subsubsection{Kernsystem: Applikationsschicht}\label{subsection:Kernsystem}
 
@@ -159,7 +159,7 @@ Das AR-Basissystem ist für die Darstellung und Interaktion von Objekten zustän
 
 Abbildung \ref{fig:uml presentation} visualisiert den Aufbau der Komponenten des Systems. Jede Klasse verfolgt dabei das Single-Responsibility-Prinzip und übergibt Delegationen an ihre direkten Kind-Elemente. Im Folgenden werden die einzelnen Bausteine im Detail erläutert.
 
-Startpunkt für React während des Rendervorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden, durch die Initialisierung des \textmono{<Canvas>}-Kontext von RTF. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Szenenmanagement an \textmono{AppCanvasContent}.
+Startpunkt für React während des Rendervorgangs ist die Komponente \textmono{AppCanvas}. Diese Komponente rendert grundlegende, globale UI-Elemente wie einen Button zum Starten der AR-Ansicht und eine Komponente zum Hinzufügen von Objekten in die Szene. Zusätzlich setzt die Komponente die 3D-Umgebung auf, über welche alle weiteren Elemente dargestellt werden. Dies geschieht durch die Initialisierung des \textmono{<Canvas>}-Kontext von RTF. Eine weitere Logik enthält diese Komponente bewusst nicht – sie delegiert das eigentliche Szenenmanagement an \textmono{AppCanvasContent}.
 
 \medskip
 
@@ -219,13 +219,13 @@ Effekte werden deklarativ als Kindelemente hinzugefügt; die Bibliothek sorgt in
 
 Listing \ref{lst:effectable} bietet ein einfaches Beispiel für die Nutzung der Bibliothek, wobei das Objekt \textmono{tree.gltf} geladen wird und mit den Effekten \textmono{OverlayEffect} in Rot mit 5\% Transparenz sowie \textmono{OutlineEffect} in weiß versehen.
 
-\textmono{EffectableGltf} ermöglicht performante Renderpfade ohne zusätzliche Frame-Kosten (REQ-NF-002) und verständliche visuelle Rückmeldungen für Endnutzerinnen und Endnutzer. Die Auslagerung als dediziertes Paket gewährleistet zugleich die Nachnutzbarkeit in künftigen Projekten und reduziert technischen Schuldaufbau im Hauptrepository.
+\textmono{EffectableGltf} ermöglicht performante Renderpfade ohne zusätzliche Frame-Kosten (REQ-NF-002) und verständliche visuelle Rückmeldungen für Endnutzer. Die Auslagerung als dediziertes Paket gewährleistet zugleich die Nachnutzbarkeit in künftigen Projekten und reduziert technischen Schuldaufbau im Hauptrepository.
 
 \medskip
 
 Eine weitere Besonderheit stellt das Portalsystem für HTML-Elemente über die \textmono{PortalContent}-Komponente dar. 
 
-Zur Darstellung von HTML-Elementen in einer AR-Ansicht bietet WebXR mit der Unterstützung von \quoted{DOM Overlay} Modulen eine Möglichkeit zur Mischung von 3D- und klassischem Webinhalten \parencite{w3cimmersivewebgroupWebXRDOMOverlays2025}. Dieses Modul unterstützt jedoch nur die Definition eines einzelnen HTML-Elements, welches dargestellt wird. Da diese Elemente jedoch über die verschiedenen Komponenten wie \textmono{ValidationErrors} und andere Visualisierungen verteilt sind, werden im System mehrere HTML-Elemente genutzt. Zur Lösung wurde daher ein Portal-System entwickelt, welches an beliebigen Stellen des Systems Komponenten innerhalb von \quoted{Portalen} darstellen kann. Statt diese Elemente direkt darzustellen, sammelt das Portal-System diese zunächst in einem zentralen Speicher und stellt diese separat innerhalb eines einzelnen DOM-Overlay Moduls dar. Ohne dieses System müssten die Komponenten aufwändig umstrukturiert und Informationen zu Inhalten einzelner Komponenten jeweils separat verteilt und ausgelesen werden.
+Zur Darstellung von HTML-Elementen in einer AR-Ansicht bietet WebXR mit der Unterstützung von \quoted{DOM Overlay} Modulen eine Möglichkeit zur Mischung von 3D- und klassischem Webinhalten \parencite{w3cWebXRDOMOverlays2025}. Dieses Modul unterstützt jedoch nur die Definition eines einzelnen HTML-Elements, welches dargestellt wird. Da diese Elemente aber über die verschiedenen Komponenten wie \textmono{ValidationErrors} und andere Visualisierungen verteilt sind, werden im System mehrere HTML-Elemente genutzt. Zur Lösung wurde daher ein Portal-System entwickelt, welches an beliebigen Stellen des Systems Komponenten innerhalb von \quoted{Portalen} darstellen kann. Statt diese Elemente direkt darzustellen, sammelt das Portal-System diese zunächst in einem zentralen Speicher und stellt diese separat innerhalb eines einzelnen DOM-Overlay Moduls dar. Ohne dieses System müssten die Komponenten aufwändig umstrukturiert und Informationen zu Inhalten einzelner Komponenten jeweils separat verteilt und ausgelesen werden.
 
 \medskip
 
@@ -244,7 +244,7 @@ Diese strikt hierarchische Aufteilung stellt sicher, dass UI-Ereignisse, Validie
 
 \subsubsection{State-System}
 
-Zur geteilte Verwaltung der aktuellen Objektdaten sowie globalen Zugriff auf die 3D-Szene wird die Bibliothek \textit{zustand} genutzt. \textit{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert \parencite{poimandresZustand2025}. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
+Zur geteilte Verwaltung der aktuellen Objektdaten sowie zum globalen Zugriff auf die 3D-Szene wird die Bibliothek \textit{zustand} genutzt. \textit{zustand} ist ein leichtgewichtiges Zustandssystem für React, welches dazu dienen gemeinsam genutzte Zustände (z.B. alle Objekt-Klassen sowie das aktuell ausgewähltes Objekt) zentral zu verwalten und effizient an beteiligte Komponenten weiterzugeben, sowie Komponenten zu aktualisieren, wenn sich der Status ändert \parencite{poimandresZustand2025}. Dieses Prinzip ist vergleichbar mit statischen Zustandscontainern oder Singleton-Instanzen in anderen Sprachen wie Java, mit dem Unterschied, dass \textit{zustand} sich direkt in die Reaktivität von React einfügt. 
 
 In der Library können hierfür \textmono{store}-Systeme erstellt werden, welche die vorgegebenen Daten speichern und Methoden zur Veränderung der Werte bereitstellen. ARVal definiert hierfür zwei Systeme:
 
@@ -266,7 +266,7 @@ Das System besitzt die Möglichkeit, die 3D-Szene als AR-Ansicht oder rein virtu
 
 Abbildung \ref{fig:arval-street} stellt die Ausgabe der 3D-Szene des Systems im virtuellen Modus dar. In der Mitte der Abbildung befindet sich als Testobjekt eine Sitzbank mit einer weißen Umrandung, da diese ausgewählt ist. Unter dem Objekt befindet sich die formatierte Fehlermeldung des Validierungssystems, welche das System aus zwei atomaren Begründungen zu einer kohärenten Gesamtmeldung kombiniert hat.
 
-Das Objekt befindet sich auf der von der \textmono{SegmentationVisualization} erstellten Visualisierung der GeoJSON-Bereiche. In der Mitte befindet sich als breitestes Element eine Straße, links und rechts von dieser in Blau ein Radweg, gefolgt von jeweils einem Gehweg in Hellgrau. Abgeschlossen wird das Objekt jeweils von einem grünen Grasbereich.
+Das Objekt befindet sich auf der von der \textmono{SegmentationVisualization} erstellten Visualisierung der GeoJSON-Bereiche. In der Mitte befindet sich als breitestes Element eine Straße, links und rechts von dieser in Blau ein Radweg, jeweils gefolgt von einem Gehweg in Hellgrau. Abgeschlossen wird das Objekt jeweils von einem grünen Grasbereich.
 
 Es ist erkennbar, dass der Straßenbereich Rot eingefärbt wurde, da es der Grund für das Fehlschlagen der Validierung ist. Die Einfärbung erfolgt durch die Darstellung einer transparent-roten Fläche über den GeoJSON-Bereich, sodass die Visualisierung auch über realen Flächen sichtbar wird und nicht auf den visuellen Modus beschränkt ist.
 
@@ -283,7 +283,7 @@ Oben rechts befindet sich schließlich das Performance-Panel des Renderers. Für
 
 Abbildung \ref{fig:testwelt} stellt eine Vogelperspektive der Testwelt dar. Dunkelgraue Bereiche stellen Straßen dar, blaue Bereiche Fahrradwege, hellgraue Bereiche Gehwege und grüne Bereiche Grasflächen. Zusätzlich werden in Gelb Kreuzungsbereiche gekennzeichnet.
 
-Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen sowie verschiedene Regelarten nutzen zu können.
+Es wurde versucht, eine möglichst breite Palette an Aufbauten abzubilden, darunter gerade Straßen sowie welche mit Kurven, ein Kreuzungsbereich, Straßenbereiche mit und ohne Gehwegen, Radwegen und Grünflächen sowie engere und breitere Straßenbereiche. Hierdurch kann erhofft werden, die Validierung über eine breite Reihe an Situationen zu testen und verschiedene Regelarten nutzen zu können.
 
 \medskip
 
@@ -315,13 +315,13 @@ Aufgrund dieser Einschränkungen der Performance bilden die Laufzeiten nicht die
 
 \medskip
 
-In der ersten Iteration der Performancemessung bildete sich ab, dass die Ausführung des \textmono{SurfaceValidator} zur Einschränkung des Oberflächentyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
+In der ersten Iteration der Performancemessung zeigt sich, dass die Ausführung des \textmono{SurfaceValidator} zur Einschränkung des Oberflächentyps für jede Regel eine Zeit von etwa 27ms benötigt. Nach einer Untersuchung der einzelnen Komponenten der Berechnung stellt sich heraus, dass die Berechnung der Objektgröße anhand des glTF-Modells im \textmono{SizeService} den Großteil dieser Laufzeit nutzt.
 
-Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrößen, jedoch wurde über den Dependency Injection Container für jede Regel eine eigene Instanz des Service erstellt. Aus diesem Grund wurde dieser interne Cache für jeden Durchlauf zurückgesetzt und das Objekt musste neu geladen werden. Über die explizite Deklaration des Service als Singleton konnte dieser Performance-Engpass schließlich gelöst werden, und die durchschnittliche Ausführungszeit auf 2-7ms reduziert werden.
+Zwar besitzt der \textmono{SizeService} intern einen Cache über die Modellgrößen, jedoch wurde über den Dependency Injection Container für jede Regel eine eigene Instanz des Service erstellt. Aus diesem Grund wurde dieser interne Cache für jeden Durchlauf zurückgesetzt und das Objekt musste neu geladen werden. Über die explizite Deklaration des Service als Singleton konnte dieser Performance-Engpass schließlich gelöst, und die durchschnittliche Ausführungszeit auf 2-7ms reduziert werden.
 
 \medskip
 
-Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden \parencite{zodcontributorsZodIntro2025}. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validierungsmoduls fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund aus validiert werden müssen.
+Ein weiterer Engpass wurde in der Validierung der Regeldefinition gefunden: Vor der Ausführung der einzelnen Regeln wird die Validierungsbibliothek \textit{zod} genutzt, um zu prüfen, dass alle benötigten Konfigurationsdaten im korrekten Format angegeben wurden \parencite{zodcontributorsZodIntro2025}. Die Erstellung, Ausführung und Auswertung in jedem Durchlauf des Validierungsmoduls fügte jedoch weitere 1-3ms Laufzeit pro Regel hinzu. Für die Verbesserung der Performance werden Validierungsergebnisse zwischengespeichert, sodass diese lediglich im ersten Durchlauf von Grund auf validiert werden müssen.
 
 \medskip
 
@@ -348,9 +348,9 @@ Durch die Optimierungsschritte konnte die Ausführungszeit des Systems bereits d
 
 \subsubsection{Skalierungsprofilierung}
 
-Im zweiten Schritt wurde daraufhin ein Performancetest zur Skalierung des Systems mit allen aktivierten Verbesserungen sowie dem Vite Produktivmodus getestet. Hierfür wurden die bisherigen Performance-Profiler, Flame Graph deaktiviert und automatisierte Code-Verbesserungen über Vite aktiviert, wodurch deutlich bessere und repräsentative Laufzeitergebnisse erhalten wurden.
+Im zweiten Schritt wurde daraufhin ein Performancetest zur Skalierung des Systems mit allen aktivierten Verbesserungen sowie dem Vite Produktivmodus durchgeführt. Hierfür wurden die bisherigen Performance-Profiler, der Flame-Graph deaktiviert sowie automatisierte Code-Verbesserungen über Vite aktiviert, wodurch deutlich bessere und repräsentative Laufzeitergebnisse erreicht werden konnten.
 
-Als Referenzsystem wurde ein iPhone 13 Pro mit iOS 18.5 im Safari-Browser verwendet. Über ein eigenes Skript \textmono{generatePerformanceTest} kann ein Regelset mit einer beliebigen Anzahl zufälliger, valider Regeln erstellt und zur Performancemessung genutzt werden. Es wurden jeweils der Durchschnitt über 100 Validierungsdurchläufe genommen, der erste Durchlauf des Systems wird jedoch ignoriert, da in diesem zunächst die internen Caches gefüllt werden.
+Als Referenzsystem wurde ein iPhone 13 Pro mit iOS 18.5 im Safari-Browser verwendet. Über ein eigenes Skript \textmono{generatePerformanceTest} kann ein Regelset mit einer beliebigen Anzahl zufälliger, valider Regeln erstellt und zur Performancemessung genutzt werden. Es wurde jeweils der Durchschnitt über 100 Validierungsdurchläufe genommen, der erste Durchlauf des Systems wird jedoch ignoriert, da in diesem zunächst die internen Caches gefüllt werden.
 
 \begin{figure}[h]
 \includegraphics[width=.8\textwidth]{abb/runtime per rule.png}
@@ -365,9 +365,9 @@ Im Liniendiagramm in Abbildung \ref{fig:runtime per rule} ist die Veränderung d
 
 Es ist erkennbar, dass eine nahezu lineare Skalierung der Dateigröße sowie Laufzeit stattfindet. Bei einer Größe von 10 Regeln wurde eine durchschnittliche Laufzeit von 1.5ms gemessen, bei 1.000 Regeln wurden 20ms erreicht und bei der größten Messung von 10.000 Regeln eine Laufzeit von 173ms.
 
-Die Laufzeit pro Regel liegt im kleinsten Test bei 150µs, in den größeren Tests nähert sich dies einem Wert von 17µs da Cachingdaten öfter wiederverwendet werden können, sowie der feste Overhead des restlichen Systems geringer ins Gewicht fällt.
+Die Laufzeit pro Regel liegt im kleinsten Test bei 150µs, in den größeren Tests nähert sich dies einem Wert von 17µs, da Cachingdaten öfter wiederverwendet werden können und der feste Overhead des restlichen Systems geringer ins Gewicht fällt.
 
-Durch diese Annäherung an 17µs pro Test sowie Nutzung von Caches konnte ermittelt werden, dass der Overhead des Regelsystems durch das Setup, Regel-Resolving und Auswertung bei etwa 1ms liegt.
+Durch diese Annäherung an 17µs pro Test und durch die Nutzung von Caches konnte ermittelt werden, dass der Overhead des Regelsystems durch das Setup, Regel-Resolving und Auswertung bei etwa 1ms liegt.
 
 \subsubsection{Mögliche Verbesserungen}
 
@@ -395,14 +395,14 @@ Weiterhin werden aktuell alle Regeln vollständig geprüft. Befindet sich etwa e
 
 \medskip
 
-Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems denkbar. Jedoch resultieren diese auf dem Referenzsystem erst bei einer Anzahl von über 1.000 Regeln in einem spürbaren Unterschied, da die blockierende Ausführung im Hauptthread darunter in der Zeit eines einzelnen Frames vollständig ausgeführt werden kann.
+Zusammengefasst sind einige weitere Verbesserungen der Performance des Systems denkbar. Jedoch führen diese auf dem Referenzsystem erst bei einer Anzahl von über 1.000 Regeln zu einem spürbaren Unterschied, da die blockierende Ausführung im Hauptthread darunter in der Zeit eines einzelnen Frames vollständig ausgeführt werden kann.
 
 \subsection{Testing}
 
-Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest} verwendet \parencite{fuVitest2025}. Die Unit-Tests fokussierten sich auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet werden, Grenzfälle korrekt behandelt werden und mathematische Grundlagen korrekt funktionieren.
+Für das automatisierte Testen mittels Unit-Tests wurde die Bibliothek \textit{vitest} verwendet \parencite{fuVitest2025}. Die Unit-Tests fokussierten sich auf das Validierungssystem selbst, dass Regeln korrekt ausgewertet und Grenzfälle korrekt behandelt werden, sowie dass mathematische Grundlagen korrekt funktionieren.
 
-Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurde ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnten zusätzlich in die Interaktionen zwischen den einzelnen Systemen eingegriffen werden.
+Es wurden insgesamt etwa 120 Tests, geteilt nach der jeweils getesteten Einheit, erstellt. Für die separierte Betrachtung ohne Einbezug des Gesamtsystems wurden ein Test-Container als Ersatz für den Dependency Injection IoC-Container, sowie ein \textmono{MockObject} und Funktionen zur Erstellung von Testregeln erstellt. Über vitests eingebaute Unterstützung für Mocking und Spys konnte zusätzlich in die Interaktionen zwischen den einzelnen Systemen eingegriffen werden.
 
-Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf reale Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
+Eine Schwierigkeit lag insbesondere in den Tests für die Ausführung von Validierungen im Debounced-Modus, da diese Einheit besonders zeitsensitiv ist und auf realen Zeitdifferenzen aufbaut. Über die Nutzung von vitests \textit{Fake Timer}-Funktion konnten diese Elemente des Systems jedoch schließlich ebenfalls zuverlässig getestet werden. Die Funktion erlaubt es, die Geschwindigkeit und Veränderung der internen Zeit manuell zu steuern, um so das System von der eigentlichen Geschwindigkeit zu entkoppeln.
 
 Mittels der Tests konnte schließlich eine Testabdeckung von etwa 95\% über das gesamte Validierungssystem erreicht werden, um die korrekte Funktion zu gewährleisten.

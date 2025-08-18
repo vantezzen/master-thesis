@@ -2,7 +2,7 @@
 
 Das grundsätzliche Regelsystem soll zunächst auf den Erkenntnissen der vorangegangenen Forschungsprojekte aufbauen. 
 
-Für eine native Code-Entwicklung für Webumgebungen wird konzeptioniert, dass der Code in TypeScript umgesetzt werden sollte. Hierdurch können objektorientierte Coding Patterns wie Interfaces und abstrakte Klassen genutzt werden, sowie eine Typisierung innerhalb des Codes ermöglicht. 
+Für eine native Code-Entwicklung für Webumgebungen wird konzeptioniert, dass der Code in TypeScript umgesetzt werden sollte. Hierdurch können objektorientierte Coding Patterns wie Interfaces und abstrakte Klassen genutzt, sowie eine Typisierung innerhalb des Codes ermöglicht werden. 
 
 \subsection{Erstellung einer Syntax für Regeln}
 
@@ -43,7 +43,7 @@ R-8 & Unterstützung objektspezifischer und globaler Regelsätze \\ \hline
 \label{tab:syntax-requirements}
 \end{table}
 
-Tabelle \ref{tab:syntax-requirements} stellt die aufgestellten Anforderungen an die Syntax dar. R-1 stellt voraus, dass die Syntax leicht parse- und bearbeitbar ist. Die Definition einer neuen Syntax benötigt die Implementierung eines eigenen Text-Parsers, Validierers und, falls benötigt, Implementierung einer Sprachunterstützung für Code-Editoren.
+Tabelle \ref{tab:syntax-requirements} stellt die aufgestellten Anforderungen an die Syntax dar. R-1 stellt voran, dass die Syntax leicht parse- und bearbeitbar ist. Die Definition einer neuen Syntax benötigt die Implementierung eines eigenen Text-Parsers, Validierers und, falls benötigt, Implementierung einer Sprachunterstützung für Code-Editoren.
 
 Bei Nutzung einer bestehenden Syntax (z.B. JSON, XML etc.) kann das Text-Parsing durch bestehende Libraries geschehen und eine eigene Implementierung muss nur auf Ebene des Parsing und Validierung der Regel-Logik geschehen: „For an XML-based DSL, grammar is described using a [...] XML scheme [...] [P]arsing comes for free“ \parencite[S. 330]{mernikWhenHowDevelop2005}.
 
@@ -61,21 +61,21 @@ Ebenfalls sollen Methoden generisch genug gehalten werden, um Dopplungen von Cod
 
 \medskip
 
-Durch R-4 wird definiert, dass eine Umsetzung als visueller Editor möglich sein soll. Zwar ist die Implementierung dieses Editors nicht im Kontext dieser Arbeit, jedoch soll dies zukünftig für die bessere Einbindung von Stadtplanern geschehen und daher konzeptionell in die Syntax einfließen.
+Durch R-4 wird definiert, dass eine Umsetzung als visueller Editor möglich sein soll. Zwar ist die Implementierung dieses Editors nicht Teil dieser Arbeit, jedoch soll dies zukünftig für die bessere Einbindung von Stadtplanern geschehen und daher konzeptionell in die Syntax einfließen.
 
 \medskip
 
-R-5 fügt hinzu, dass die Regeln eindeutig (\textit{Non-ambiguous}) sein sollen. Hierdurch werden insbesondere Regeldefinitionen auf natürlicher Sprache bzw. durch Natural Language Processing (NLP) eingeschränkt.
+R-5 fügt hinzu, dass die Regeln eindeutig (\textit{Non-ambiguous}) sein sollen. Hierdurch werden insbesondere Regeldefinitionen in natürlicher Sprache bzw. durch Natural Language Processing (NLP) eingeschränkt.
 
 Wie in Kapitel \ref{section:Verwandte Arbeiten} erarbeitet, sind Regeln in natürlicher Sprache oft abhängig von der individuellen Interpretation des Lesers. Beispielsweise bei einer Regel wie „Bänke dürfen nicht neben Fahrbahnen aufgestellt werden, wenn sie keine Barriere haben.“ kann rein vom Satzbau nicht gelesen werden, ob sich die Beschränkung „wenn Sie keine Barriere haben“ auf die Bänke oder die Fahrbahnen beziehen.
 
-\textcite[S. 8]{sydoraRulebasedComplianceChecking2020} arbeitet auf, dass oft genutzte Begriffe in Regeln mehrdeutig interpretiert werden können. Eine Regel wie „Der Abstand zwischen zwei Objekten“ kann sich etwa auf den Abstand der Mittelpunkte der Objekte, Abstand der 2D-Grundfläche oder 3D-Abstand des am nächsten gelegenen Punktes beziehen.
+\textcite[S. 8]{sydoraRulebasedComplianceChecking2020} arbeiten heraus, dass oft genutzte Begriffe in Regeln mehrdeutig interpretiert werden können. Eine Regel wie „Der Abstand zwischen zwei Objekten“ kann sich etwa auf den Abstand der Mittelpunkte der Objekte, Abstand der 2D-Grundfläche oder 3D-Abstand des am nächsten gelegenen Punktes beziehen.
 
 \medskip
 
-Durch R-6 wird definiert, dass boolesche Operationen von UND- sowie ODER-Verknüpfungen konzeptionell mitgedacht werden sollen, inklusive einer Verschachtelung dieser Operatoren. Auf diese Weise sollen komplexe, kontextabhängige Regeln umgesetzt werden können, wie „Steht die Bank an einem Gehweg, \textit{muss} diese parallel zum Weg stehen \textit{ODER} wenn die Bank auf einer Grünfläche steht, \textit{kann} diese beliebig rotiert werden“.
+Durch R-6 wird definiert, dass boolesche Operationen von UND- sowie ODER-Verknüpfungen konzeptionell mitgedacht werden sollen, inklusive einer Verschachtelung dieser Operatoren. Auf diese Weise sollen komplexe, kontextabhängige Regeln umgesetzt werden können, beispielsweise „Steht die Bank an einem Gehweg, \textit{muss} diese parallel zum Weg stehen \textit{ODER} wenn die Bank auf einer Grünfläche steht, \textit{kann} diese beliebig rotiert werden“.
 
-Wie bei der Umsetzung des Editors soll auch diese Funktion zunächst nur konzeptionell eingearbeitet werden, jedoch bislang nicht in die Validierungseinheit implementiert werden. Aufgrund der Komplexität der Unterstützung arbiträr verschachtelter Elemente soll der Fokus dieser Arbeit primär auf der Implementierung und Integrierung der tatsächlichen Regeln liegen.
+Wie bei der Umsetzung des Editors soll auch diese Funktion zunächst nur konzeptionell eingearbeitet, jedoch bislang nicht in die Validierungseinheit implementiert werden. Aufgrund der Komplexität der Unterstützung arbiträr verschachtelter Elemente soll der Fokus dieser Arbeit primär auf der Implementierung und Integrierung der tatsächlichen Regeln liegen.
 
 \medskip
 
@@ -83,7 +83,7 @@ R-7 fügt hinzu, dass die Sprache sowohl positiv (\textit{Muss}) als auch negati
 
 \medskip
 
-Zuletzt fügt R-8 hinzu, dass sowohl objektspezifische als auch globale Regelsätze erstellt werden sollen. Viele der Regeln beziehen sich auf einzelne Objekte, daher liegt hier vor ein Hauptfokus - beispielsweise, dass eine Bank nur am Wegesrand platziert werden darf. Jedoch gibt es auch solche Regeln, die auf verschiedenste Objekte angewendet werden müssen, darunter etwa Sperrflächen für Wendeflächen der Feuerwehr, auf welchen außer Straßenmarkierungen keine Vorschläge jeglicher Objekttypen getätigt werden sollen.
+Zuletzt fügt R-8 hinzu, dass sowohl objektspezifische als auch globale Regelsätze erstellt werden sollen. Viele der Regeln beziehen sich auf einzelne Objekte, daher liegt hier der Hauptfokus - beispielsweise, dass eine Bank nur am Wegesrand platziert werden darf. Jedoch gibt es auch solche Regeln, die auf verschiedenste Objekte angewendet werden müssen, darunter etwa Sperrflächen für Wendeflächen der Feuerwehr, auf welchen außer Straßenmarkierungen keine Vorschläge jeglicher Objekttypen getätigt werden sollen.
 
 Um für diese Fälle eine Neudeklaration für jedes Objekt zu vermeiden, sollen globale Regelsätze unterstützt werden. Diese Regelsätze sollen in Validierungseinheiten mit den objektspezifischen Regeln kombiniert und ausgewertet werden, um ein zusammenhängendes Ergebnis zu formen.
 
@@ -99,15 +99,15 @@ Der dritte Schritt in der Syntax-Definition nach \textcite{mernikWhenHowDevelop2
 
 \medskip
 
-Zur Umsetzung von R-2 zur Erweiterbarkeit wurden bisherige Regelsysteme aus Kapitel \ref{section:Verwandte Arbeiten} und der Anforderungsermittlung des Requirements Engineering untersucht.
+Zur Umsetzung von R-2 zur Erweiterbarkeit wurden bisherige Regelsysteme aus Kapitel \ref{section:Verwandte Arbeiten} und aus der Anforderungsermittlung des Requirements Engineering untersucht.
 
 Viele der Sprachen besitzen Tagging-ähnliche Systeme wie \textit{Object Properties} \parencite{sydoraRulebasedComplianceChecking2020}, \textit{Attachable Scripts} \parencite{vassionInvestigatingConstrainedObjects2023a} oder Klassen \parencite{xuMethodologyModelling3D2017} zur Identifizierung von Objekten nach bestimmten Eigenschaften.
 
-Aus diesem Grund wird für \textit{ACS} ebenfalls ein Tagging-System als Grundlage der generischen Identifikation genutzt werden. Objekten sollen hierfür eine beliebige Anzahl an relevanten Tags hinzugefügt werden können, welche andere Objekte für die Regeldefinition nutzen können.
+Aus diesem Grund wird für \textit{ACS} ebenfalls ein Tagging-System als Grundlage der generischen Identifikation genutzt. Objekten sollen hierfür eine beliebige Anzahl an relevanten Tags hinzugefügt werden können, welche andere Objekte für die Regeldefinition nutzen können.
 
 Beispielsweise können die Objekte „Straße“ und „Gehweg“ den Tag „asphaltiert“ besitzen. In den Regeln für den Objekttyp „Baum“ kann nun als Regel definiert werden, dass dieser nicht auf asphaltierten Untergründen platziert werden darf, ohne explizit alle möglichen Elementtypen nennen zu müssen.
 
-Zukünftig können hierdurch beliebig neue Tags und Elemente hinzugefügt und können problemlos in bestehende Regeln eingearbeitet werden, ohne die Gesamtsyntax neu definieren zu müssen.
+Zukünftig können hierdurch beliebig neue Tags und Elemente hinzugefügt und problemlos in bestehende Regeln eingearbeitet werden, ohne die Gesamtsyntax neu definieren zu müssen.
 
 Die Nutzung eines Tagging-Systems ermöglicht zudem die Nutzung eines geeigneten Abstraktionsgrads (R-3). In Regeldefinitionen kann explizit von „Straße“, „Asphaltiert“ oder „Walkable“ ausgegangen werden, einzelne Methoden können jedoch trotzdem generisch auf alle Tag-Typen angewendet werden.
 
@@ -133,7 +133,7 @@ Für die Unterstützung von R-6 (Boolean Operationen) und R-7 (positiver und neg
 
 \medskip
 
-Zuletzt wird für die Unterstützung von globalen Regeln für R-8 ein zweites Schema \textit{ARVal Global Constraint Schema (AGCS)} entwickelt werden. Dieses enthält dieselben Regeltypen wie ACS, jedoch werden objektspezifische Elemente ersetzt durch generische Tag-Listen, auf welche die jeweiligen Regeln angewendet werden sollen.
+Zuletzt wird für die Unterstützung von globalen Regeln für R-8 ein zweites Schema \textit{ARVal Global Constraint Schema (AGCS)} entwickelt. Dieses enthält dieselben Regeltypen wie ACS, jedoch werden objektspezifische Elemente durch generische Tag-Listen ersetzt, auf welche die jeweiligen Regeln angewendet werden sollen.
 
 \subsubsection{Schema-Definition}
 
@@ -222,15 +222,15 @@ Listing \ref{lst:acs-example} zeigt ein Beispiel für ein Regelpaket eines Baums
 
 Die Separierung von \textmono{transform}- und \textmono{placement}-Regeln wurde vorgenommen, da sich die beiden Regeltypen in unterschiedlichen Phasen befinden: während die \textmono{transform}-Regeln grundsätzlich und ohne Ausnahme schon bei der Verschiebung verhindert werden, werden \textmono{placement}-Regeln zunächst nur visuell dargestellt und werden erst beim Absenden eines Vorschlags als invalide blockiert.
 
-Beispielsweise ist es grundsätzlich nicht sinnvoll, dass der Nutzer einen Baum kopfüber aufstellt (\textmono{transform}) und wird keine Situation geben, in der diese Bewegung sinnvoll ist, um einen validen Status zu erreichen. Auf der anderen Seite kann es sinnvoll sein, zuzulassen, dass der Baum zwischenzeitlich auf der Straße platziert wird, damit der Nutzer diesen auf die andere Straßenseite befördern kann (\textmono{placement}).
+Beispielsweise ist es grundsätzlich nicht sinnvoll, dass der Nutzer einen Baum kopfüber aufstellt (\textmono{transform}) und es wird keine Situation geben, in der diese Bewegung sinnvoll ist, um einen validen Status zu erreichen. Auf der anderen Seite kann es sinnvoll sein, zuzulassen, dass der Baum zwischenzeitlich auf der Straße platziert wird, damit der Nutzer diesen auf die andere Straßenseite befördern kann (\textmono{placement}).
 
 \medskip
 
 Neben dem informellen Design durch ein konkretes Beispiel wurde ein formelles Design durch die Definition eines JSON-Schemas erstellt, erreichbar unter \url{https://arval.vantezzen.io/schemas/acs.schema.json}.
 
-JSON-Schema Dateien erlauben die Definition von Attributen des Objekts (\textit{Properties}), einer Typisierung und Beschreibung der einzelnen Felder und Definition von verpflichtenden und freiwilligen Feldern.
+JSON-Schema Dateien erlauben die Definition von Attributen des Objekts (\textit{Properties}), einer Typisierung und Beschreibung der einzelnen Felder sowie die Definition von verpflichtenden und freiwilligen Feldern.
 
-Eine Besonderheit in der Definition der \textit{ACS}-Schema ist, dass Platzierungsregeln mehrere Ebenen tief verschachtelt sein können und daher rekursiv ausgewertet werden müssen. Zur Erfüllung der Anforderung R-6 (Boolean Operationen), sollen Verschachtelungen wie „\textmono{(a UND b) ODER (c UND (d ODER e))}“ ermöglicht werden. Zur Nutzung von boolischen Operatoren wurden die Elemente „anyOf“ (ODER) und „allOf“ (UND) hinzugefügt, inspiriert vom eigenen Syntax von JSON-Schema Definitionen.
+Eine Besonderheit in der Definition der \textit{ACS}-Schema ist, dass Platzierungsregeln über mehrere Ebenen tief verschachtelt sein können und daher rekursiv ausgewertet werden müssen. Zur Erfüllung der Anforderung R-6 (Boolean Operationen) sollen Verschachtelungen wie „\textmono{(a UND b) ODER (c UND (d ODER e))}“ ermöglicht werden. Zur Nutzung von boolischen Operatoren wurden die Elemente „anyOf“ (ODER) und „allOf“ (UND) hinzugefügt, inspiriert vom eigenen Syntax von JSON-Schema Definitionen.
 
 \begin{lstlisting}[frame=htrbl, caption={Komplexe Verschachtelungen boolscher Operationen in ACS}, label={lst:acs-recursive}, language=php]
 {
@@ -331,7 +331,7 @@ Für die Entwicklung dieses Systems soll diese Definition zunächst als statisch
 
 Analog zur Segmentierung stellt auch die Darstellung von Rückmeldungen in sich bereits ein breites Forschungsfeld mit diversen Lösungsansätzen im Bereich der HCI dar \parencite{wangUsingVisualFeedback2023}. Im Rahmen der Anforderungsermittlung anderer Software in Kapitel \ref{subsection:Elicitation} [S. \pageref{subsection:Elicitation}] wurden zuvor verschiedene Visualisierungen untersucht.
 
-Die ausführliche Aufarbeitung und systematischer Vergleich aller Methoden im Kontext der AR-Feedbackdarstellung stellen ein  umfangreiches Forschungsfeld dar und wären insbesondere im Rahmen empirischer Nutzerstudien zur Bewertung von Intuitivität und Verständlichkeit vielversprechend. Im Rahmen dieser Arbeit wird auf eine solche umfassende Untersuchung verzichtet, da sie den Umfang sprengen würde. Stattdessen orientiert sich die Umsetzung an den bewährten und in verwandten Systemen häufig eingesetzten Visualisierungsansätzen.
+Die ausführliche Aufarbeitung und der systematische Vergleich aller Methoden im Kontext der AR-Feedbackdarstellung stellen ein  umfangreiches Forschungsfeld dar und wären insbesondere im Rahmen empirischer Nutzerstudien zur Bewertung von Intuitivität und Verständlichkeit vielversprechend. Im Rahmen dieser Arbeit wird auf eine solche umfassende Untersuchung verzichtet, da sie den Umfang sprengen würde. Stattdessen orientiert sich die Umsetzung an den bewährten und in verwandten Systemen häufig eingesetzten Visualisierungsansätzen.
 
 Zur Umsetzung oft identifizierter Visualisierungen in anderen Systemen sowie die Einbindung der Requirements an das System sollen vorwiegend drei Methoden zur Darstellung von Rückmeldungen genutzt werden:
 
@@ -379,7 +379,7 @@ Für den Interaktionsfluss bei der Erstellung neuer Regelbereiche soll nach dem 
 
 Abbildung \ref{fig:Object Editor} stellt den Design-Prototyp für den Regeleditor objektspezifischer Regeln dar. Der grundsätzliche Aufbau und Design orientiert sich am globalen Editor, jedoch wird das Interface in ein drei-Spalten Layout umgewandelt.
 
-Am linken Rand existiert erneut eine Funktionsleiste derselben Grundfunktionen zur Speicherung, Vorschau und Teilens. Über die Linke der drei Hauptspalten werden die grundlegenden Metadaten und Transformationsregeln festgelegt. Hierfür können über die jeweiligen Eingabemasken der Name des Objekts sowie zutreffende Tags definiert werden.
+Am linken Rand existiert erneut eine Funktionsleiste derselben Grundfunktionen für Speicherung, Vorschau und Teilen. Über die Linke der drei Hauptspalten werden die grundlegenden Metadaten und Transformationsregeln festgelegt. Hierfür können über die jeweiligen Eingabemasken der Name des Objekts sowie zutreffende Tags definiert werden.
 
 Darunter befinden sich erneut Karten für die verschiedenen Transformationsregeln des Objekts. Genau wie globale Regeln werden Transformationsregeln über natürliche Sprachdefinitionen definiert, beispielsweise \quoted{Das Objekt darf nur rotiert werden um die Y-Achse}.
 
@@ -393,4 +393,4 @@ Um die Kartenansicht zu ersetzen, stellt die dritte Spalte schließlich das 3D-O
 
 \medskip
 
-Zusammengefasst konnte die Umsetzbarkeit der Syntax als visueller Editor (R-4) erfolgreich validiert werden. Regeln können hierfür als natürliche Sprache und eine Kartenansicht deklariert und anschließend in dieser Form direkt in die Felder der Syntax überführt werden.
+Zusammengefasst konnte die Umsetzbarkeit der Syntax als visueller Editor (R-4) erfolgreich validiert werden. Regeln können hierfür als natürliche Sprache, eine Kartenansicht kann deklariert und anschließend in dieser Form direkt in die Felder der Syntax überführt werden.

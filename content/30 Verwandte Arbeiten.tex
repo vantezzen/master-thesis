@@ -2,13 +2,13 @@
 
 Die Entwicklung eines regelbasierten Validierungssystems für AR erfordert die Auseinandersetzung mit Forschung aus unterschiedlichen Domänen. Die folgenden Abschnitte geben einen Überblick über Arbeiten, die sich mit Aspekten wie der Platzierung von Objekten, der Definition von Validierungsregeln, der Umgebungsinterpretation sowie der Kommunikation mit Nutzern beschäftigen. Ziel des Kapitels ist es, bestehende Ansätze zu identifizieren, kritisch zu reflektieren und deren Übertragbarkeit auf das System ARPAS herauszuarbeiten.
 
-Das untersuchte Feld greift in viele Bereiche der Informatik und Human-Computer Interaction (HCI) ein und kann Erkenntnisse aus verwandten Bereichen übernehmen. Zwar wird die untersuchte Kombination des multidisziplinären Themas in bisheriger Forschung kaum betrachtet, ähnliche Probleme werden jedoch auch in Bereichen wie Game Design, Building Information Modeling (BIM) und Computer-aided Design (CAD) aufgearbeitet.
+Das untersuchte Feld greift in viele Bereiche der Informatik und Human-Computer Interaction (HCI) ein und kann Erkenntnisse aus verwandten Bereichen übernehmen. Zwar wird die untersuchte Kombination des multidisziplinären Themas in der bisherigen Forschung kaum betrachtet, ähnliche Probleme werden jedoch auch in Bereichen wie Game Design, Building Information Modeling (BIM) und Computer-aided Design (CAD) aufgearbeitet.
 
-Jeder der Einzelaspekte und Anwendungsbereiche beinhaltet hierbei eine große Bandbreite an existierender Forschung. Aus diesem Grund fokussieren sich die nachfolgenden Abschnitte primär auf Werke, welche stark relevant für die Implementierung des Zielsystems sind und neue Ansätze aufbringen.
+Jeder der Einzelaspekte und Anwendungsbereiche beinhaltet hierbei eine große Bandbreite an existierender Forschung. Aus diesem Grund fokussieren sich die nachfolgenden Abschnitte primär auf Veröffentlichungen, welche stark relevant für die Implementierung des Zielsystems sind und neue Ansätze aufbringen.
 
 \subsection{Regelbasierte Platzierung}
 
-\textcite{stuerzlingerValueConstraints3D2011a} demonstrieren in ihrer Arbeit den Mehrwert von Regeln für 3D-Interfaces, um die Nutzerfreundlichkeit zu verbessern. Als Grundsatz stellen die Autoren hierfür auf, \quoted{humans are not necessarily as proficient in full 6DOF manipulation tasks as many believe} \parencite[S. 9]{stuerzlingerValueConstraints3D2011a}. Die Möglichkeit einer uneingeschränkten Veränderung in 3D wird hierbei in Aufgaben der realen Welt kaum genutzt. Als Beispiel nennt der Autor eine Person, welche den Gang eins Flugzeugs entlang läuft. Diese Aktivität findet primär mit der links/rechts-Bewegung des Kopfs und vor/zurück-Bewegung durch das Laufen statt, und weitere Dimensionen wie die Neigung des Kopfes werden nicht genutzt. Die Autoren stellen weiter auf, dass Aufgaben, welche alle DOF benötigen, nur mit speziellem, langjährigem Training möglich sind - darunter die Aufgabe von Astronauten.
+\textcite{stuerzlingerValueConstraints3D2011a} demonstrieren in ihrer Arbeit den Mehrwert von Regeln für 3D-Interfaces, um die Nutzerfreundlichkeit zu verbessern. Als Grundsatz stellen die Autoren hierfür auf, \quoted{humans are not necessarily as proficient in full 6DOF [(Degrees Of Freedom)] manipulation tasks as many believe} \parencite[S. 9]{stuerzlingerValueConstraints3D2011a}. Die Möglichkeit einer uneingeschränkten Veränderung in 3D wird hierbei in Aufgaben der realen Welt kaum genutzt. Als Beispiel nennt der Autor eine Person, die den Gang eins Flugzeugs entlang läuft. Diese Aktivität findet primär mit der links/rechts-Bewegung des Kopfs und vor/zurück-Bewegung durch das Laufen statt, und weitere Dimensionen wie die Neigung des Kopfes werden nicht genutzt. Die Autoren stellen weiter auf, dass Aufgaben, welche alle DOF benötigen, nur mit speziellem, langjährigem Training möglich sind - beispielsweise die Aufgabe von Astronauten.
 
 Die Arbeit stellt hierfür zehn Richtlinien zur Einschränkung von 3D-Interfaces auf. Hierunter zählt unter anderem, dass nur sichtbare und keine verdeckten Objekte manipuliert werden können, oder dass die Rotation von Objekten auf logische Bewegungen reduziert wird. Als Beispiel wird hierzu ein Stuhl genannt, welcher eine feste Ausrichtung nach „oben“ erhält, da die Rotation um diese Achse sonst nicht sinnvoll ist.
 
@@ -46,7 +46,7 @@ Als Ausblick wird gegeben, auch die Implementierung von abstrakten Klassen und V
 
 \medskip
 
-\textcite{galFLAREFastLayout2014} ist eine Arbeit von Microsoft-Mitarbeitern im Zuge der Erstellung der Microsoft HoloLens und Unterstützung komplexer, mehrräumiger AR-Applikationen. Die Arbeit konzeptioniert ein System zur automatischen, gleichzeitigen Platzierung mehrerer, unabhängiger AR-Anwendungen im Raum und nutzt hierzu ebenfalls das Konzept der regelbasierten Platzierung. Die Regeln werden von der jeweiligen Anwendung selbst über eine eigene Skriptsprache oder API-Schnittstelle definiert und von der zentralen Einheit ausgewertet. Es wird hierzu ebenfalls versucht, eine Kostenoptimierung über die Regeln jeder Anwendung durchzuführen.
+Die Arbeit von den Microsoft-Mitarbeitern \textcite{galFLAREFastLayout2014} ist im Zuge der Erstellung der Microsoft HoloLens und zur Unterstützung komplexer, mehrräumiger AR-Applikationen entstanden. Sie konzeptioniert ein System zur automatischen, gleichzeitigen Platzierung mehrerer, unabhängiger AR-Anwendungen im Raum und nutzt hierzu ebenfalls das Konzept der regelbasierten Platzierung. Die Regeln werden von der jeweiligen Anwendung selbst über eine eigene Skriptsprache oder API-Schnittstelle definiert und von der zentralen Einheit ausgewertet. Es wird hierzu ebenfalls versucht, eine Kostenoptimierung über die Regeln jeder Anwendung durchzuführen.
 
 Als Besonderheit können auch dem Environment als ganzes bestimmte Regeln hinzugefügt werden, etwa wie voll der gesamte Raum werden darf. Hierdurch kann sichergestellt werden, dass nicht nur jede einzelne Anwendung, sondern auch das Gesamtwerk sinnvoll für den Nutzer erscheint und nicht überfordernd wirkt.
 
@@ -54,7 +54,7 @@ Zur Optimierung der Regelausführung über die verschiedenen Ebenen wird das Kon
 
 \medskip
 
-\textcite{xuMethodologyModelling3D2017} fasst zusammen, dass Regeln in der Literatur in diverse Kategorien eingeteilt werden können. Zu den klassischen Typen zählen dabei \textit{domain constraints}, \textit{key and relationship structural constraints} sowie \textit{general semantic integrity constraints}. Diese wurden laut \textcite{cockcroftTaxonomySpatialData1997} um räumliche Klassen wie \textit{topological}, \textit{semantic} und \textit{user-defined constraints} erweitert. Eine weiterführende Detaillierung findet sich bei \textcite{louwsmaSpecifyingImplementingConstraints2006}, die zusätzlich \textit{directional}, \textit{metric}, \textit{temporal}, \textit{quantity}, \textit{thematic}, \textit{topological} und \textit{mixed relationships} als Kategorien vorschlagen. \textcite{xuMethodologyModelling3D2017} selbst führt die Einteilung hierbei in \textit{general-level constraints}, \textit{parameterised constraints}, Regeln für Ausnahmefälle sowie Regeln für die Darstellung über mehrere Level of Detail (LoD) durch.
+\textcite{xuMethodologyModelling3D2017} fassen zusammen, dass Regeln in der Literatur in diverse Kategorien eingeteilt werden können. Zu den klassischen Typen zählen dabei \textit{domain constraints}, \textit{key and relationship structural constraints} sowie \textit{general semantic integrity constraints}. Diese wurden laut \textcite{cockcroftTaxonomySpatialData1997} um räumliche Klassen wie \textit{topological}, \textit{semantic} und \textit{user-defined constraints} erweitert. Eine weiterführende Detaillierung findet sich bei \textcite{louwsmaSpecifyingImplementingConstraints2006}, die zusätzlich \textit{directional}, \textit{metric}, \textit{temporal}, \textit{quantity}, \textit{thematic}, \textit{topological} und \textit{mixed relationships} als Kategorien vorschlagen. \textcite{xuMethodologyModelling3D2017} führen die Einteilung hierbei in \textit{general-level constraints}, \textit{parameterised constraints}, Regeln für Ausnahmefälle sowie Regeln für die Darstellung über mehrere Level of Detail (LoD) durch.
 
 Die Vielzahl dieser Typen verdeutlicht, dass Regeln je nach Anwendungsdomäne sehr unterschiedliche Eigenschaften besitzen können – etwa in Bezug auf ihre räumliche, semantische oder zeitliche Dimension. Für die Entwicklung eines regelbasierten Validierungssystems im Kontext städtischer AR-Planung ist daher eine differenzierte Betrachtung und Auswahl geeigneter Regeltypen erforderlich. Eine genauere Klassifizierung und Adaption erfolgt in Kapitel~\ref{section:Konzeptualisierung eines Constraint-Systems}.
 
@@ -68,7 +68,7 @@ Im Bereich des BIM werden detaillierte Modelle von Neubauten erstellt, um Vorgä
 
 \medskip
 
-\textcite{kalogianniINTERLISLanguageModelling2017} beschreibt das \textit{INTERLIS}-System welches in der Schweiz zur Führung des Landeskatasters genutzt wird. Es enthält neben der Geometrie auch Informationen zu Attributen, sozialen sowie rechtlichen Semantiken bestimmter Grundstücke in 3D. \textit{INTERLIS} als Gesamtsystem ist umfangreich und umfasst viele Phasen und Funktionen, von der ersten Stadtplanung bis zur vollständigen Verwaltung. Die Forscher des Systems haben eine Reihe an Arbeiten zu den Details veröffentlicht, das behandelte Paper behandelt jedoch unter anderem die Konzeption des Regelsystems.
+\textcite{kalogianniINTERLISLanguageModelling2017} beschreibt das \textit{INTERLIS}-System welches in der Schweiz zur Führung des Landeskatasters genutzt wird. Es enthält neben der Geometrie auch Informationen zu Attributen, sozialen sowie rechtlichen Semantiken bestimmter Grundstücke in 3D. \textit{INTERLIS} als Gesamtsystem ist umfangreich und umfasst viele Phasen und Funktionen, von der ersten Stadtplanung bis zur vollständigen Verwaltung. Die Forscher des Systems haben eine Reihe an Arbeiten zu den Details veröffentlicht, das behandelte Paper fokussiert jedoch unter anderem die Konzeption des Regelsystems.
 
 Die Arbeit stellt zunächst die Object Constraint Language (OCL) vor, welche als Erweiterung von UML fungiert. Diese ermöglicht es, zwischen vorher entwickelten UML-Modellen Regeln aufzustellen. Als zentraler Nachteil wird jedoch genannt, dass die in OCL definierten Regeln primär in der Phase des Systems Engineering Anwendung finden und nicht direkt in Programmcode umgewandelt oder ausgewertet werden können.
 
@@ -83,7 +83,7 @@ END Bench;
 \end{lstlisting}
 
 
-Regeln in \textit{INTERLIS} werden stattdessen über die eigene \textit{INTERLIS constraint language} definiert. Listing \ref{lst:interlis} bietet ein Beispiel für eine vollständige Regeldefinition, abgeleitet für den Anwendungsfall dieser Arbeit. Der Code definiert zunächst die Klasse „Bench“, welche von der Grundklasse „Furniture“ ableitet. Für die Klasse werden die Attribute der Position und Oberfläche des Untergrunds definiert. Über das Stichwort „Mandatory Constraint“ kann schließlich eine Regel definiert werden, dass die Bank nur auf Gras oder Sand gestellt werden darf.
+Regeln in \textit{INTERLIS} werden stattdessen über die eigene \textit{INTERLIS constraint language} definiert. Listing \ref{lst:interlis} bietet ein Beispiel für eine vollständige Regeldefinition, abgeleitet für den Anwendungsfall dieser Arbeit. Der Code definiert zunächst die Klasse „Bench“, welche von der Grundklasse „Furniture“ abgeleitet ist. Für die Klasse werden die Attribute der Position und Oberfläche des Untergrunds definiert. Über das Stichwort „Mandatory Constraint“ kann schließlich eine Regel definiert werden, dass die Bank nur auf Gras oder Sand gestellt werden darf.
 
 \medskip
 
@@ -100,11 +100,11 @@ Listing \ref{lst:bim-constraint} zeigt ein verkürztes Beispiel für einen Ausdr
 
 Für die Identifikation bestimmter Elemente und Eigenschaften nutzt das System, ähnlich wie das Tagging von Objekten, eigene Objekt-Attribute. Für die Erstellung neuer Regeln wird ein einfacher Regel-Editor, ähnlich einem Code-Editor, im Paper konzeptioniert. 
 
-Trotz dieser mathematischen Korrektheit der Regeln weisen die Autoren darauf hin, dass definierte Regeln - egal über welches System - immer mehrdeutig sein können. Als Beispiel wird hierzu eine scheinbar einfache Regel zum Abstand zwischen zwei Gegenständen genannt: Dieser Abstand könnte jedoch im Code als Abstand zwischen den Mittelpunkten der Objekte, als Abstand auf einer 2D-Plane, auf Grundlage einer rechteckigen Bounding-Box oder anderen Berechnungen berechnet werden und je nachdem ein anderes Ergebnis liefern.
+Trotz dieser mathematischen Korrektheit der Regeln weisen die Autoren darauf hin, dass definierte Regeln - egal über welches System - immer mehrdeutig sein können. Als Beispiel wird hierzu eine scheinbar einfache Regel zum Abstand zwischen zwei Gegenständen genannt - etwa \quoted{Die Objekte müssen 10cm voneinander entfernt sein}. Dieser Abstand könnte jedoch im Code als Abstand zwischen den Mittelpunkten der Objekte, als Abstand auf einer 2D-Plane, auf Grundlage einer rechteckigen Bounding-Box oder anderen Berechnungen berechnet werden und je nachdem ein anderes Ergebnis liefern.
 
 \medskip
 
-\textcite{schwabeBIMApplicationsRuleBased2016a} stellt die vier elementaren Schritte für die Erstellung eines Regelsystems auf.
+\textcite{schwabeBIMApplicationsRuleBased2016a} stellen die vier elementaren Schritte für die Erstellung eines Regelsystems auf.
 
 In diesem System ist der erste Schritt die Überführung und Interpretation der Regeln in eine adäquate, maschinenlesbare Sprache. Im zweiten Schritt müssen alle Objekte der 3D-Szene vorbereitet werden. Dies kann laut den Autoren etwa bedeuten, Objekten Parameter zuzuweisen, mit welchen diese in den Regeln gefiltert werden können. Der dritte Schritt umfasst die eigentliche Ausführung der Regeln auf die aktuelle Szene, um Konflikte zu erkennen. Im letzten Schritt werden die erkannten Konflikte schließlich über ein geeignetes System an den Nutzer präsentiert bzw. weiter verarbeitet.
 
@@ -126,11 +126,11 @@ Tabelle \ref{tab:bim table rule} zeigt eine vereinfachte Regeldefinition. Über 
 
 Die Autoren nehmen an diesem Ansatz jedoch selbst Kritik vor, da es über dieses System kaum möglich ist, komplexe oder verschachtelte Regeln zu definieren. Als weiterer Kritikpunkt ist denkbar, dass die Reihenfolge und Anzahl der Parameter nur über die externe Dokumentation sichtbar werden und nicht direkt aus der Tabellenstruktur. 
 
-Ein interessantes Implementierungsdetail in der Arbeit ist es, dass die Klassen der „Regel“ und „Konflikt“ separat definiert sind. Hierdurch kann eine einzelne Regel 0-n Konflikte generieren und so auch komplexe, mehrteilige Konflikte darstellen.
+Ein interessantes Implementierungsdetail der Arbeit ist, dass die Klassen der „Regel“ und „Konflikt“ separat definiert sind. Hierdurch kann eine einzelne Regel 0-n Konflikte generieren und so auch komplexe, mehrteilige Konflikte darstellen.
 
 \medskip
 
-In den diversen Arbeiten werden verschiedenste Ansätze für die Definition der Regeln aufgestellt. Genutzte Ansätze sind die Definition über klassische Programmiersprachen, generische Sprachen wie XML oder JSON, selbstdefinierte Syntax oder Tabellen umzusetzen.
+In den diversen Arbeiten werden verschiedenste Ansätze für die Definition der Regeln aufgestellt. Genutzte Ansätze sind es, die Definition über klassische Programmiersprachen, generische Sprachen wie XML oder JSON, selbstdefinierte Syntax oder Tabellen umzusetzen.
 
 Trotzdem ergeben sich über die verschiedenen Arbeiten Gemeinsamkeiten. So wird in vielen Implementierungen ein Tagging-System in Form von Objektattributen oder -parametern für die Identifizierung bestimmter Objekttypen genutzt. Weiterhin gibt es in vielen Implementierungen eine Abstraktion von den reinen Objekten und Koordinaten hin zu domänespezifischen Anforderungen wie Reichweite- oder Gewichtsbestimmungen. 
 
@@ -153,7 +153,7 @@ Zur Umsetzung des Systems lädt das Programm zunächst alle Gebäudeinformatione
 
 Hieraus erstellt das System im zweiten Schritt virtuelle 3D-Objekte mit dem korrekten Grundriss sowie eine geschätzte Höhe anhand der Stockwerke. Im letzten Schritt können diese virtuellen Gebäude für die Okklusion der anderen virtuellen Objekte im Rendering-Prozess genutzt werden. Durch diesen Ablauf konnte das eingebaute Okklusionssystem der Rendering-Engine genutzt werden und es kam kaum zu Veränderungen der Framerate.
 
-Eine große Problematik der Autoren war es, dass nur wenige Informationen über die tatsächliche Form, Höhe und Aussehen der Gebäude in OSM zur Verfügung stehen. Ebenfalls kam es zu Problematiken durch die Verschiebung der Nutzerposition aufgrund ungenauer GPS-Daten. Hierdurch liegt das virtuell erstellte Gebäudeobjekt nicht exakt über dem realen Gebäude und führt so eine inkorrekte Okklusion durch.
+Ein großes Problem für die Autoren war, dass nur wenige Informationen über die tatsächliche Form, Höhe und Aussehen der Gebäude in OSM zur Verfügung stehen. Außerdem kam es zu Problemen durch die Verschiebung der Nutzerposition aufgrund ungenauer GPS-Daten. Hierdurch liegt das virtuell erstellte Gebäudeobjekt nicht exakt über dem realen Gebäude und führt so eine inkorrekte Okklusion durch.
 
 \textcite{ogawaOcclusionHandlingOutdoor2021} baut auf dieser vorangehenden Arbeit auf, um die Unzulänglichkeiten durch weitere Techniken zu minimieren.
 
